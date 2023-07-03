@@ -11,6 +11,15 @@
 
     <groupId>cn.tdsmy</groupId>
     <artifactId>yuetong-common</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+
+        <module>yuetong-common-log</module>
+        <module>yuetong-common-redis</module>
+        <module>yuetong-common-swagger</module>
+        <module>yuetong-common-exception</module>
+        <module>yuetong-common-response</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

@@ -10,6 +10,8 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/yuetong-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-api/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-impl/pom.xml" />
         <option value="$PROJECT_DIR$/yuetong-modules/pom.xml" />
         <option value="$PROJECT_DIR$/yuetong-resource-serv/pom.xml" />
       </set>
