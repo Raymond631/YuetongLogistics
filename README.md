@@ -1,19 +1,25 @@
 # YuetongLogistics
+
 粤通物流管理系统
 
 ## 技术选型
+
 ### 1. 后端
+
 * Spring Cloud Alibaba
 * Spring Boot
 * JDK 1.8
 * MySQL 8.*
 * Redis
 * Docker
+
 ### 2. 前端
+
 * Vue 3
 * Node 16
 
 ## 系统模块
+
 ~~~
 YuetongLogistics
 ├── yuetong-ui              // 前端框架 [80]
@@ -39,4 +45,5 @@ YuetongLogistics
 ~~~
 
 ## 系统架构图
-<img src="https://pic.imgdb.cn/item/64a2671a1ddac507cc9da6b5.jpg" alt="系统架构图"/>
+
+![](https://pic.imgdb.cn/item/64a2671a1ddac507cc9da6b5.jpg)
