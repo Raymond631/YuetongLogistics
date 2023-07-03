@@ -24,10 +24,21 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
     <spring-boot.version>2.7.7</spring-boot.version>
     <spring-cloud.version>2021.0.5</spring-cloud.version>
     <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
+    <swagger.fox.version>3.0.0</swagger.fox.version>
+    <swagger.core.version>1.6.2</swagger.core.version>
+    <kaptcha.version>2.3.3</kaptcha.version>
+    <pagehelper.boot.version>1.4.6</pagehelper.boot.version>
+    <druid.version>1.2.16</druid.version>
+    <commons.io.version>2.11.0</commons.io.version>
+    <fastjson.version>2.0.34</fastjson.version>
+    <jjwt.version>0.9.1</jjwt.version>
+    <minio.version>8.2.2</minio.version>
+    <poi.version>4.1.2</poi.version>
   </properties>
 
   <dependencyManagement>
@@ -50,8 +61,69 @@
         <scope>import</scope>
       </dependency>
 
+      <!-- SpringBoot 依赖配置 -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
 
-      <!--其他依赖-->
+      <!-- Swagger 依赖配置 -->
+      <dependency>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-models</artifactId>
+        <version>${swagger.core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>${swagger.core.version}</version>
+      </dependency>
+
+      <!-- 验证码 -->
+      <dependency>
+        <groupId>pro.fessional</groupId>
+        <artifactId>kaptcha</artifactId>
+        <version>${kaptcha.version}</version>
+      </dependency>
+
+      <!-- pagehelper 分页插件 -->
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper-spring-boot-starter</artifactId>
+        <version>${pagehelper.boot.version}</version>
+      </dependency>
+
+      <!-- io常用工具类 -->
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons.io.version}</version>
+      </dependency>
+
+      <!-- excel工具 -->
+      <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>${poi.version}</version>
+      </dependency>
+
+      <!-- JSON 解析器和生成器 -->
+      <dependency>
+        <groupId>com.alibaba.fastjson2</groupId>
+        <artifactId>fastjson2</artifactId>
+        <version>${fastjson.version}</version>
+      </dependency>
+
+      <!-- JWT -->
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>${jjwt.version}</version>
+      </dependency>
+
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
@@ -66,12 +138,6 @@
         <groupId>commons-codec</groupId>
         <artifactId>commons-codec</artifactId>
         <version>1.9</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>fastjson</artifactId>
-        <version>2.0.17</version>
       </dependency>
 
       <dependency>
