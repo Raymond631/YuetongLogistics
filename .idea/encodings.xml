@@ -6,8 +6,10 @@
     <file url="file://$PROJECT_DIR$/yuetong-auth-serv/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-auth/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yuetong-fleet-serv/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-modules/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-resource-serv/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-system-serv/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yuetong-transport-serv/src/main/java" charset="UTF-8" />
   </component>
 </project>

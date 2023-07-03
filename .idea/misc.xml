@@ -11,6 +11,7 @@
       <set>
         <option value="$PROJECT_DIR$/yuetong-auth/pom.xml" />
         <option value="$PROJECT_DIR$/yuetong-modules/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-resource-serv/pom.xml" />
       </set>
     </option>
   </component>
