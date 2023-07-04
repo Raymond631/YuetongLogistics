@@ -1,5 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
+import store from '../store'
 
 //导出request方法，供其它地方使用
 export function request(config:any) {
@@ -19,14 +20,14 @@ export function request(config:any) {
     //------------在发送请求之前做些什么------------//
     instance.interceptors.request.use(config => {
         // 若存在token则带token
-        const token = window.localStorage.getItem('token');
+        //const token = window.localStorage.getItem('token');
+        const token =store.state.token;
         if (token) {
             config.headers.Authorization =token;
         }
         // 放行
         return config;
     }, err => {
-
         console.log("请求拦截=>", err);
         return err;
     })
@@ -36,6 +37,7 @@ export function request(config:any) {
     instance.interceptors.response.use(res => {
         //例：后端数据处理错误，并返回错误原因；前端获取错误原因并展示
         console.log("响应拦截=>", res.data);
+        //这里还需要添加一个token过期之后的token移除
         if (res.data.success==false) {
             alert({
                 message: res.data.data.message+'，请重试！',

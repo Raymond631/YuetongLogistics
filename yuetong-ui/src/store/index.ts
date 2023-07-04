@@ -1,6 +1,6 @@
 
 import Vuex from 'vuex'
-import storage from '@/model/storage'
+import storage from '../utils/storage'
 
 // 用Vuex.Store对象用来记录token
 const store = new Vuex.Store({

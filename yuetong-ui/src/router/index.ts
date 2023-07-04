@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/User/login.vue' 
+import storage from '@/utils/storage'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +13,14 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: () =>
+          import('../views/User/login.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () =>
+          import('../views/User/register.vue')
     },
     {
       path: '/about',
@@ -25,6 +32,21 @@ const router = createRouter({
           import('../views/AboutView.vue')
     }
   ]
+})
+
+//全局前置路由守卫————初始化的时候被调用、每次路由切换之前被调用
+router.beforeEach((to, from, next) => {
+  if (to.meta.isAuth) {
+      //判断 如果school本地存储是qinghuadaxue的时候，可以进去
+      if (storage.get('token') != '') {
+          next()  //放行
+      } else {
+          alert('抱歉，您无权限查看！')
+      }
+  } else {
+      // 否则，放行
+      next()
+  }
 })
 
 export default router
