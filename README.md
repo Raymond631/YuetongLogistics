@@ -6,9 +6,10 @@
 
 ### 1. 后端
 
-* Spring Cloud Alibaba
-* Spring Boot
 * JDK 1.8
+* Spring Boot 2.6.11
+* Spring Cloud 2021.0.4
+* Spring Cloud Alibaba 2021.0.4.0
 * MySQL 8.*
 * Redis
 * Docker

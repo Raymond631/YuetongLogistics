@@ -9,6 +9,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/test-producer/producer-api/pom.xml" />
         <option value="$PROJECT_DIR$/yuetong-auth-serv/test/pom.xml" />
         <option value="$PROJECT_DIR$/yuetong-auth/pom.xml" />
         <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-api/pom.xml" />

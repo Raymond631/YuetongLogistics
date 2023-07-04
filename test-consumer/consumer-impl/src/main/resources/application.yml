@@ -1,0 +1,31 @@
+server:
+  port: 10500
+  error:
+    include-message: always
+spring:
+  application:
+    name: test-consumer-impl
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址（可配置多个，用逗号分隔）
+        server-addr: 192.168.77.23:8848
+        # 服务名称（可以不配）
+        service: test-consumer-impl
+        metadata:
+          # 心跳发送间隔（单位ms）
+          heart-beat-interval: 5000
+          # 没有收到心跳多长时间后将本服务设为不健康（默认15s）
+          heart-beat-timeout: 20000
+          register-enabled: true
+          namespace: dev
+          preserved:
+            register:
+              source: SPRING_CLOUD
+          cluster-name: Cluster-A
+          mydata: hello
+          group: myGroup
+
+logging:
+  level:
+    cn.tdsmy.consumer: debug

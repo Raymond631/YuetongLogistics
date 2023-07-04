@@ -15,6 +15,8 @@
         <module>yuetong-system-serv</module>
         <module>yuetong-fleet-serv</module>
         <module>yuetong-transport-serv</module>
+        <module>test-producer</module>
+        <module>test-consumer</module>
     </modules>
 
     <properties>

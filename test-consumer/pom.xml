@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.tdsmy</groupId>
-        <artifactId>yuetong-transport-serv</artifactId>
+        <groupId>org.example</groupId>
+        <artifactId>YuetongLogistics</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>yuetong-transport-impl</artifactId>
+    <groupId>cn.tdsmy</groupId>
+    <artifactId>test-consumer</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>consumer-impl</module>
+        <module>consumer-api</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
