@@ -29,6 +29,7 @@ YuetongLogistics
 │       └── yuetong-common-log              // 日志记录
 │       └── yuetong-common-redis            // 缓存服务
 │       └── yuetong-common-swagger          // 生成接口文档
+│       └── yuetong-common-utils            // 工具类
 ├── yuetong-auth-serv        // 认证中心
 │       └── yuetong-auth-api
 │               └── beans                   // 实体类

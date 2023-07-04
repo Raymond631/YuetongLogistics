@@ -1,0 +1,22 @@
+server:
+  port: 50000
+  error:
+    include-message: always
+spring:
+  application:
+    name: yuetong-transport-impl
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 192.168.221.23:8848
+        # 服务名称
+        service: yuetong-transport-impl
+        # 心跳时间
+        heart-beat-interval: 5000
+        metadata:
+          namespace: dev
+          cluster-name: Cluster-A
+          group: myGroup
+          register-enabled: true
+          mydata: hello
