@@ -1,9 +1,14 @@
 <template>
-  <navigationBar/>
- 
+  <div class="container">
+    <navigationBar />
+    <div class="content">
+      <welcomeHeader />
+    </div>
+  </div>
 </template>
 <script lang="ts">
-import navigationBar from "../components/header.vue";
+import navigationBar from "../components/navigationBar.vue";
+import welcomeHeader from "../components/header.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -11,11 +16,9 @@ export default defineComponent({
   data() {
     return {
       data: "",
-      login: false,
-      type: 2,
     };
   },
-  components: {navigationBar},
+  components: { welcomeHeader, navigationBar },
   mounted() {},
   methods: {
     menuSelect(index: string) {},
@@ -23,8 +26,12 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.flex-grow {
-  flex-grow: 1;
+<style lang="scss">
+.container {
+  .content {
+    margin-left: $Mleft;
+    height: $max_height;
+    background-color:$back_color;
+  }
 }
 </style>

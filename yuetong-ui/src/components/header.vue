@@ -1,28 +1,17 @@
 <template>
-  <el-menu default-active="1" class="menu" @select="menuSelect">
-    <div >
-      head
+  <div class="header">
+    <div class="header_name">
+      {{ page_name }}
     </div>
-    <h4>main menu</h4>
-    <el-menu-item index="1" class="menu_item">
-      <el-icon class="menu_item_icon">
-        <Reading />
-      </el-icon>
-      <span class="menu_item_content">book</span>
-    </el-menu-item>
-    <el-menu-item index="自然科学总论" class="menu_item">
-      <el-icon class="menu_item_icon">
-        <Reading />
-      </el-icon>
-      <span class="menu_item_content">entity</span>
-    </el-menu-item>
-    <el-menu-item index="农业科学" class="menu_item">
-      <el-icon class="menu_item_icon">
-        <Reading />
-      </el-icon>
-      <span class="menu_item_content">yeuyue</span>
-    </el-menu-item>
-  </el-menu>
+    <div class="header_content">欢迎您，{{ user_name }}</div>
+    <el-avatar
+      :size="80"
+      class="header_photo"
+      src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+    />
+    <el-tag size="large" class="header_profile">{{ profile }}</el-tag>
+    <el-link :underline="false" type="danger" class="header_log">退出登录</el-link>
+  </div>
 </template>
 
 <script lang="ts">
@@ -33,45 +22,18 @@ export default defineComponent({
   data() {
     return {
       data: "",
-      login: false,
-      type: 2,
+      page_name: "首页",
+      user_name: "yueyue",
+      profile: "系统管理员",
     };
   },
   mounted() {},
   methods: {
-    menuSelect(index: string) {},
+    goBack() {},
   },
 });
 </script>
 
 <style lang="scss" scoped="scoped">
-.menu {
-  width: 270px;
-  height:$max_height;
-  background-color: white;
-  .menu_item {
-    margin-left: 20px;
-    width: 230px;
-    border-radius: 20px;
-    margin: 10px;
-    .menu_item_icon {
-      margin-left: 10%;
-    }
-    .menu_item_content {
-      margin-left: 10%;
-      font: {
-        family: Futura;
-        size: 20px;
-        weight: 400px;
-      }
-    }
-  }
-  .el-menu-item {
-    color: $word_color;
-  }
-  .is-active {
-    background-color: $theme_color;
-    color: white;
-  }
-}
+@import "../assets/style/components/header.scss";
 </style>

@@ -7,12 +7,17 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElContainer: typeof import('element-plus/es')['ElContainer']
     ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElLink: typeof import('element-plus/es')['ElLink']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElPageHeader: typeof import('element-plus/es')['ElPageHeader']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElTag: typeof import('element-plus/es')['ElTag']
     Header: typeof import('./src/components/header.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
@@ -20,6 +25,7 @@ declare module 'vue' {
     IconEcosystem: typeof import('./src/components/icons/IconEcosystem.vue')['default']
     IconSupport: typeof import('./src/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
+    NavigationBar: typeof import('./src/components/navigationBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
