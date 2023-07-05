@@ -9,9 +9,7 @@
         <div class="login-methods">
           <i class="fa fa-solid fa-mobile-screen"></i>
           <label>短信登录</label>
-
         </div>
-
       </div>
       <div class="right">
         <label class="title1">管理员登录</label>
@@ -215,6 +213,7 @@ export default {
         }
         .registerBtn{
           margin-top: 10px;
+          margin-left: 0;
           width: 280px;
           background-color: #ffffff;
         }

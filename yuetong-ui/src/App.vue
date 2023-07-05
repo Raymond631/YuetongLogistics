@@ -1,15 +1,12 @@
-
 <template>
   <div v-if="headerShow">
-    <PageHeader />
+
   </div>
   <RouterView v-if="isRouterShow" />
 </template>
 <script lang="ts">
 import { RouterLink, RouterView } from "vue-router";
-import PageHeader from "@/components/PageHeader.vue";
 export default {
-  components: {PageHeader},
   data(){
     return{
       headerShow:false,
