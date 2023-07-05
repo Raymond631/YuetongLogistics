@@ -10,6 +10,8 @@
  
 </template>
 <script lang="ts">
+import navigationBar from "../components/navigationBar.vue";
+import welcomeHeader from "../components/header.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -17,11 +19,9 @@ export default defineComponent({
   data() {
     return {
       data: "",
-      login: false,
-      type: 2,
     };
   },
-
+  components: { welcomeHeader, navigationBar },
   mounted() {},
   methods: {
     menuSelect(index: string) {},
