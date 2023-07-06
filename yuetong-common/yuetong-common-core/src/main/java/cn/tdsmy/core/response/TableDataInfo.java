@@ -39,7 +39,7 @@ public class TableDataInfo implements Serializable {
     private long Total;
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    protected TableDataInfo getDataTable(List<?> list) {
+    public static TableDataInfo getDataTable(List<?> list) {
         TableDataInfo rspData = new TableDataInfo();
         rspData.setCode(HttpStatus.SUCCESS);
         rspData.setRows(list);

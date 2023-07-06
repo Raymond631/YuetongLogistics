@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>yueetong-common-core</artifactId>
+    <artifactId>yuetong-common-core</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -23,12 +23,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- SpringBoot Boot Redis -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -40,16 +34,10 @@
         </dependency>
 
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-        </dependency>
-
-
-        <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
         </dependency>
-
     </dependencies>
+
 
 </project>
