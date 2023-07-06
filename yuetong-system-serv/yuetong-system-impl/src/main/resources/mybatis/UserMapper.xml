@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tdsmy.system.mapper.UserMapper">
+    <select id="selectUserByAccAndPwd" resultType="cn.tdsmy.system.beans.User">
+        select *
+        from user as u
+                 inner join role as r
+                            on u.role_id = r.role_id
+        where u.account = #{account}
+          and u.password = #{password};
+    </select>
+</mapper>

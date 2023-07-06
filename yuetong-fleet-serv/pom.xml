@@ -9,14 +9,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>cn.tdsmy</groupId>
     <artifactId>yuetong-fleet-serv</artifactId>
     <packaging>pom</packaging>
     <modules>
-
         <module>yuetong-fleet-api</module>
         <module>yuetong-fleet-impl</module>
-        <module>yuetong-fleet-dao</module>
     </modules>
 
     <properties>

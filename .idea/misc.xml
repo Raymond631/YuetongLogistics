@@ -10,21 +10,9 @@
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/test-consumer/consumer-api/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-auth-serv/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-auth-serv/test/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-auth/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-api/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-core/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-core1/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-exception/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-impl/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-response/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-swagger/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-utils/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-gateway/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-modules/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-resource-serv/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-fleet-serv/yuetong-fleet-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-system-serv/yuetong-system-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-transport-serv/yuetong-transport-dao/pom.xml" />
       </set>
     </option>
   </component>

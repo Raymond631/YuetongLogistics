@@ -1,5 +1,7 @@
 server:
-  port: 12345
+  port: 10000
+  error:
+    include-message: always
 
 spring:
   application:
@@ -18,14 +20,6 @@ spring:
           group: myGroup
     gateway:
       routes:
-        - id: "test-producer-impl"
-          uri: lb://test-producer-impl
-          predicates:
-            - Path=/producer/**
-        - id: "test-consumer-impl"
-          uri: lb://test-consumer-impl
-          predicates:
-            - Path=/consumer/**
         - id: "yuetong-common-auth"
           uri: lb://yuetong-common-auth
           predicates:

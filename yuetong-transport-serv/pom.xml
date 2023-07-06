@@ -9,14 +9,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>cn.tdsmy</groupId>
     <artifactId>yuetong-transport-serv</artifactId>
     <packaging>pom</packaging>
     <modules>
-
         <module>yuetong-transport-api</module>
         <module>yuetong-transport-impl</module>
-        <module>yuetong-transport-dao</module>
     </modules>
 
     <properties>
