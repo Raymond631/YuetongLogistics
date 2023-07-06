@@ -54,6 +54,8 @@
 <script lang="ts">
 import 'font-awesome/css/font-awesome.min.css';
 import $ from 'jquery'
+import {login, test} from "@/api/User/login";
+import axios from "axios";
 
 export default {
   name: "login",
@@ -66,11 +68,11 @@ export default {
         checkCode: ''
       },
       //表单input输入值格式判断
-      inputMsg:{
-        usernameMsg:'',
-        passwordMsg:'',
-        emailMsg:'',
-        checkCodeMsg:''
+      inputMsg: {
+        usernameMsg: '',
+        passwordMsg: '',
+        emailMsg: '',
+        checkCodeMsg: ''
       }
     }
   },
@@ -81,34 +83,35 @@ export default {
     //判断用户名、密码、邮箱的输入格式
     validateUsername() {
       const usernameStr = $('.usernameInput').val()
-      if(usernameStr==""){
-        this.inputMsg.usernameMsg="请输入用户名"
-      }else {
-        this.inputMsg.usernameMsg=""
+      if (usernameStr == "") {
+        this.inputMsg.usernameMsg = "请输入用户名"
+      } else {
+        this.inputMsg.usernameMsg = ""
       }
     },
     validatePassword() {
       const passwordStr = $('.passwordInput').val()
-      if(passwordStr==""){
-        this.inputMsg.passwordMsg="请输入密码"
-      }else {
-        this.inputMsg.passwordMsg=""
+      if (passwordStr == "") {
+        this.inputMsg.passwordMsg = "请输入密码"
+      } else {
+        this.inputMsg.passwordMsg = ""
       }
     },
     validateEmail() {
       const emailStr = $('.emailInput').val()
-      if(emailStr==""){
-        this.inputMsg.emailMsg="请输入邮箱账号"
-      }else {
-        this.inputMsg.emailMsg=""
+      if (emailStr == "") {
+        this.inputMsg.emailMsg = "请输入邮箱账号"
+      } else {
+        this.inputMsg.emailMsg = ""
       }
     },
     //点击登录按钮
     submitForm() {
       //普通管理员登录系统
-      this.$router.push('/about')
-
-
+      //调用登录接口
+      test().then(res => {
+        console.log(res.data)
+      })
     },
     //点击系统管理员登录按钮
     superSubmitForm() {
@@ -234,7 +237,8 @@ export default {
           }
         }
       }
-      .inputMsg{
+
+      .inputMsg {
         display: inherit;
         padding-right: 10px;
         width: 350px;
