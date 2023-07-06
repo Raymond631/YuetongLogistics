@@ -14,7 +14,7 @@ export default defineConfig({
     https: false,
     proxy: {
       "/api": {
-        target: "http://localhost:8080/",
+        target: "http://localhost:4523/m1/2962122-0-default",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
@@ -22,18 +22,6 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    //   createStyleImportPlugin({
-    //     resolves: [ElementPlusResolve()],
-    //     libs: [
-    //         {
-    //             libraryName: 'element-plus',
-    //             esModule: true,
-    //             resolveStyle: (name: string) => {
-    //                 return `element-plus/theme-chalk/${name}.css`
-    //             },
-    //         },
-    //     ]
-    // }),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
