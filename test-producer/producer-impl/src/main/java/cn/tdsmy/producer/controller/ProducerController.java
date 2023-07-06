@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/producer")
 public class ProducerController {
     @GetMapping("/add")
-    public double add(@RequestParam double x, @RequestParam double y) {
+    public Double add(@RequestParam(name = "x", required = false) Double x, @RequestParam("y") Double y) {
         return x + y;
     }
 }

@@ -25,25 +25,14 @@
 YuetongLogistics
 ├── yuetong-ui              // 前端框架 [80]
 ├── yuetong-common          // 通用模块
-│       └── yuetong-common-exception        // 异常处理
-│       └── yuetong-common-response         // 统一响应
-│       └── yuetong-common-log              // 日志记录
-│       └── yuetong-common-redis            // 缓存服务
-│       └── yuetong-common-swagger          // 生成接口文档
-│       └── yuetong-common-utils            // 工具类
-├── yuetong-auth-serv        // 认证中心
-│       └── yuetong-auth-api
-│               └── beans                   // 实体类
-│               └── intf                    // openFeign调用接口
-│       └── yuetong-auth-dao
-│               └── mapper                  // 持久化
-│       └── yuetong-auth-impl
-│               └── controller              // 表示层
-│               └── service                 // 业务层
+│       └── yuetong-common-core                  // 公共类
+│       └── yuetong-common-gateway               // 网关
+│       └── yuetong-common-auth                  // 认证中心
+│       └── yuetong-common-log                   // 日志模块
+│       └── yuetong-common-redis                 // 缓存模块
 ├── yuetong-fleet-serv       // 业务模块
 ├── yuetong-system-serv      // 业务模块
 ├── yuetong-transport-serv   // 业务模块
-├── pom.xml                  // 公共依赖
 ~~~
 
 ## 系统架构图

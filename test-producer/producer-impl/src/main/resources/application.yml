@@ -9,7 +9,7 @@ spring:
     nacos:
       discovery:
         # 服务注册地址（可配置多个，用逗号分隔）
-        server-addr: 192.168.77.23:8848
+        server-addr: 127.0.0.1:8848
         # 服务名称（可以不配）
         service: test-producer-impl
         metadata:
@@ -19,11 +19,7 @@ spring:
           heart-beat-timeout: 20000
           register-enabled: true
           namespace: dev
-          preserved:
-            register:
-              source: SPRING_CLOUD
           cluster-name: Cluster-A
-          mydata: hello
           group: myGroup
 
 logging:
