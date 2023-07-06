@@ -16,8 +16,6 @@
         <module>yuetong-common-gateway</module>
         <module>yuetong-common-log</module>
         <module>yuetong-common-core</module>
-        <module>yuetong-common-redis</module>
-        <module>yuetong-common-core</module>
     </modules>
 
     <properties>

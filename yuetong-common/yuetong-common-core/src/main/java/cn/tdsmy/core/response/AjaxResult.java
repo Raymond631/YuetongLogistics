@@ -10,8 +10,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AjaxResult {
     private static final long serialVersionUID = 1L;
+    /**
+     * 消息状态码
+     */
     private int code;
+    /**
+     * 消息内容
+     */
     private String msg;
+    /**
+     * 消息对象（一般不用）
+     */
     private Object data;
 
     public static AjaxResult success() {

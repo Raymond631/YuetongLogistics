@@ -10,6 +10,10 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/test-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/test-producer/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-core1/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-redis/pom.xml" />
         <option value="$PROJECT_DIR$/yuetong-fleet-serv/yuetong-fleet-dao/pom.xml" />
         <option value="$PROJECT_DIR$/yuetong-system-serv/yuetong-system-dao/pom.xml" />
         <option value="$PROJECT_DIR$/yuetong-transport-serv/yuetong-transport-dao/pom.xml" />
