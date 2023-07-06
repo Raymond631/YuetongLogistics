@@ -7,7 +7,7 @@ import './assets/main.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import VueAxios from 'vue-axios'
 import store from './store'
-import './utils/axios_config'
+import './utils/http'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
