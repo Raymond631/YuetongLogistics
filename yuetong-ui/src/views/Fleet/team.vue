@@ -14,7 +14,8 @@
       <el-table :data="team" class="table" tooltip-effect="dark"
                 highlight-current-row
                 @row-click="clickRow"
-                :row-class-name="rowStyle">
+                :cell-style="{'background-color':'transparent'}"
+                :row-style="rowStyle">
         <el-table-column type="selection" width="50">
         </el-table-column>
         <el-table-column label="车队编号" width="100" prop="teamId">
@@ -72,7 +73,7 @@
 
 </template>
 
-<script>
+<script lang="ts">
 import welcomeHeader from "../../components/header.vue";
 import {computed} from "vue";
 
@@ -141,7 +142,10 @@ export default {
     rowStyle({row}){
       if (row === this.selectedRow) {
         console.log("添加样式......"+row.teamId)
-        return 'selected-row';
+        return {
+          'background': '#f6f6f6',
+          'box-shadow': '13px 13px 30px #cecece',
+        };
       }
       return '';
     },
@@ -211,11 +215,6 @@ export default {
   width: 1500px;
   margin-top: 20px;
   margin-left: 70px;
-}
-
-.selected-row {
-  background-color: #215496;
-  border-color: $theme_color;
 }
 
 .mask {

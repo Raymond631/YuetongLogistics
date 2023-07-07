@@ -27,7 +27,12 @@ const router = createRouter({
       path:"/fleet/team",
       name:"team",
       component: () => import("../views/Fleet/team.vue")
-    }
+    },
+    {
+      path:"/fleet/truck",
+      name:"truck",
+      component: () => import("../views/Fleet/truck.vue")
+    },
   ],
 });
 
