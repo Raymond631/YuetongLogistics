@@ -37,6 +37,12 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-core</artifactId>
+            <version>1.35.0.RC</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 

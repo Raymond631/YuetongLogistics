@@ -3,10 +3,13 @@ package cn.tdsmy.auth.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.tdsmy.core.response.AjaxResult;
 import cn.tdsmy.system.beans.LoginBody;
+import cn.tdsmy.system.beans.UserInfoVO;
 import cn.tdsmy.system.feign.IUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/auth")
 public class TokenController {
@@ -15,9 +18,12 @@ public class TokenController {
 
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginBody loginBody) {
-        if (iUserService.checkPwd(loginBody)) {
+        UserInfoVO userInfo = iUserService.checkPwd(loginBody);
+        if (userInfo != null) {
+            log.debug(userInfo.toString());
             StpUtil.login(loginBody.getAccount());
-            return AjaxResult.success("登录成功");
+            UserInfoVO userInfoVO = new UserInfoVO(userInfo.getUsername(), userInfo.getRoleName());
+            return AjaxResult.success("登录成功", userInfoVO);
         } else {
             return AjaxResult.error("用户名或密码错误");
         }
