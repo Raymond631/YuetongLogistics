@@ -24,14 +24,14 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
-      path:"/fleet/team",
-      name:"team",
-      component: () => import("../views/Fleet/team.vue")
+      path: "/fleet/team",
+      name: "team",
+      component: () => import("../views/fleet/team.vue")
     },
     {
-      path:"/fleet/truck",
-      name:"truck",
-      component: () => import("../views/Fleet/truck.vue")
+      path: "/fleet/truck",
+      name: "truck",
+      component: () => import("../views/fleet/truck.vue")
     },
     {
       path: "/authentication/selfCenter",
@@ -88,6 +88,7 @@ const router = createRouter({
       name: "user",
       component: () => import("../views/system/user.vue"),
     },
+    {
       path: "/authentication/selfCenter",
       name: "selfCenter",
       component: () => import("../views/authentication/selfCenter.vue"),
