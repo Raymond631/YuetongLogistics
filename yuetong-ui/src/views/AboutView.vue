@@ -42,11 +42,9 @@ export default defineComponent({
     ready() {
       test1()
         .then((res) => {
-          //请求成功，做相应处理
           console.log("success");
         })
         .catch((err) => {
-          //请求失败，做相应处理
           console.log("defeat");
         });
     },
