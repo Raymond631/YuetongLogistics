@@ -1,23 +1,23 @@
 <template>
   <div class="container">
-    <navigationBar/>
+    <navigationBar />
     <div class="content">
-      <welcomeHeader/>
+      <welcomeHeader />
       <div class="block-list">
-        <div class="block1">
-        </div>
-        <div class="block2">
-        </div>
-        <div class="block3">
-        </div>
+        <div class="block1"></div>
+        <div class="block2"></div>
+        <div class="block3"></div>
       </div>
-      <el-table :data="team" class="table" tooltip-effect="dark"
-                highlight-current-row
-                @row-click="clickRow"
-                :cell-style="{'background-color':'transparent'}"
-                :row-style="rowStyle">
-        <el-table-column type="selection" width="50">
-        </el-table-column>
+      <el-table
+        :data="team"
+        class="table"
+        tooltip-effect="dark"
+        highlight-current-row
+        @row-click="clickRow"
+        :cell-style="{ 'background-color': 'transparent' }"
+        :row-style="rowStyle"
+      >
+        <el-table-column type="selection" width="50"> </el-table-column>
         <el-table-column label="车队编号" width="100" prop="teamId">
         </el-table-column>
         <el-table-column label="车队名" width="180" prop="teamName">
@@ -30,154 +30,166 @@
         </el-table-column>
         <el-table-column label="操作">
           <el-button size="default" @click="editRow">编辑</el-button>
-          <el-button size="default" type="danger" @click="deleteRow">删除</el-button>
+          <el-button size="default" type="danger" @click="deleteRow"
+            >删除</el-button
+          >
         </el-table-column>
       </el-table>
     </div>
 
-    <div v-if="showMask" class="mask">
-    </div>
+    <div v-if="showMask" class="mask"></div>
     <div class="editForm" v-if="showEditForm">
       <label class="title">编辑车队信息</label>
       <div>
         <div class="edit-item">
           <label>车队编号</label>
-          <el-input type="text" class="editInput"  v-model="edit_team.teamId"/>
+          <el-input type="text" class="editInput" v-model="edit_team.teamId" />
         </div>
         <div class="edit-item">
           <label>车队名</label>
-          <el-input type="text" class="editInput"  v-model="edit_team.teamName"/>
+          <el-input
+            type="text"
+            class="editInput"
+            v-model="edit_team.teamName"
+          />
         </div>
         <div class="edit-item">
           <label>队长</label>
-          <el-input type="text" class="editInput"  v-model="edit_team.leader"/>
+          <el-input type="text" class="editInput" v-model="edit_team.leader" />
         </div>
         <div class="edit-item">
           <label>标记</label>
-          <el-input type="text" class="editInput"  v-model="edit_team.remark"/>
+          <el-input type="text" class="editInput" v-model="edit_team.remark" />
         </div>
         <div class="edit-item">
           <label>登记日期</label>
-          <el-input type="text" class="editInput"  v-model="edit_team.checkInTime"/>
+          <el-input
+            type="text"
+            class="editInput"
+            v-model="edit_team.checkInTime"
+          />
         </div>
       </div>
       <div class="editBtns">
-        <el-button size="default" type="primary" @click="confirmEdit" class="editBtn">提交</el-button>
-        <el-button size="default" @click="cancelEdit"  class="editBtn">取消</el-button>
+        <el-button
+          size="default"
+          type="primary"
+          @click="confirmEdit"
+          class="editBtn"
+          >提交</el-button
+        >
+        <el-button size="default" @click="cancelEdit" class="editBtn"
+          >取消</el-button
+        >
       </div>
     </div>
     <div class="deleteForm" v-if="showDeleteForm">
       <p>编辑表单</p>
     </div>
   </div>
-
 </template>
 
 <script lang="ts">
 import welcomeHeader from "../../components/header.vue";
-import {computed} from "vue";
+import { defineComponent } from "vue";
+import { computed } from "vue";
 
-export default {
+export default defineComponent({
   name: "team",
-  components: {welcomeHeader},
+  components: { welcomeHeader },
   data() {
     return {
       team: [
         {
-          teamId: '1',
-          teamName: '冲冲队',
-          leader: '张三',
-          remark: '1',
-          checkInTime: '2022/07/04',
-          isDelete: '1',
-          alterTime: '2022/07/04',
+          teamId: "1",
+          teamName: "冲冲队",
+          leader: "张三",
+          remark: "1",
+          checkInTime: "2022/07/04",
+          isDelete: "1",
+          alterTime: "2022/07/04",
         },
         {
-          teamId: '2',
-          teamName: '宝宝队',
-          leader: '李四',
-          remark: '1',
-          checkInTime: '2022/07/04',
-          isDelete: '1',
-          alterTime: '2022/07/04',
+          teamId: "2",
+          teamName: "宝宝队",
+          leader: "李四",
+          remark: "1",
+          checkInTime: "2022/07/04",
+          isDelete: "1",
+          alterTime: "2022/07/04",
         },
         {
-          teamId: '3',
-          teamName: '丫丫队',
-          leader: '王五',
-          remark: '1',
-          checkInTime: '2022/07/04',
-          isDelete: '1',
-          alterTime: '2022/07/04',
+          teamId: "3",
+          teamName: "丫丫队",
+          leader: "王五",
+          remark: "1",
+          checkInTime: "2022/07/04",
+          isDelete: "1",
+          alterTime: "2022/07/04",
         },
       ],
-      edit_team:{
-        teamId: '',
-        teamName: '',
-        leader: '',
-        remark: '',
-        checkInTime: '',
-        isDelete: '',
-        alterTime: '',
+      edit_team: {
+        teamId: "",
+        teamName: "",
+        leader: "",
+        remark: "",
+        checkInTime: "",
+        isDelete: "",
+        alterTime: "",
       },
       //当前选中行
-      selectedRow:null,
+      selectedRow: null,
       //所有复选框选中值
       multipleSelection: [],
       //编辑页面
       showMask: false,
-      showEditForm:false,
-      showDeleteForm:false,
-    }
+      showEditForm: false,
+      showDeleteForm: false,
+    };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     //选中该行数据
-    clickRow(row) {
-      console.log(row)
-      this.selectedRow = row
+    clickRow(row: any) {
+      console.log(row);
+      this.selectedRow = row;
     },
 
-    rowStyle({row}){
+    rowStyle({ row }: any) {
       if (row === this.selectedRow) {
-        console.log("添加样式......"+row.teamId)
+        console.log("添加样式......" + row.teamId);
         return {
-          'background': '#f6f6f6',
-          'box-shadow': '13px 13px 30px #cecece',
+          background: "#f6f6f6",
+          "box-shadow": "13px 13px 30px #cecece",
         };
       }
-      return '';
+      return "";
     },
 
     //编辑
-    editRow(){
-      console.log("点击编辑......")
-      this.showMask=true;
-      this.showEditForm=true;
+    editRow() {
+      console.log("点击编辑......");
+      this.showMask = true;
+      this.showEditForm = true;
     },
     //删除
-    deleteRow(){
-    },
+    deleteRow() {},
 
     //编辑表单的确认和取消按钮
-    confirmEdit(){
-      window.confirm("编辑成功")
-      this.showMask=false;
-      this.showEditForm=false;
+    confirmEdit() {
+      window.confirm("编辑成功");
+      this.showMask = false;
+      this.showEditForm = false;
     },
-    cancelEdit(){
-      this.showMask=false;
-      this.showEditForm=false;
-    }
-
-
-  }
-
-}
+    cancelEdit() {
+      this.showMask = false;
+      this.showEditForm = false;
+    },
+  },
+});
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped="scoped">
 .container {
   .content {
     margin-left: $Mleft;
@@ -201,7 +213,8 @@ export default {
     background-size: cover;
   }
 
-  .block2, .block3 {
+  .block2,
+  .block3 {
     margin-left: 30px;
     width: 370px;
     height: 150px;
@@ -233,38 +246,37 @@ export default {
   display: grid;
   top: 300px;
   left: 630px;
-  width:650px;
-  height:auto;
-  border-radius:20px;
+  width: 650px;
+  height: auto;
+  border-radius: 20px;
   background-color: $back_color;
   z-index: 4;
-  .title{
-    font-size:30px;
-    margin:30px auto;
-  }
-  .edit-item{
-    display: flex;
-    margin:20px 0 auto;
-    label{
-      font-size:18px;
-      margin-left:120px;
-      margin-right:20px;
-      width:100px;
-      text-align:right;
-    }
-    .editInput{
-      width:250px;
-    }
-  }
-  .editBtns{
-    width:333px;
+  .title {
+    font-size: 30px;
     margin: 30px auto;
-    display:flex;
-    justify-content:space-between;
-    .editBtn{
-      width:120px;
+  }
+  .edit-item {
+    display: flex;
+    margin: 20px 0 auto;
+    label {
+      font-size: 18px;
+      margin-left: 120px;
+      margin-right: 20px;
+      width: 100px;
+      text-align: right;
+    }
+    .editInput {
+      width: 250px;
+    }
+  }
+  .editBtns {
+    width: 333px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: space-between;
+    .editBtn {
+      width: 120px;
     }
   }
 }
-
 </style>

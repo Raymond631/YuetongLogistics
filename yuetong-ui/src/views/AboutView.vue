@@ -4,7 +4,7 @@
     <div class="content">
       <welcomeHeader />
       <!-- <el-button type="primary" @click="ready">login</el-button> -->
-      <ytTable :cl1data="data1" />
+      <ytTable class="table" :tableInfo="data1" :tableContent="data2" :tableHeight="700" />
     </div>
   </div>
 </template>
@@ -20,15 +20,28 @@ export default defineComponent({
   data() {
     return {
       data1: {
-        number: 5,
+        number: 4,
+        action: true,
         columns: [
-          { column: "name1" },
-          { column: "name2" },
-          { column: "name3" },
-          { column: "name4" },
-          { column: "name5" },
+          { label: "姓名", content: "name" },
+          { label: "联系方式", content: "qq" },
+          { label: "爱好", content: "hobby" },
+          { label: "对象", content: "lover" },
         ],
+        actions: {
+          edit: true,
+          delete: true,
+        },
       },
+      data2: [
+        {
+          id: 1,
+          name: "yueyue",
+          qq: "1213131231",
+          hobby: "yundong",
+          lover: "null",
+        },
+      ],
       user: {
         account: 1,
         password: 1,
@@ -37,9 +50,36 @@ export default defineComponent({
   },
 
   components: { welcomeHeader, navigationBar, ytTable },
-  mounted() {},
+  mounted() {
+    this.ready();
+  },
   methods: {
     ready() {
+      this.data2.push(
+        {
+          id: 2,
+          name: "ll",
+          qq: "54647erew",
+          hobby: "dagong",
+          lover: "null",
+        },
+        {
+          id: 3,
+          name: "ningning",
+          qq: "4355hrdxfge",
+          hobby: "qwq",
+          lover: "nudefine",
+        },
+        {
+          id: 4,
+          name: "pengcheng",
+          qq: "1213131231",
+          hobby: "yundong",
+          lover: "null",
+        },
+      );
+    },
+    confirm() {
       test1()
         .then((res) => {
           console.log("success");
@@ -53,12 +93,18 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped="scoped">
 .container {
   .content {
     margin-left: $Mleft;
     height: $max_height;
     background-color: $back_color;
+    .table {
+      border-radius: 20px;
+      width: 1500px;
+      margin-top: 20px;
+      margin-left: 40px;
+    }
   }
 }
 </style>
