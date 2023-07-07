@@ -24,6 +24,71 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
+      path: "/fleet/team",
+      name: "team",
+      component: () => import("../views/fleet/team.vue")
+    },
+    {
+      path: "/fleet/truck",
+      name: "truck",
+      component: () => import("../views/fleet/truck.vue")
+    },
+    {
+      path: "/authentication/selfCenter",
+      name: "selfCenter",
+      component: () => import("../views/authentication/selfCenter.vue"),
+    },
+    {
+      path: "/carrier/bill/issue",
+      name: "issue",
+      component: () => import("../views/carrier/bill/issue.vue"),
+    },
+    {
+      path: "/carrier/bill/reception",
+      name: "reception",
+      component: () => import("../views/carrier/bill/reception.vue"),
+    },
+    {
+      path: "/carrier/task/dispatch",
+      name: "dispatch",
+      component: () => import("../views/carrier/task/dispatch.vue"),
+    },
+    {
+      path: "/cost/accounting",
+      name: "accounting",
+      component: () => import("../views/cost/accounting.vue"),
+    },
+    {
+      path: "/cost/maintenance",
+      name: "maintenance",
+      component: () => import("../views/cost/maintenance.vue"),
+    },
+    {
+      path: "/search/capacity",
+      name: "capacity",
+      component: () => import("../views/search/capacity.vue"),
+    },
+    {
+      path: "/search/history",
+      name: "history",
+      component: () => import("../views/search/history.vue"),
+    },
+    {
+      path: "/system/log",
+      name: "log",
+      component: () => import("../views/system/log.vue"),
+    },
+    {
+      path: "/system/system",
+      name: "system",
+      component: () => import("../views/system/system.vue"),
+    },
+    {
+      path: "/system/user",
+      name: "user",
+      component: () => import("../views/system/user.vue"),
+    },
+    {
       path: "/authentication/selfCenter",
       name: "selfCenter",
       component: () => import("../views/authentication/selfCenter.vue"),
