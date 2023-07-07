@@ -11,7 +11,7 @@
 import navigationBar from "../components/navigationBar.vue";
 import welcomeHeader from "../components/header.vue";
 import { defineComponent } from "vue";
-import {test1} from  '../api/test'
+import {test1} from '@/api/test'
 
 export default defineComponent({
   name: "header",
