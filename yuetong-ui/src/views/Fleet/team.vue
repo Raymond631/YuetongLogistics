@@ -14,7 +14,7 @@
       <el-table :data="team" class="table" tooltip-effect="dark"
                 highlight-current-row
                 @row-click="clickRow"
-                @row-class-name="addRowStyle">
+                :row-class-name="rowStyle">
         <el-table-column type="selection" width="50">
         </el-table-column>
         <el-table-column label="车队编号" width="100" prop="teamId">
@@ -41,28 +41,28 @@
       <div>
         <div class="edit-item">
           <label>车队编号</label>
-          <input type="text" class="editInput"  v-model="edit_team.teamId"/>
+          <el-input type="text" class="editInput"  v-model="edit_team.teamId"/>
         </div>
         <div class="edit-item">
           <label>车队名</label>
-          <input type="text" class="editInput"  v-model="edit_team.teamName"/>
+          <el-input type="text" class="editInput"  v-model="edit_team.teamName"/>
         </div>
         <div class="edit-item">
           <label>队长</label>
-          <input type="text" class="editInput"  v-model="edit_team.leader"/>
+          <el-input type="text" class="editInput"  v-model="edit_team.leader"/>
         </div>
         <div class="edit-item">
           <label>标记</label>
-          <input type="text" class="editInput"  v-model="edit_team.remark"/>
+          <el-input type="text" class="editInput"  v-model="edit_team.remark"/>
         </div>
         <div class="edit-item">
           <label>登记日期</label>
-          <input type="text" class="editInput"  v-model="edit_team.checkInTime"/>
+          <el-input type="text" class="editInput"  v-model="edit_team.checkInTime"/>
         </div>
       </div>
       <div class="editBtns">
-        <el-button size="default" type="primary" @click="confirmEdit">提交</el-button>
-        <el-button size="default" @click="cancelEdit">取消</el-button>
+        <el-button size="default" type="primary" @click="confirmEdit" class="editBtn">提交</el-button>
+        <el-button size="default" @click="cancelEdit"  class="editBtn">取消</el-button>
       </div>
     </div>
     <div class="deleteForm" v-if="showDeleteForm">
@@ -120,9 +120,10 @@ export default {
         alterTime: '',
       },
       //当前选中行
-      currentTeamId: null,
+      selectedRow:null,
       //所有复选框选中值
       multipleSelection: [],
+      //编辑页面
       showMask: false,
       showEditForm:false,
       showDeleteForm:false,
@@ -133,16 +134,16 @@ export default {
   methods: {
     //选中该行数据
     clickRow(row) {
-      console.log(row.teamId)
-      this.currentTeamId = row.teamId
+      console.log(row)
+      this.selectedRow = row
     },
 
-    addRowStyle(row){
-      console.log("修改样式......")
-      if(row.teamId === this.this.currentTeamId){
-        console.log("修改样式......")
-        return "background-color: $theme_color;border-color: $theme_color;";
+    rowStyle({row}){
+      if (row === this.selectedRow) {
+        console.log("添加样式......"+row.teamId)
+        return 'selected-row';
       }
+      return '';
     },
 
     //编辑
@@ -212,8 +213,8 @@ export default {
   margin-left: 70px;
 }
 
-.select-row {
-  background-color: $theme_color;
+.selected-row {
+  background-color: #215496;
   border-color: $theme_color;
 }
 
@@ -227,16 +228,44 @@ export default {
   height: 100%;
   z-index: 3;
 }
+
 .editForm {
   position: fixed;
   display: grid;
   top: 300px;
   left: 630px;
   width:650px;
-  height:400px;
+  height:auto;
   border-radius:20px;
   background-color: $back_color;
   z-index: 4;
+  .title{
+    font-size:30px;
+    margin:30px auto;
+  }
+  .edit-item{
+    display: flex;
+    margin:20px 0 auto;
+    label{
+      font-size:18px;
+      margin-left:120px;
+      margin-right:20px;
+      width:100px;
+      text-align:right;
+    }
+    .editInput{
+      width:250px;
+    }
+  }
+  .editBtns{
+    width:333px;
+    margin: 30px auto;
+    display:flex;
+    justify-content:space-between;
+    .editBtn{
+      width:120px;
+    }
+  }
 }
 
 </style>
