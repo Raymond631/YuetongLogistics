@@ -5,9 +5,10 @@
       <label class="label-fade-enter-from label2">YueTong</label>
       <label class="label-fade-enter-from label3">粤通物流系统</label>
     </div>
-    <RouterLink to="/login"><el-button class="enterBtn">管理员登录</el-button></RouterLink>
+    <RouterLink to="/login"
+      ><el-button class="enterBtn">管理员登录</el-button></RouterLink
+    >
   </div>
- 
 </template>
 <script lang="ts">
 import navigationBar from "../components/navigationBar.vue";
@@ -30,15 +31,15 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-$title_color:#ffffff;
-@mixin font{
-  font-family: "Microsoft YaHei",sans-serif;
+$title_color: #ffffff;
+@mixin font {
+  font-family: "Microsoft YaHei", sans-serif;
   color: $title_color;
 }
 .flex-grow {
   flex-grow: 1;
 }
-.container{
+.container {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -50,27 +51,28 @@ $title_color:#ffffff;
   background-size: cover;
   overflow: hidden;
 }
-.title{
+.title {
   width: 300px;
   height: 100px;
   display: grid;
   margin-top: 100px;
   margin-left: 100px;
   @include font;
-  .label1{
+  .label1 {
     font-size: 20px;
   }
-  .label2,.label3{
+  .label2,
+  .label3 {
     font-size: 40px;
     font-weight: bold;
   }
 }
-.enterBtn{
+.enterBtn {
   width: 150px;
   height: 50px;
   margin-top: 100px;
   margin-left: 700px;
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   @include font;
   font-size: 20px;
