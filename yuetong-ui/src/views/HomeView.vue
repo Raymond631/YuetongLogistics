@@ -16,7 +16,7 @@ import welcomeHeader from "../components/header.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "header",
+  name: "home",
   data() {
     return {
       data: "",

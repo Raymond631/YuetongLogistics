@@ -14,14 +14,14 @@
   border-bottom: rgb(220, 223, 230);
 
   .header_name {
-    @include position(100px);
+    @include position(5%);
     font: {
       family: coca_cola;
       size: 45px;
     }
   }
   .header_content {
-    @include position(900px);
+    @include position(47%);
     font: {
       family: coca_cola;
       size: 30px;
@@ -29,17 +29,17 @@
   }
   .header_photo {
     margin-top: 10px;
-    @include position(1150px);
+    @include position(59%);
   }
   .header_profile {
     margin-top: 37px;
-    @include position(1250px);
+    @include position(64%);
     font: {
         size:15px
     }
   }
   .header_log {
-    @include position(1400px);
+    @include position(73%);
     font: {
         size:17px
     }

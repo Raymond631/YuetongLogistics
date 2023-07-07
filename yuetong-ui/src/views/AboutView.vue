@@ -16,7 +16,7 @@ import { defineComponent } from "vue";
 import { test1 } from "../api/test";
 
 export default defineComponent({
-  name: "header",
+  name: "about",
   data() {
     return {
       data1: {
@@ -26,7 +26,7 @@ export default defineComponent({
           { column: "name2" },
           { column: "name3" },
           { column: "name4" },
-          { column: "name5" }
+          { column: "name5" },
         ],
       },
       user: {
