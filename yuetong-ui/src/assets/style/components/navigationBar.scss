@@ -6,7 +6,7 @@
   top: 0;
   left: 30px;
   //定义局部变量
-  @mixin font_word($weight: 400, $size: 20px, $family: Futura) {
+  @mixin font_word($weight: 400, $size: 17px, $family: KaiTi_GB2312) {
     font: {
       family: $family;
       size: $size;
@@ -54,8 +54,9 @@
 
   .menu_title {
     margin-left: 53px;
+    padding-bottom: 10px;
     color: rgba(113, 117, 151);
-    @include font_word(600, 17px);
+    @include font_word(600, 17px, Futura);
   }
 
   .menu_item {
@@ -71,7 +72,7 @@
       }
     }
     .menu_item_content {
-      margin-left: 10%;
+      margin-left: 5%;
       @include font_word();
     }
   }
@@ -81,5 +82,14 @@
   .is-active {
     background-color: $theme_color;
     color: white;
+  }
+
+  .bottom {
+    height:250px;
+    background-color: $theme_color;
+    width:200px;
+    position: fixed;
+    left:65px;
+    top:600px;
   }
 }
