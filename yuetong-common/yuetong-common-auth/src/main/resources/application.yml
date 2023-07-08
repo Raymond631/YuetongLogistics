@@ -9,13 +9,12 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         service: yuetong-common-auth
+        group: myGroup
+        register-enabled: true
+        heart-beat-interval: 5000
+        heart-beat-timeout: 20000
         metadata:
-          heart-beat-interval: 5000
-          heart-beat-timeout: 20000
-          register-enabled: true
           namespace: dev
-          cluster-name: Cluster-A
-          group: myGroup
 
   redis:
     # Redis数据库索引（默认为0）
