@@ -1,4 +1,4 @@
-package cn.tdsmy.system.beans;
+package cn.tdsmy.system.beans.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package cn.tdsmy.auth.captcha;
+package cn.tdsmy.auth.config;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
@@ -60,7 +60,7 @@ public class CaptchaConfig {
         // KAPTCHA_SESSION_KEY
         properties.setProperty(KAPTCHA_SESSION_CONFIG_KEY, "kaptchaCodeMath");
         // 验证码文本生成器
-        properties.setProperty(KAPTCHA_TEXTPRODUCER_IMPL, "cn.tdsmy.auth.captcha.CaptchaCreator");
+        properties.setProperty(KAPTCHA_TEXTPRODUCER_IMPL, "cn.tdsmy.auth.config.CaptchaCreator");
         // 验证码文本字符间距 默认为2
         properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "3");
         // 验证码文本字符长度 默认为5

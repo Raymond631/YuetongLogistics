@@ -1,4 +1,4 @@
-package cn.tdsmy.auth;
+package cn.tdsmy.auth.beans;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

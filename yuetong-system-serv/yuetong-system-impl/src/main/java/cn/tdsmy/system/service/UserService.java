@@ -1,7 +1,7 @@
 package cn.tdsmy.system.service;
 
-import cn.tdsmy.system.beans.LoginBody;
-import cn.tdsmy.system.beans.UserInfoVO;
+import cn.tdsmy.system.beans.vo.LoginBody;
+import cn.tdsmy.system.beans.vo.UserInfoVO;
 import cn.tdsmy.system.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

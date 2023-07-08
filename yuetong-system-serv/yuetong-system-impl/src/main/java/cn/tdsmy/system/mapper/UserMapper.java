@@ -1,7 +1,7 @@
 package cn.tdsmy.system.mapper;
 
-import cn.tdsmy.system.beans.LoginBody;
-import cn.tdsmy.system.beans.UserInfoVO;
+import cn.tdsmy.system.beans.vo.LoginBody;
+import cn.tdsmy.system.beans.vo.UserInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

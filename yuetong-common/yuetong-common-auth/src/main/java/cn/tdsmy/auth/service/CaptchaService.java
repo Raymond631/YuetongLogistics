@@ -1,4 +1,4 @@
-package cn.tdsmy.auth.captcha;
+package cn.tdsmy.auth.service;
 
 import cn.tdsmy.core.constant.CacheConstants;
 import cn.tdsmy.core.response.AjaxResult;
@@ -34,6 +34,9 @@ public class CaptchaService {
 
     @Autowired
     private RedisUtils redisUtils;
+
+    @Autowired
+    private LoginLogService loginLogService;
 
     /**
      * 生成验证码
@@ -77,11 +80,13 @@ public class CaptchaService {
     /**
      * 校验验证码
      */
-    public void checkCaptcha(String code, String uuid) {
+    public void checkCaptcha(String code, String uuid, String account) {
         if (StringUtils.isEmpty(code)) {
+            loginLogService.recordLoginLog(account, "fail", "验证码不能为空");
             throw new RuntimeException("验证码不能为空");
         }
         if (StringUtils.isEmpty(uuid)) {
+            loginLogService.recordLoginLog(account, "fail", "验证码已失效");
             throw new RuntimeException("验证码已失效");
         }
         String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + uuid;
@@ -89,6 +94,7 @@ public class CaptchaService {
         redisUtils.deleteObject(verifyKey);
 
         if (!code.equalsIgnoreCase(captcha)) {
+            loginLogService.recordLoginLog(account, "fail", "验证码错误");
             throw new RuntimeException("验证码错误");
         }
     }

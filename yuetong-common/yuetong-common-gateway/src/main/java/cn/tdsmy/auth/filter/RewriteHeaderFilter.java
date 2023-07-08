@@ -1,4 +1,4 @@
-package cn.tdsmy.auth;
+package cn.tdsmy.auth.filter;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.tdsmy.core.utils.StringUtils;
@@ -27,7 +27,6 @@ public class RewriteHeaderFilter implements GlobalFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.error("重写请求头过滤器");
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpRequest.Builder mutate = request.mutate();
         // 获取请求url
@@ -36,13 +35,11 @@ public class RewriteHeaderFilter implements GlobalFilter {
         // 跳过不需要过滤的路径(白名单)
         List<String> whites = new ArrayList<>(Collections.singletonList("/auth/**"));
         if (StringUtils.matches(url, whites)) {
-            log.error("不需要重写");
             return chain.filter(exchange);
         }
 
         // 获取用户信息，重写请求头
         String account = StpUtil.getLoginIdAsString();
-        log.error("重写请求头account为：" + account);
         try {
             addHeader(mutate, "account", account);
         } catch (UnsupportedEncodingException e) {

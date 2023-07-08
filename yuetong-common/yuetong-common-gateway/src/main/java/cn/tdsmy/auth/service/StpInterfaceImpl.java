@@ -1,10 +1,10 @@
-package cn.tdsmy.auth;
+package cn.tdsmy.auth.service;
 
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.session.SaSessionCustomUtil;
 import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.tdsmy.system.feign.IUserService;
+import cn.tdsmy.system.feign.ISystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class StpInterfaceImpl implements StpInterface {
     @Autowired
-    private IUserService iUserService;
+    private ISystemService iSystemService;
 
     /**
      * 返回此 loginId 拥有的权限列表
@@ -32,7 +32,7 @@ public class StpInterfaceImpl implements StpInterface {
             SaSession roleSession = SaSessionCustomUtil.getSessionById("role-" + roleId);
             List<String> list = roleSession.get("Permission_List", () -> {
                 // WebFlux异步调用，同步会报错
-                CompletableFuture<List<String>> completableFuture = CompletableFuture.supplyAsync(() -> this.iUserService.getPermission(Integer.parseInt(roleId)));
+                CompletableFuture<List<String>> completableFuture = CompletableFuture.supplyAsync(() -> this.iSystemService.getPermission(Integer.parseInt(roleId)));
                 // 获取异步调用的返回值
                 List<String> pList = completableFuture.join();
                 // 添加到缓存，以便下次使用
@@ -52,7 +52,7 @@ public class StpInterfaceImpl implements StpInterface {
         SaSession accountSession = StpUtil.getSessionByLoginId(loginId);
         return accountSession.get("Role_List", () -> {
             // WebFlux异步调用，同步会报错
-            CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(() -> this.iUserService.getRoleId((String) loginId));
+            CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(() -> this.iSystemService.getRoleId((String) loginId));
             // 获取异步调用的返回值
             int roleId = completableFuture.join();
             // 构建list，适应框架interface

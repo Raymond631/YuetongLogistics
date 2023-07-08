@@ -1,4 +1,4 @@
-package cn.tdsmy.auth.captcha;
+package cn.tdsmy.auth.config;
 
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 

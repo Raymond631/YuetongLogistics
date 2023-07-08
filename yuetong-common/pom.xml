@@ -14,7 +14,6 @@
     <modules>
         <module>yuetong-common-auth</module>
         <module>yuetong-common-gateway</module>
-        <module>yuetong-common-log</module>
         <module>yuetong-common-core</module>
     </modules>
 

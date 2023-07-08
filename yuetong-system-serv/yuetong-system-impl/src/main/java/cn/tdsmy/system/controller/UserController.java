@@ -1,7 +1,7 @@
 package cn.tdsmy.system.controller;
 
-import cn.tdsmy.system.beans.LoginBody;
-import cn.tdsmy.system.beans.UserInfoVO;
+import cn.tdsmy.system.beans.vo.LoginBody;
+import cn.tdsmy.system.beans.vo.UserInfoVO;
 import cn.tdsmy.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

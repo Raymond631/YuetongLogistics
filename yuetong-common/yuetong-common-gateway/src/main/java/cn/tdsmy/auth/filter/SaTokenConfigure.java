@@ -1,4 +1,4 @@
-package cn.tdsmy.auth;
+package cn.tdsmy.auth.filter;
 
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
@@ -28,7 +28,6 @@ public class SaTokenConfigure {
                 .addExclude("/favicon.ico")
                 // 鉴权方法：每次访问进入
                 .setAuth(obj -> {
-                    log.error("SaToken过滤器");
                     // 登录校验 -- 拦截所有路由，并排除/user/doLogin 用于开放登录
                     SaRouter.match("/**", "/auth/**", r -> StpUtil.checkLogin());
 
