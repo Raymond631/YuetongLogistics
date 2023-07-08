@@ -1,3 +1,0 @@
-spring:
-  profiles:
-    active: dev #激活 dev 的配置

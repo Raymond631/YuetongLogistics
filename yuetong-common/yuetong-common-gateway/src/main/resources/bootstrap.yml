@@ -5,44 +5,26 @@ server:
 
 spring:
   application:
-    name: yuetong-gateway
-  redis:
-    database: 1
-    host: 127.0.0.1
-    port: 6379
-    password:
-    timeout: 10s
-    lettuce:
-      pool:
-        max-active: 200
-        max-wait: -1ms
-        max-idle: 10
-        min-idle: 0
+    name: yuetong-common-gateway
+  profiles:
+    active: dev #激活 dev 的配置
   cloud:
     nacos:
       config:
         server-addr: 127.0.0.1:8848
         file-extension: yaml
+        group: YueTong
+        # 共享配置 application-dev.yaml
+        shared-configs: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
       discovery:
         server-addr: 127.0.0.1:8848
-        service: yuetong-gateway
-        group: myGroup
+        service: yuetong-common-gateway
+        group: YueTong
         register-enabled: true
         heart-beat-interval: 5000
         heart-beat-timeout: 20000
         metadata:
           namespace: dev
-
-    gateway:
-      routes:
-        - id: "yuetong-common-auth"
-          uri: lb://yuetong-common-auth
-          predicates:
-            - Path=/auth/**
-        - id: "yuetong-system-impl"
-          uri: lb://yuetong-system-impl
-          predicates:
-            - Path=/system/**
 
 #logging:
 #  level:

@@ -16,7 +16,7 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         service: yuetong-system-impl
-        group: myGroup
+        group: YueTong
         register-enabled: true
         heart-beat-interval: 5000
         heart-beat-timeout: 20000
