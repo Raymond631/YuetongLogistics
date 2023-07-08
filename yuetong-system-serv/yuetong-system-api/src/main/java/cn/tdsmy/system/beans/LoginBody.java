@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class LoginBody {
     private String account;
     private String password;
+    private String code;
+    private String uuid;
 }

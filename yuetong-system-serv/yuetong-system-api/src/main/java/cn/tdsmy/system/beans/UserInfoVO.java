@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserInfoVO {
     private String username;
+    private int roleId;
     private String roleName;
 }
 

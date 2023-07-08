@@ -29,16 +29,11 @@
         <spring-cloud.version>2021.0.4</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
 
-        <redis.version>2.6.11</redis.version>
         <druid.version>1.2.16</druid.version>
-        <fastjson.version>2.0.34</fastjson.version>
         <mybatis.version>2.3.1</mybatis.version>
-        <jjwt.version>0.9.1</jjwt.version>
-        <minio.version>8.2.2</minio.version>
-        <poi.version>4.1.2</poi.version>
+        <redis.version>2.6.11</redis.version>
         <kaptcha.version>2.3.3</kaptcha.version>
         <pagehelper.boot.version>1.4.6</pagehelper.boot.version>
-        <commons.io.version>2.11.0</commons.io.version>
         <sa-token.version>1.35.0.RC</sa-token.version>
     </properties>
 
@@ -82,13 +77,6 @@
                 <version>${lombok.version}</version>
             </dependency>
 
-            <!--mybatis-->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis.version}</version>
-            </dependency>
-
             <!--druid-->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -96,18 +84,18 @@
                 <version>${druid.version}</version>
             </dependency>
 
-            <!-- JSON -->
+            <!--mybatis-->
             <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>${fastjson.version}</version>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
             </dependency>
 
-            <!-- JWT -->
+            <!--redis-->
             <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${redis.version}</version>
             </dependency>
 
             <!-- 验证码 -->
@@ -124,26 +112,13 @@
                 <version>${pagehelper.boot.version}</version>
             </dependency>
 
-            <!-- io常用工具类 -->
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons.io.version}</version>
-            </dependency>
-
-            <!-- excel工具 -->
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi-ooxml</artifactId>
-                <version>${poi.version}</version>
-            </dependency>
-
+            <!-- Sa-Token 用户认证-->
             <dependency>
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-spring-boot-starter</artifactId>
                 <version>${sa-token.version}</version>
             </dependency>
-            <!-- Sa-Token 权限认证（Reactor响应式集成）-->
+            <!-- Sa-Token 网关鉴权-->
             <dependency>
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-reactor-spring-boot-starter</artifactId>
@@ -160,7 +135,6 @@
                 <artifactId>commons-pool2</artifactId>
                 <version>${commons-pool2.version}</version>
             </dependency>
-
 
         </dependencies>
     </dependencyManagement>

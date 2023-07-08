@@ -28,9 +28,9 @@ public class SaTokenConfigure {
                 .addExclude("/favicon.ico")
                 // 鉴权方法：每次访问进入
                 .setAuth(obj -> {
-                    log.error("开始鉴权");
+                    log.error("SaToken过滤器");
                     // 登录校验 -- 拦截所有路由，并排除/user/doLogin 用于开放登录
-                    SaRouter.match("/**", "/auth/login", r -> StpUtil.checkLogin());
+                    SaRouter.match("/**", "/auth/**", r -> StpUtil.checkLogin());
 
                     // 权限认证 -- 不同模块, 校验不同权限
                     SaRouter.match("/fleet/**", r -> StpUtil.checkPermission("fleet"));
@@ -40,8 +40,6 @@ public class SaTokenConfigure {
                     SaRouter.match("/transport/scheduling/**", r -> StpUtil.checkPermission("scheduling"));
                     SaRouter.match("/transport/cost/**", r -> StpUtil.checkPermission("cost"));
                     SaRouter.match("/transport/capacity/carrier/**", r -> StpUtil.checkPermission("cost"));
-
-                    // 更多匹配 ...  */
                 })
                 // 异常处理方法：每次setAuth函数出现异常时进入
                 .setError(e -> {
@@ -59,6 +57,8 @@ public class SaTokenConfigure {
                             .setHeader("Access-Control-Allow-Headers", "*")
                             // 有效时间
                             .setHeader("Access-Control-Max-Age", "3600")
+                            // TODO 允许跨域cookie,可行性待验证
+                            .setHeader("Access-Control-Allow-Credentials", "true")
                     ;
                     // 如果是预检请求，则立即返回到前端
                     SaRouter.match(SaHttpMethod.OPTIONS)
