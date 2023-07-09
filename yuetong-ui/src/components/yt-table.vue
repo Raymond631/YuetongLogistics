@@ -7,8 +7,8 @@
         tooltip-effect="dark"
         highlight-current-row
         @row-click="clickRow"
-        :cell-style="{ 'background-color': 'transparent' }"
-        :row-style="rowStyle"
+        :cell-style="cellStyle"
+        :row-style="{ background: 'rgba(251,251,251)' }"
         :height="tableHeight"
       >
         <div v-for="column in tableInfo.columns" :key="column">
@@ -130,16 +130,17 @@ export default defineComponent({
       this.selectedRow = row;
     },
 
-    rowStyle({ row }: any) {
+    cellStyle({ row }: any) {
       if (row === this.selectedRow) {
         console.log("添加样式......" + row.id);
         return {
-          background: "#f6f6f6",
-          "box-shadow": "13px 13px 30px #cecece",
+          background: "#ffffff",
+          "box-shadow": "13px 13px 15px  #cecece",
         };
       }
       return "";
     },
+    
 
     //编辑
     editRow() {
@@ -171,6 +172,9 @@ export default defineComponent({
       border-radius: 20px;
       width: 1500px;
       margin-top: 20px;
+      .el-table_1_column_2 .el-table__cell{
+        background-color: aqua;
+      }
     }
 .mask {
   background-color: rgb(0, 0, 0);

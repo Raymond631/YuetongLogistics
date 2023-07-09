@@ -3,7 +3,7 @@
     <navigationBar />
     <div class="content">
       <welcomeHeader />
-      <!-- <el-button type="primary" @click="ready">login</el-button> -->
+      <el-button type="primary" @click="userLogin">login</el-button>
       <ytTable class="table" :tableInfo="data1" :tableContent="data2" :tableHeight="700" />
     </div>
   </div>
@@ -14,6 +14,7 @@ import welcomeHeader from "../components/header.vue";
 import ytTable from "../components/yt-table.vue";
 import { defineComponent } from "vue";
 import { test1 } from "../api/test";
+import { login } from "../api/authentication/login";
 
 export default defineComponent({
   name: "about",
@@ -43,8 +44,8 @@ export default defineComponent({
         },
       ],
       user: {
-        account: 1,
-        password: 1,
+        account: 'abc',
+        password: '123',
       },
     };
   },
@@ -83,6 +84,17 @@ export default defineComponent({
       test1()
         .then((res) => {
           console.log("success");
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log("defeat");
+        });
+    },
+    userLogin() {
+      login(this.user)
+        .then((res) => {
+          console.log("success");
+          console.log(res)
         })
         .catch((err) => {
           console.log("defeat");
