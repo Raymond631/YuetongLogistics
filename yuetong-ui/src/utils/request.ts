@@ -1,5 +1,4 @@
 import axios from "axios";
-import qs from "qs";
 import store from "../store";
 import { Message } from "@element-plus/icons-vue";
 
@@ -13,7 +12,7 @@ export function request(config: any) {
     transformRequest: [
       function (data) {
         // 对 data 做序列化处理
-        return qs.stringify(data);
+        return JSON.stringify(data);
       },
     ],
   });
@@ -44,6 +43,7 @@ export function request(config: any) {
     (res) => {
       //例：后端数据处理错误，并返回错误原因；前端获取错误原因并展示
       console.log("响应拦截=>", res.data);
+      console.log("响应拦截=>", res);
       //这里还需要添加一个token过期之后的token移除
       if (res.data.success == false) {
         alert({
