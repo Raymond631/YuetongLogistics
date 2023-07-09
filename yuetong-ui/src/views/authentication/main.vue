@@ -1,4 +1,12 @@
-<template></template>
+<template>
+  <div class="container">
+    <navigationBar/>
+    <div class="content">
+      <welcomeHeader />
+    </div>
+  </div>
+
+</template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
@@ -11,6 +19,7 @@ export default defineComponent({
   data() {
     return {
       data: "",
+      components: { welcomeHeader, navigationBar, ytTable },
     };
   },
   components: {welcomeHeader, navigationBar, ytTable},
@@ -25,4 +34,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "../../assets/style/css/selfcenter.scss";
+.container {
+  .content {
+    margin-left: $Mleft;
+    height: $max_height;
+    //background-color: $back_color;
+    background-color: #f6f6f6;
+  }
+}
 </style>

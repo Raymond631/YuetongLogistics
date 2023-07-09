@@ -1,45 +1,50 @@
 <template>
-
-  <div class="block-list">
-    <div class="search">
-      <el-input type="text" class="search-input" v-model="search" placeholder="请搜索用户"></el-input>
-    </div>
-    <div class="actions">
-      <div class="action1">
-        <label>筛选</label>
-      </div>
-      <div class="action2">
-        <label>添加用户</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="user-main">
-    <div class="user-block" v-for="user in userList">
-      <div class="basic-info">
-        <el-avatar type="image" :src="user.image" class="image"></el-avatar>
-        <div class="right-info">
-          <label v-text="user.username" class="username"></label>
-          <label v-text="'#'+user.role" class="role"></label>
-          <div class="icons">
-            <el-icon :size="35" :color="'#0e6f64'" class="icon">
-              <Avatar/>
-            </el-icon>
-            <el-icon :size="35" :color="'#0e6f64'" class="icon">
-              <PhoneFilled/>
-            </el-icon>
-            <el-icon :size="35" :color="'#0e6f64'" class="icon">
-              <ChatLineRound/>
-            </el-icon>
+  <div class="container">
+    <navigationBar/>
+    <div class="content">
+      <welcomeHeader />
+      <div class="block-list">
+        <div class="search">
+          <el-input type="text" class="search-input" v-model="search" placeholder="请搜索用户"></el-input>
+        </div>
+        <div class="actions">
+          <div class="action1">
+            <label>筛选</label>
+          </div>
+          <div class="action2">
+            <label>添加用户</label>
           </div>
         </div>
-        <el-icon :size="30" class="more">
-          <More/>
-        </el-icon>
       </div>
-      <div class="extra-info">
-        <label class="title">Email</label>
-        <label class="email" v-text="user.email"></label>
+
+      <div class="user-main">
+        <div class="user-block" v-for="user in userList">
+          <div class="basic-info">
+            <el-avatar type="image" :src="user.image" class="image"></el-avatar>
+            <div class="right-info">
+              <label v-text="user.username" class="username"></label>
+              <label v-text="'#'+user.role" class="role"></label>
+              <div class="icons">
+                <el-icon :size="35" :color="'#0e6f64'" class="icon">
+                  <Avatar/>
+                </el-icon>
+                <el-icon :size="35" :color="'#0e6f64'" class="icon">
+                  <PhoneFilled/>
+                </el-icon>
+                <el-icon :size="35" :color="'#0e6f64'" class="icon">
+                  <ChatLineRound/>
+                </el-icon>
+              </div>
+            </div>
+            <el-icon :size="30" class="more">
+              <More/>
+            </el-icon>
+          </div>
+          <div class="extra-info">
+            <label class="title">Email</label>
+            <label class="email" v-text="user.email"></label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -146,6 +151,15 @@ export default defineComponent({
 
 <style scoped lang="scss">
 @import "../../assets/style/css/system.scss";
+
+.container {
+  .content {
+    margin-left: $Mleft;
+    height: $max_height;
+    //background-color: $back_color;
+    background-color: #f6f6f6;
+  }
+}
 
 @mixin font {
   font-family: "Microsoft YaHei", sans-serif;
