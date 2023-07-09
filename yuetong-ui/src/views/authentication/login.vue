@@ -107,15 +107,16 @@ export default {
     //点击登录按钮
     submitForm() {
       //普通管理员登录系统
+      this.$router.push('/authentication/main')
       //调用登录接口
-      test().then(res => {
-        console.log(res.data)
-      })
+      // test().then(res => {
+      //   console.log(res.data)
+      // })
     },
     //点击系统管理员登录按钮
     superSubmitForm() {
       //系统管理员登录系统
-
+      this.$router.push('/authentication/main')
 
     }
   }
