@@ -27,9 +27,64 @@ export default defineComponent({
       profile: "系统管理员",
     };
   },
-  mounted() {},
+  mounted() {
+    this.ready();
+  },
+
   methods: {
-    goBack() {},
+    goBack() {
+    },
+    ready() {
+      //刷新页面保持侧边栏选中值
+      let route = this.$route.path
+      switch (route) {
+        case '/authentication/main' :
+          this.page_name = '首页';
+          break;
+        case '/fleet/team' :
+          this.page_name = '车队管理';
+          break;
+        case '/fleet/truck' :
+          this.page_name = '车辆管理';
+          break;
+        case '/fleet/driver' :
+          this.page_name = '驾驶员管理';
+          break;
+        case '/carrier/task/dispatch' :
+          this.page_name = '调度承运任务';
+          break;
+        case '/carrier/bill/issue' :
+          this.page_name = '承运单开出';
+          break;
+        case '/carrier/bill/reception' :
+          this.page_name = '承运单接收';
+          break;
+        case '/cost/maintenance' :
+          this.page_name = '成本维护';
+          break;
+        case '/cost/accounting' :
+          this.page_name = '成本核算';
+          break;
+        case '/search/capacity' :
+          this.page_name = '运力综合';
+          break;
+        case '/search/history' :
+          this.page_name = '历史承运任务';
+          break;
+        case '/system/user' :
+          this.page_name = '用户维护';
+          break;
+        case '/system/system' :
+          this.page_name = '系统维护';
+          break;
+        case '/system/log' :
+          this.page_name = '日志维护';
+          break;
+        default:
+          this.page_name = '0';
+          break;
+      }
+    },
   },
 });
 </script>

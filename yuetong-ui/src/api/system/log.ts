@@ -1,17 +1,16 @@
 import { request } from '@/utils/request';
 
 //导出login方法，供其它地方使用
-export function login(data:any) {
+export function operateLog() {
     return request({
-        url: '/auth/login',
-        method: 'post',
-        data,
+        url: '/system/log/operateLog',
+        method: 'get',
     })
 }
 
-export function vertify() {
+export function loginlog() {
     return request({
-        url: '/auth/code',
+        url: '/system/log/loginLog',
         method: 'get',
     })  
 }

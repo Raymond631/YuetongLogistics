@@ -1,4 +1,11 @@
-<template></template>
+<template>
+  <div class="container">
+    <navigationBar/>
+    <div class="content">
+      <welcomeHeader />
+    </div>
+  </div>
+</template>
 
 <script lang="ts">
 import { defineComponent } from "vue";

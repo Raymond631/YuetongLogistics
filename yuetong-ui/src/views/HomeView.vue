@@ -5,6 +5,7 @@
       <label class="label-fade-enter-from label2">YueTong</label>
       <label class="label-fade-enter-from label3">粤通物流系统</label>
     </div>
+
     <RouterLink to="/authentication/login"
       ><el-button class="enterBtn">管理员登录</el-button></RouterLink
     >

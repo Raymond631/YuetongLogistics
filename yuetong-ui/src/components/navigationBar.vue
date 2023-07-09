@@ -1,8 +1,11 @@
 <template>
-  <el-menu default-active="0" class="menu" @select="menuSelect">
+  <el-menu :default-active="activeIndex" class="menu" @select="menuSelect">
     <div class="title">
       <div class="title_icon">
-        <el-icon><Ship /><Van /></el-icon>
+        <el-icon>
+          <Ship/>
+          <Van/>
+        </el-icon>
       </div>
       <div class="title_name">粤通物流</div>
       <div class="title_groupName">木子石石石</div>
@@ -10,108 +13,227 @@
     <h4 class="menu_title">Main Menu</h4>
     <el-menu-item index="0" class="menu_item">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">首页</span>
     </el-menu-item>
-    <el-menu-item index="1" class="menu_item" v-if="userType === 1">
+    <el-menu-item index="1" class="menu_item" v-if="userType === 1 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">车队信息管理</span>
     </el-menu-item>
-    <el-menu-item index="2" class="menu_item" v-if="userType === 1">
+    <el-menu-item index="2" class="menu_item" v-if="userType === 1 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">车辆信息维护</span>
     </el-menu-item>
-    <el-menu-item index="3" class="menu_item" v-if="userType === 1">
+    <el-menu-item index="3" class="menu_item" v-if="userType === 1 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">驾驶员信息维护</span>
     </el-menu-item>
-    <el-menu-item index="4" class="menu_item" v-if="userType === 2">
+    <el-menu-item index="4" class="menu_item" v-if="userType === 2 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">调度承运任务</span>
     </el-menu-item>
-    <el-menu-item index="5" class="menu_item" v-if="userType === 3">
+    <el-menu-item index="5" class="menu_item" v-if="userType === 3 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">承运单开出</span>
     </el-menu-item>
-    <el-menu-item index="6" class="menu_item" v-if="userType === 3">
+    <el-menu-item index="6" class="menu_item" v-if="userType === 3 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">承运单接收</span>
     </el-menu-item>
-    <el-menu-item index="7" class="menu_item" v-if="userType === 4">
+    <el-menu-item index="7" class="menu_item" v-if="userType === 4 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">成本维护</span>
     </el-menu-item>
-    <el-menu-item index="8" class="menu_item" v-if="userType === 4">
+    <el-menu-item index="8" class="menu_item" v-if="userType === 4 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">成本核算</span>
     </el-menu-item>
-    <el-menu-item index="9" class="menu_item" v-if="userType === 2 || 4">
+    <el-menu-item index="9" class="menu_item" v-if="userType === 2 || userType ===4 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">运力综合</span>
     </el-menu-item>
-    <el-menu-item index="10" class="menu_item" v-if="userType === 2 || 4">
+    <el-menu-item index="10" class="menu_item" v-if="userType === 2 || userType ===4 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">历史承运任务</span>
     </el-menu-item>
-    <el-menu-item index="11" class="menu_item" v-if="userType === 5">
+    <el-menu-item index="11" class="menu_item" v-if="userType === 5 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">用户维护</span>
     </el-menu-item>
-    <el-menu-item index="12" class="menu_item" v-if="userType === 5">
+    <el-menu-item index="12" class="menu_item" v-if="userType === 5 || userType ===6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">系统维护</span>
     </el-menu-item>
-    <el-menu-item index="13" class="menu_item" v-if="userType === 5">
+    <el-menu-item index="13" class="menu_item" v-if="userType === 5 || userType === 6">
       <el-icon class="menu_item_icon">
-        <Reading />
+        <Reading/>
       </el-icon>
       <span class="menu_item_content">日志维护</span>
     </el-menu-item>
-    <div class="bottom">
+    <div class="bottom" v-if="userType!==6">
 
     </div>
   </el-menu>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import {defineComponent} from "vue";
 
 export default defineComponent({
-  name: "header",
+  name: "navigationBar",
   data() {
     return {
+      activeIndex:'0',
       data: "",
-      userType: 1,
+      userType: 2,
     };
   },
-  mounted() {},
+  mounted() {
+    this.ready();
+  },
   methods: {
-    menuSelect(index: string) {},
+    ready() {
+      //刷新页面保持侧边栏选中值
+      let route = this.$route.path
+      console.log(this.activeIndex+","+route)
+      switch (route){
+        case '/authentication/main' :
+          this.activeIndex = '0';
+          break;
+        case '/fleet/team' :
+          this.activeIndex = '1';
+          break;
+        case '/fleet/truck' :
+          this.activeIndex = '2';
+          break;
+        case '/fleet/driver' :
+          this.activeIndex = '3';
+          break;
+        case '/carrier/task/dispatch' :
+          this.activeIndex = '4';
+          break;
+        case '/carrier/bill/issue' :
+          this.activeIndex = '5';
+          break;
+        case '/carrier/bill/reception' :
+          this.activeIndex = '6';
+          break;
+        case '/cost/maintenance' :
+          this.activeIndex = '7';
+          break;
+        case '/cost/accounting' :
+          this.activeIndex = '8';
+          break;
+        case '/search/capacity' :
+          this.activeIndex = '9';
+          break;
+        case '/search/history' :
+          this.activeIndex = '10';
+          break;
+        case '/system/user' :
+          this.activeIndex = '11';
+          break;
+        case '/system/system' :
+          this.activeIndex = '12';
+          break;
+        case '/system/log' :
+          this.activeIndex = '13';
+          break;
+        default:
+          this.activeIndex = '0';
+          break;
+      }
+    },
+    menuSelect(index: string) {
+      //选中侧边栏后跳转到相应界面
+      switch (index) {
+        case '0' :
+          this.$router.push('/authentication/main');
+          this.activeIndex = '0';
+          break;
+        case '1' :
+          this.$router.push('/fleet/team');
+          this.activeIndex = '1';
+          break;
+        case '2' :
+          this.$router.push('/fleet/truck');
+          this.activeIndex = '2';
+          break;
+        case '3' :
+          this.$router.push('/fleet/driver');
+          this.activeIndex = '3';
+          break;
+        case '4' :
+          this.$router.push('/carrier/task/dispatch');
+          this.activeIndex = '4';
+          break;
+        case '5' :
+          this.$router.push('/carrier/bill/issue');
+          this.activeIndex = '5';
+          break;
+        case '6' :
+          this.$router.push('/carrier/bill/reception');
+          this.activeIndex = '6';
+          break;
+        case '7' :
+          this.$router.push('/cost/maintenance');
+          this.activeIndex = '7';
+          break;
+        case '8' :
+          this.$router.push('/cost/accounting');
+          this.activeIndex = '8';
+          break;
+        case '9' :
+          this.$router.push('/search/capacity');
+          this.activeIndex = '9';
+          break;
+        case '10' :
+          this.$router.push('/search/history');
+          this.activeIndex = '10';
+          break;
+        case '11' :
+          this.$router.push('/system/user');
+          this.activeIndex = '11';
+          break;
+        case '12' :
+          this.$router.push('/system/system');
+          this.activeIndex = '12';
+          break;
+        case '13' :
+          this.$router.push('/system/log');
+          this.activeIndex = '13';
+          break;
+        default:
+          this.$router.push('/authentication/main');
+          this.activeIndex = '0';
+          break;
+      }
+    },
   },
 });
 </script>

@@ -115,12 +115,13 @@ export default {
       },
     };
   },
-  mounted() {},
+  mounted() { this.newVertification()},
   methods: {
     newVertification() {
       let that = this;
       vertify()
         .then((res:any) => {
+          console.log(res)
           that.codeUrl= "data:image/gif;base64," + res.img;
         })
         .catch((err:any) => {
@@ -156,14 +157,18 @@ export default {
     //点击登录按钮
     submitForm() {
       //普通管理员登录系统
+      this.$router.push('/authentication/main')
       //调用登录接口
+
     },
     //点击系统管理员登录按钮
     superSubmitForm() {
       //系统管理员登录系统
-    },
-  },
-};
+      this.$router.push('/authentication/main')
+
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">

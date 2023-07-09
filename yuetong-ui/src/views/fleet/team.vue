@@ -92,7 +92,6 @@
 <script lang="ts">
 import welcomeHeader from "../../components/header.vue";
 import { defineComponent } from "vue";
-import { computed } from "vue";
 
 export default defineComponent({
   name: "team",

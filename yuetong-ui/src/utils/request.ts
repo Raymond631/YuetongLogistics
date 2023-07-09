@@ -5,8 +5,8 @@ import { Message } from "@element-plus/icons-vue";
 //导出request方法，供其它地方使用
 export function request(config: any) {
   const instance = axios.create({
-    // baseURL: "yuetong",
-    baseURL: "api/",
+    // baseURL: "/yuetong",
+    baseURL: "/api",
     timeout: 5000,
     // 'transformRequest' 允许在向服务器发送前，修改请求数据
     transformRequest: [
@@ -64,38 +64,20 @@ export function request(config: any) {
             err.message = "错误请求";
             break;
           case 401:
-            err.message = "未授权，请重新登录";
+            err.message = "未登录";
             break;
           case 403:
-            err.message = "拒绝访问";
+            err.message = "无权限";
             break;
           case 404:
             err.message = "请求错误,未找到该资源";
-            window.location.href = "/NotFound";
+            // window.location.href = "/NotFound";
             break;
           case 405:
             err.message = "请求方法未允许";
             break;
-          case 408:
-            err.message = "请求超时";
-            break;
           case 500:
-            err.message = "服务器端出错";
-            break;
-          case 501:
-            err.message = "网络未实现";
-            break;
-          case 502:
-            err.message = "网络错误";
-            break;
-          case 503:
-            err.message = "服务不可用";
-            break;
-          case 504:
-            err.message = "网络超时";
-            break;
-          case 505:
-            err.message = "http版本不支持该请求";
+            err.message = "系统内部错误";
             break;
           default:
             err.message = `连接错误${err.response.status}`;
@@ -103,11 +85,11 @@ export function request(config: any) {
       } else {
         // 超时处理
         if (JSON.stringify(err).includes("timeout")) {
-          Message.error("服务器响应超时，请刷新当前页");
+          console.log("服务器响应超时，请刷新当前页");
         }
         err.message = "连接服务器失败";
       }
-      Message.error(err.message);
+      console.log(err.message);
       throw err;
     }
   );
