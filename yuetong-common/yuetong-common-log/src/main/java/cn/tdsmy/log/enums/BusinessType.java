@@ -28,5 +28,10 @@ public enum BusinessType {
      * 查询
      */
     SELECT,
+
+    /**
+     * 导出
+     */
+    EXPORT
 }
 

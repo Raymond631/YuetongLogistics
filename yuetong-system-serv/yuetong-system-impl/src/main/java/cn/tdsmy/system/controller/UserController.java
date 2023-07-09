@@ -1,5 +1,8 @@
 package cn.tdsmy.system.controller;
 
+import cn.tdsmy.core.response.AjaxResult;
+import cn.tdsmy.log.annotation.Log;
+import cn.tdsmy.log.enums.BusinessType;
 import cn.tdsmy.system.beans.vo.LoginBody;
 import cn.tdsmy.system.beans.vo.UserInfoVO;
 import cn.tdsmy.system.service.UserService;
@@ -30,5 +33,11 @@ public class UserController {
     @GetMapping("/inner/permission")
     public List<String> getPermission(@RequestParam int roleId) {
         return userService.getPermission(roleId);
+    }
+
+    @GetMapping("/test")
+    @Log(title = "操作日志测试", businessType = BusinessType.OTHER)
+    public AjaxResult test() {
+        return AjaxResult.success();
     }
 }

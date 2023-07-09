@@ -72,4 +72,10 @@ public class OperateLog {
      */
     @Excel(name = "消耗时间", suffix = "毫秒")
     private Long costTime;
+
+    /**
+     * 错误消息
+     */
+    @Excel(name = "错误消息")
+    private String errorMsg;
 }

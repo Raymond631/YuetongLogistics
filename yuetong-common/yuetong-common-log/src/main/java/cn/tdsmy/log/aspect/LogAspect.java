@@ -9,11 +9,11 @@ import cn.tdsmy.system.feign.ISystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NamedThreadLocal;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -39,15 +39,22 @@ public class LogAspect {
     }
 
     /**
-     * 处理完请求后执行
+     * 处理完请求后执行(异步)
      */
     @AfterReturning(pointcut = "@annotation(controllerLog)", returning = "jsonResult")
     public void doAfterReturning(JoinPoint joinPoint, Log controllerLog, Object jsonResult) {
-        handleLog(joinPoint, controllerLog, jsonResult);
+        handleLog(joinPoint, controllerLog, null, jsonResult);
     }
 
-    @Async
-    protected void handleLog(final JoinPoint joinPoint, Log controllerLog, Object jsonResult) {
+    /**
+     * 拦截异常操作(异步)
+     */
+    @AfterThrowing(value = "@annotation(controllerLog)", throwing = "e")
+    public void doAfterThrowing(JoinPoint joinPoint, Log controllerLog, Exception e) {
+        handleLog(joinPoint, controllerLog, e, null);
+    }
+
+    protected void handleLog(final JoinPoint joinPoint, Log controllerLog, final Exception e, Object jsonResult) {
         try {
             OperateLog operateLog = new OperateLog();
             // 1.请求时间
@@ -68,9 +75,16 @@ public class LogAspect {
             operateLog.setStatus(BusinessStatus.SUCCESS.ordinal());
             // 9.请求消时
             operateLog.setCostTime(System.currentTimeMillis() - TIME_THREADLOCAL.get());
+            // 10.异常信息
+            if (e != null) {
+                operateLog.setStatus(BusinessStatus.FAIL.ordinal());
+                operateLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
+            }
 
-            // 保存数据库（异步）
-            iSystemService.saveOperateLog(operateLog);
+            // 保存数据库
+            Runnable task = () -> iSystemService.saveOperateLog(operateLog);
+            Thread thread = new Thread(task);
+            thread.start();
         } catch (Exception exp) {
             // 记录本地异常日志
             log.error("异常信息:{}", exp.getMessage());

@@ -39,7 +39,7 @@ public class LoginLog {
     /**
      * 地址
      */
-    @Excel(name = "地址")
+    @Excel(name = "IP地址")
     private String ipaddr;
 
     /**

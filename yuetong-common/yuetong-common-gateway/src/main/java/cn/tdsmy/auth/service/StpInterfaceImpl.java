@@ -4,6 +4,7 @@ import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.session.SaSessionCustomUtil;
 import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.tdsmy.core.constant.CacheConstants;
 import cn.tdsmy.system.feign.ISystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class StpInterfaceImpl implements StpInterface {
                 List<String> pList = completableFuture.join();
                 // 添加到缓存，以便下次使用
                 roleSession.set("Permission_List", pList);
+                // 设置过期时间，单位为“秒”
+                roleSession.updateTimeout(CacheConstants.PERMISSION_EXPIRATION);
                 return pList;
             });
             permissionList.addAll(list);
