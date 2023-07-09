@@ -92,12 +92,12 @@ export default defineComponent({
     },
     userLogin() {
       login(this.user)
-        .then((res) => {
+        .then((res:any) => {
           console.log("success");
           console.log(res)
         })
-        .catch((err) => {
-          console.log("defeat");
+        .catch((err:any) => {
+          console.log(err);
         });
     },
     menuSelect(index: string) {},

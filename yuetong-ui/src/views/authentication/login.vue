@@ -4,7 +4,12 @@
       <div class="left">
         <label class="title1">微信账号</label>
         <label class="title2">扫码完成微信账号绑定并登录</label>
-        <label class="title3"><img src="../../assets/images/weixin.jpg" alt="微信二维码" class="weixin"></label>
+        <label class="title3"
+          ><img
+            src="../../assets/images/weixin.jpg"
+            alt="微信二维码"
+            class="weixin"
+        /></label>
         <label class="title4">---------其他登录方式---------</label>
         <div class="login-methods">
           <div class="method-item">
@@ -15,34 +20,69 @@
       </div>
       <div class="right">
         <label class="title1">管理员登录</label>
-        <label class="title2">------------物流管理系统欢迎您的登录------------</label>
+        <label class="title2"
+          >------------物流管理系统欢迎您的登录------------</label
+        >
         <div label-width="70px" class="userForm">
           <div class="form-item">
             <label>用户名</label>
-            <input type="text" v-model="user.username" autocomplete="off" class="usernameInput"
-                   @blur="validateUsername"/>
+            <input
+              type="text"
+              v-model="user.username"
+              autocomplete="off"
+              class="usernameInput"
+              @blur="validateUsername"
+            />
           </div>
-          <label class="inputMsg usernameMsg" v-text="inputMsg.usernameMsg" v-if="inputMsg.usernameMsg!==''"></label>
+          <label
+            class="inputMsg usernameMsg"
+            v-text="inputMsg.usernameMsg"
+            v-if="inputMsg.usernameMsg !== ''"
+          ></label>
           <div class="form-item">
             <label>密码</label>
-            <input type="password" v-model="user.password" autocomplete="off" class="passwordInput"
-                   @blur="validatePassword">
+            <input
+              type="password"
+              v-model="user.password"
+              autocomplete="off"
+              class="passwordInput"
+              @blur="validatePassword"
+            />
           </div>
-          <label class="inputMsg passwordMsg" v-text="inputMsg.passwordMsg" v-if="inputMsg.passwordMsg!==''"></label>
+          <!-- <label class="inputMsg passwordMsg" v-text="inputMsg.passwordMsg" v-if="inputMsg.passwordMsg!==''"></label>
           <div class="form-item">
             <label>邮箱</label>
             <input type="text" v-model="user.email" class="emailInput" @blur="validateEmail">
-          </div>
-          <label class="inputMsg emailMsg" v-text="inputMsg.emailMsg" v-if="inputMsg.emailMsg!==''"></label>
+          </div> -->
+          <label
+            class="inputMsg emailMsg"
+            v-text="inputMsg.emailMsg"
+            v-if="inputMsg.emailMsg !== ''"
+          ></label>
           <div class="form-item check-item">
             <label>验证码</label>
-            <input v-model="user.checkCode" class="checkCodeInput"/>
-            <el-button type="primary" class="checkCodeBtn">获取验证码</el-button>
+            <input v-model="user.checkCode" class="checkCodeInput" />
+            <a class="checkCodeBtn"
+              ><img
+                :src="codeUrl"
+                alt="验证码"
+                class="code_img"
+                id="verificationCode"
+                @click="newVertification()"
+            /></a>
           </div>
-          <label class="inputMsg checkCodeMsg" v-text="inputMsg.checkCodeMsg" v-if="inputMsg.checkCodeMsg!==''"></label>
+          <label
+            class="inputMsg checkCodeMsg"
+            v-text="inputMsg.checkCodeMsg"
+            v-if="inputMsg.checkCodeMsg !== ''"
+          ></label>
           <div class="buttons-item">
-            <el-button type="primary" @click="submitForm()" class="loginBtn">登录</el-button>
-            <el-button @click="superSubmitForm()" class="registerBtn">系统管理员登录</el-button>
+            <el-button type="primary" @click="submitForm()" class="loginBtn"
+              >登录</el-button
+            >
+            <el-button @click="superSubmitForm()" class="registerBtn"
+              >系统管理员登录</el-button
+            >
           </div>
         </div>
       </div>
@@ -50,77 +90,80 @@
   </div>
 </template>
 
-
 <script lang="ts">
-import 'font-awesome/css/font-awesome.min.css';
-import {login, test} from "../../api/authentication/login";
+import "font-awesome/css/font-awesome.min.css";
+import { login, vertify } from "../../api/authentication/login";
 import axios from "axios";
 
 export default {
   name: "login",
   data() {
     return {
+      codeUrl: "",
       user: {
-        username: '',
-        password: '',
-        email: '',
-        checkCode: ''
+        username: "",
+        password: "",
+        email: "",
+        checkCode: "",
       },
       //表单input输入值格式判断
       inputMsg: {
-        usernameMsg: '',
-        passwordMsg: '',
-        emailMsg: '',
-        checkCodeMsg: ''
-      }
-    }
+        usernameMsg: "",
+        passwordMsg: "",
+        emailMsg: "",
+        checkCodeMsg: "",
+      },
+    };
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
+    newVertification() {
+      let that = this;
+      vertify()
+        .then((res:any) => {
+          that.codeUrl= "data:image/gif;base64," + res.img;
+        })
+        .catch((err:any) => {
+          console.log(err);
+        });
+    },
+
     //判断用户名、密码、邮箱的输入格式
     validateUsername() {
-      const usernameStr = this.user.username
+      const usernameStr = this.user.username;
       if (usernameStr == "") {
-        this.inputMsg.usernameMsg = "请输入用户名"
+        this.inputMsg.usernameMsg = "请输入用户名";
       } else {
-        this.inputMsg.usernameMsg = ""
+        this.inputMsg.usernameMsg = "";
       }
     },
     validatePassword() {
-      const passwordStr = this.user.password
+      const passwordStr = this.user.password;
       if (passwordStr == "") {
-        this.inputMsg.passwordMsg = "请输入密码"
+        this.inputMsg.passwordMsg = "请输入密码";
       } else {
-        this.inputMsg.passwordMsg = ""
+        this.inputMsg.passwordMsg = "";
       }
     },
     validateEmail() {
-      const emailStr = this.user.email
+      const emailStr = this.user.email;
       if (emailStr == "") {
-        this.inputMsg.emailMsg = "请输入邮箱账号"
+        this.inputMsg.emailMsg = "请输入邮箱账号";
       } else {
-        this.inputMsg.emailMsg = ""
+        this.inputMsg.emailMsg = "";
       }
     },
     //点击登录按钮
     submitForm() {
       //普通管理员登录系统
       //调用登录接口
-      test().then(res => {
-        console.log(res.data)
-      })
     },
     //点击系统管理员登录按钮
     superSubmitForm() {
       //系统管理员登录系统
-
-
-    }
-  }
-}
-
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -165,7 +208,10 @@ export default {
     border-radius: 20px 0 0 20px;
     text-align: center;
 
-    .title1, .title2, .title3, .title4 {
+    .title1,
+    .title2,
+    .title3,
+    .title4 {
       display: block;
       @include font-left;
     }
@@ -176,7 +222,8 @@ export default {
       color: #ffffff;
     }
 
-    .title2, .title4 {
+    .title2,
+    .title4 {
       margin-top: 30px;
       font-size: 15px;
       color: #e7e6e6;
@@ -185,7 +232,6 @@ export default {
     .weixin {
       width: 200px;
     }
-
   }
 
   .right {

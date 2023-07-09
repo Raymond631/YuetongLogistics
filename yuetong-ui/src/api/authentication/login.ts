@@ -8,9 +8,10 @@ export function login(data:any) {
         data,
     })
 }
-export function test(){
+
+export function vertify() {
     return request({
-        url:'/m1/2962122-0-default/fleet/team',
-        method:'get',
-    })
+        url: 'auth/code',
+        method: 'get',
+    })  
 }
