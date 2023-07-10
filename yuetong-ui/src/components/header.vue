@@ -35,7 +35,7 @@ export default defineComponent({
     goBack() {
     },
     ready() {
-      //刷新页面保持侧边栏选中值
+      //刷新页面更新顶部页面标题
       let route = this.$route.path
       switch (route) {
         case '/authentication/main' :

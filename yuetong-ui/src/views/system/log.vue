@@ -11,6 +11,16 @@
             :tableContent="operateLog_data"
             :tableHeight="670"
           />
+          <!-- 分页 -->
+          <div class="page">
+            <el-pagination
+                v-model:currentPage="paginationConfig.currentPage"
+                layout="total, prev, pager, next"
+                :page-size="paginationConfig.pageSize"
+                :total="paginationConfig.total"
+                @current-change="handlePageChange"
+            />
+          </div>
         </el-tab-pane>
         <el-tab-pane label="登录日志" name="loginLog">
           <ytTable
@@ -19,6 +29,17 @@
             :tableContent="loginLog_data"
             :tableHeight="700"
           />
+          <!-- 分页 -->
+          <div class="page">
+            <el-pagination
+                v-model:currentPage="paginationConfig.currentPage"
+                layout="total, prev, pager, next"
+                :page-size="paginationConfig.pageSize"
+                :total="paginationConfig.total"
+                :page-count="paginationConfig.pageCount"
+                @current-change="handlePageChange"
+            />
+          </div>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -37,6 +58,12 @@ export default defineComponent({
   data() {
     return {
       data: "",
+      paginationConfig: {
+        currentPage: 1, // 当前页码
+        pageSize: 2, // 每页显示的条数
+        pageCount: 1, //总共有多少页
+        total: 0, // 总条数
+      },
       logName: "operateLog",
       operateLog: {
         number: 11,
@@ -220,20 +247,31 @@ export default defineComponent({
   },
   methods: {
     ready() {
-      operateLog()
+      operateLog(this.paginationConfig.currentPage, this.paginationConfig.pageSize)
         .then((res: any) => {
-          // this.operateLog_data = res.data.list;
+
+          this.operateLog_data = res.data.list;
+          // this.paginationConfig.pageSize = res.data.pageSize;
+          this.paginationConfig.pageCount = res.data.pages;
+          // this.paginationConfig.total = res.data.size;
+          this.paginationConfig.total = res.data.list.length;
+
         })
         .catch((err: any) => {
           console.log(err);
         });
-      loginlog()
+      loginlog(this.paginationConfig.pageSize, this.paginationConfig.currentPage)
         .then((res: any) => {
           this.loginLog_data = res.data.list;
         })
         .catch((err: any) => {
           console.log(err);
         });
+    },
+    handlePageChange(val: number){
+      this.paginationConfig.currentPage = val;
+      console.log('当前页面数为：'+val)
+      this.ready();
     },
 
     goBack() {},

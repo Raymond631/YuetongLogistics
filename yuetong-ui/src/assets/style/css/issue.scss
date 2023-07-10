@@ -5,3 +5,90 @@
     background-color: $back_color;
   }
 }
+
+@mixin card($width,$height) {
+  background-color: #ffffff;
+  border-radius: 15px;
+  width: $width;
+  height: $height;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  display: grid;
+  .title {
+    font: {
+      family: coca_cola;
+      size: 30px;
+    }
+    height:50px;
+    margin:20px auto 0;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    height: 50px;
+
+    label {
+      width: 70px;
+      margin-left: 60px;
+    }
+
+    .el-input {
+      margin-left:10px;
+      width: $width - 200px;
+      height: 40px;
+    }
+  }
+}
+
+.main-form {
+  width: 1600px;
+  height: 510px;
+  margin: 0 auto;
+  .form {
+    width: 1200px;
+    margin-top:30px;
+    margin-left: 100px;
+    display: flex;
+
+    .sender {
+      @include card(600px,450px);
+    }
+
+    .receiver {
+      @include card(600px,450px);
+      margin-left: 30px;
+    }
+
+  }
+  .details {
+    @include card(1200px,300px);
+    margin-top:40px;
+    margin-left: 100px;
+    .detail{
+      display: flex;
+      flex-wrap:wrap;
+      .item{
+        margin-left:40px;
+        .el-input {
+          margin-left:10px;
+          width: 350px;
+          height: 40px;
+        }
+      }
+    }
+    .actions {
+      width:600px;
+      display: flex;
+      margin-top:20px;
+      margin-left: 400px;
+      .el-button {
+        margin-left: 70px;
+        width:100px;
+        height: 40px;
+        font-size: large;
+      }
+    }
+  }
+
+}
