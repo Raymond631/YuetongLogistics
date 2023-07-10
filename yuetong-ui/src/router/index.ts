@@ -104,6 +104,7 @@ const router = createRouter({
 
 //全局前置路由守卫————初始化的时候被调用、每次路由切换之前被调用
 // router.beforeEach((to, from, next) => {
+//   console.log("inRouter")
 //   if (to.meta.isAuth) {
 //     if (storage.get("token") != "") {
 //       next(); //放行

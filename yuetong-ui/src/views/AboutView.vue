@@ -22,7 +22,9 @@ export default defineComponent({
     return {
       data1: {
         number: 4,
+        select:true,
         action: true,
+        tag:false,
         columns: [
           { label: "姓名", content: "name" },
           { label: "联系方式", content: "qq" },
@@ -30,6 +32,7 @@ export default defineComponent({
           { label: "对象", content: "lover" },
         ],
         actions: {
+          specific:false,
           edit: true,
           delete: true,
         },
@@ -92,12 +95,12 @@ export default defineComponent({
     },
     userLogin() {
       login(this.user)
-        .then((res) => {
+        .then((res:any) => {
           console.log("success");
           console.log(res)
         })
-        .catch((err) => {
-          console.log("defeat");
+        .catch((err:any) => {
+          console.log(err);
         });
     },
     menuSelect(index: string) {},

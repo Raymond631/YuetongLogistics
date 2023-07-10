@@ -16,9 +16,8 @@
           </div>
         </div>
       </div>
-
       <div class="user-main">
-        <div class="user-block" v-for="user in userList">
+        <div class="user-block" v-for="user in userList" :key="user">
           <div class="basic-info">
             <el-avatar type="image" :src="user.image" class="image"></el-avatar>
             <div class="right-info">

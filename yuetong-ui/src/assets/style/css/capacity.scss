@@ -2,7 +2,14 @@
   .content {
     margin-left: $Mleft;
     height: $max_height;
-    //background-color: $back_color;
-    background-color: #f6f6f6;
+    background-color: $back_color;
+    .logTabs{
+      margin-left: 7%;
+      width: 86%;
+      margin-top: 10px;
+      // background-color: aqua;
+      font-size: 17px;
+      overflow: hidden;
+    }
   }
 }

@@ -14,7 +14,8 @@
         <div v-for="column in tableInfo.columns" :key="column">
           {{ column.column }}
         </div>
-        <el-table-column type="selection"> </el-table-column>
+        <el-table-column type="selection" v-if="tableInfo.select">
+        </el-table-column>
         <el-table-column
           v-for="column in tableInfo.columns"
           :key="column"
@@ -22,7 +23,37 @@
           :prop="column.content"
         >
         </el-table-column>
+        <el-table-column
+          prop="tag"
+          label="状态"
+          width="100"
+          filter-placement="bottom-end"
+          v-if="tableInfo.tag"
+        >
+          <template #default="scope">
+            <el-tag
+              :type="
+                scope.row.status == 'failed'
+                  ? 'danger'
+                  : scope.row.status == 'success'
+                  ? 'success'
+                  : scope.row.status == 2
+                  ? 'info'
+                  : ''
+              "
+              disable-transitions
+              >{{ scope.row.status }}
+            </el-tag>
+          </template>
+        </el-table-column>
         <el-table-column v-if="tableInfo.action" label="操作">
+          <el-button
+            size="default"
+            type="info"
+            @click="specificInfo"
+            v-if="tableInfo.actions.specific"
+            >详情</el-button
+          >
           <el-button
             size="default"
             @click="editRow"
@@ -140,7 +171,6 @@ export default defineComponent({
       }
       return "";
     },
-    
 
     //编辑
     editRow() {
@@ -150,6 +180,8 @@ export default defineComponent({
     },
     //删除
     deleteRow() {},
+
+    specificInfo() {},
 
     //编辑表单的确认和取消按钮
     confirmEdit() {
@@ -169,13 +201,13 @@ export default defineComponent({
 @import "../assets/style/components/yt-table.scss";
 
 .table {
-      border-radius: 20px;
-      width: 1500px;
-      margin-top: 20px;
-      .el-table_1_column_2 .el-table__cell{
-        background-color: aqua;
-      }
-    }
+  border-radius: 20px;
+  width: 100%;
+  margin-top: 20px;
+  .el-table_1_column_2 .el-table__cell {
+    background-color: aqua;
+  }
+}
 .mask {
   background-color: rgb(0, 0, 0);
   opacity: 0.3;

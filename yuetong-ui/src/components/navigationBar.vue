@@ -17,73 +17,73 @@
       </el-icon>
       <span class="menu_item_content">首页</span>
     </el-menu-item>
-    <el-menu-item index="1" class="menu_item" v-if="userType === 1 || userType === 6">
+    <el-menu-item index="1" class="menu_item" v-if="userType === 1 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
       <span class="menu_item_content">车队信息管理</span>
     </el-menu-item>
-    <el-menu-item index="2" class="menu_item" v-if="userType === 1 || userType === 6">
+    <el-menu-item index="2" class="menu_item" v-if="userType === 1 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
       <span class="menu_item_content">车辆信息维护</span>
     </el-menu-item>
-    <el-menu-item index="3" class="menu_item" v-if="userType === 1 || userType === 6">
+    <el-menu-item index="3" class="menu_item" v-if="userType === 1 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
       <span class="menu_item_content">驾驶员信息维护</span>
     </el-menu-item>
-    <el-menu-item index="4" class="menu_item" v-if="userType === 2 || userType === 6">
+    <el-menu-item index="4" class="menu_item" v-if="userType === 2 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
       <span class="menu_item_content">调度承运任务</span>
     </el-menu-item>
-    <el-menu-item index="5" class="menu_item" v-if="userType === 3 || userType === 6">
+    <el-menu-item index="5" class="menu_item" v-if="userType === 3 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
       <span class="menu_item_content">承运单开出</span>
     </el-menu-item>
-    <el-menu-item index="6" class="menu_item" v-if="userType === 3 || userType === 6">
+    <el-menu-item index="6" class="menu_item" v-if="userType === 3 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
       <span class="menu_item_content">承运单接收</span>
     </el-menu-item>
-    <el-menu-item index="7" class="menu_item" v-if="userType === 4 || userType === 6">
+    <el-menu-item index="7" class="menu_item" v-if="userType === 4 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
       <span class="menu_item_content">成本维护</span>
     </el-menu-item>
-    <el-menu-item index="8" class="menu_item" v-if="userType === 4 || userType === 6">
+    <el-menu-item index="8" class="menu_item" v-if="userType === 4 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
       <span class="menu_item_content">成本核算</span>
     </el-menu-item>
-    <el-menu-item index="9" class="menu_item" v-if="userType === 2 || userType === 4 || userType === 6">
+    <el-menu-item index="9" class="menu_item" v-if="userType === 2 || userType ===4 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
       <span class="menu_item_content">运力综合</span>
     </el-menu-item>
-    <el-menu-item index="10" class="menu_item" v-if="userType === 2 || userType === 4 || userType === 6">
+    <el-menu-item index="10" class="menu_item" v-if="userType === 2 || userType ===4 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
       <span class="menu_item_content">历史承运任务</span>
     </el-menu-item>
-    <el-menu-item index="11" class="menu_item" v-if="userType === 5 || userType === 6">
+    <el-menu-item index="11" class="menu_item" v-if="userType === 5 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
       <span class="menu_item_content">用户维护</span>
     </el-menu-item>
-    <el-menu-item index="12" class="menu_item" v-if="userType === 5 || userType === 6">
+    <el-menu-item index="12" class="menu_item" v-if="userType === 5 || userType ===6">
       <el-icon class="menu_item_icon">
         <Reading/>
       </el-icon>
@@ -105,12 +105,12 @@
 import {defineComponent} from "vue";
 
 export default defineComponent({
-  name: "header",
+  name: "navigationBar",
   data() {
     return {
       activeIndex:'0',
       data: "",
-      userType: 6,
+      userType: 2,
     };
   },
   mounted() {
@@ -121,7 +121,6 @@ export default defineComponent({
       //刷新页面保持侧边栏选中值
       let route = this.$route.path
       console.log(this.activeIndex+","+route)
-      console.log(this.userType)
       switch (route){
         case '/authentication/main' :
           this.activeIndex = '0';
