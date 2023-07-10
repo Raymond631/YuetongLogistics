@@ -1,0 +1,30 @@
+server:
+  port: 11100
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/yuetong?&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: transport-dao
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        service: transport-dao
+        heart-beat-interval: 5000
+        heart-beat-timeout: 20000
+        metadata:
+          data: test
+        naming-load-cache-at-start: false
+        namespace: dev
+        group: transport
+        register-enabled: true
+
+logging:
+  level:
+    com.broadview.coupon: debug
