@@ -9,7 +9,7 @@
             class="table"
             :tableInfo="operateLog"
             :tableContent="operateLog_data"
-            :tableHeight="700"
+            :tableHeight="670"
           />
         </el-tab-pane>
         <el-tab-pane label="登录日志" name="loginLog">
@@ -79,7 +79,138 @@ export default defineComponent({
           delete: true,
         },
       },
-      operateLog_data: [],
+      operateLog_data: [
+        {
+          operId: 1,
+          operTime: "2023-07-09 01:16:17",
+          operName: "abc",
+          operIp: "127.0.0.1",
+          title: "操作日志测试",
+          businessType: "0",
+          requestMethod: "GET",
+          operUrl: "/system/test",
+          status: "0",
+          costTime: 12,
+          errorMsg: null,
+        },
+        {
+          operId: 1,
+          operTime: "2023-07-09 01:16:17",
+          operName: "abc",
+          operIp: "127.0.0.1",
+          title: "操作日志测试",
+          businessType: "0",
+          requestMethod: "GET",
+          operUrl: "/system/test",
+          status: "0",
+          costTime: 12,
+          errorMsg: null,
+        },
+        {
+          operId: 1,
+          operTime: "2023-07-09 01:16:17",
+          operName: "abc",
+          operIp: "127.0.0.1",
+          title: "操作日志测试",
+          businessType: "0",
+          requestMethod: "GET",
+          operUrl: "/system/test",
+          status: "0",
+          costTime: 12,
+          errorMsg: null,
+        },
+        {
+          operId: 1,
+          operTime: "2023-07-09 01:16:17",
+          operName: "abc",
+          operIp: "127.0.0.1",
+          title: "操作日志测试",
+          businessType: "0",
+          requestMethod: "GET",
+          operUrl: "/system/test",
+          status: "0",
+          costTime: 12,
+          errorMsg: null,
+        },
+        {
+          operId: 1,
+          operTime: "2023-07-09 01:16:17",
+          operName: "abc",
+          operIp: "127.0.0.1",
+          title: "操作日志测试",
+          businessType: "0",
+          requestMethod: "GET",
+          operUrl: "/system/test",
+          status: "0",
+          costTime: 12,
+          errorMsg: null,
+        },
+        {
+          operId: 1,
+          operTime: "2023-07-09 01:16:17",
+          operName: "abc",
+          operIp: "127.0.0.1",
+          title: "操作日志测试",
+          businessType: "0",
+          requestMethod: "GET",
+          operUrl: "/system/test",
+          status: "0",
+          costTime: 12,
+          errorMsg: null,
+        },
+        {
+          operId: 1,
+          operTime: "2023-07-09 01:16:17",
+          operName: "abc",
+          operIp: "127.0.0.1",
+          title: "操作日志测试",
+          businessType: "0",
+          requestMethod: "GET",
+          operUrl: "/system/test",
+          status: "0",
+          costTime: 12,
+          errorMsg: null,
+        },
+        {
+          operId: 1,
+          operTime: "2023-07-09 01:16:17",
+          operName: "abc",
+          operIp: "127.0.0.1",
+          title: "操作日志测试",
+          businessType: "0",
+          requestMethod: "GET",
+          operUrl: "/system/test",
+          status: "0",
+          costTime: 12,
+          errorMsg: null,
+        },
+        {
+          operId: 1,
+          operTime: "2023-07-09 01:16:17",
+          operName: "abc",
+          operIp: "127.0.0.1",
+          title: "操作日志测试",
+          businessType: "0",
+          requestMethod: "GET",
+          operUrl: "/system/test",
+          status: "0",
+          costTime: 12,
+          errorMsg: null,
+        },
+        {
+          operId: 1,
+          operTime: "2023-07-09 01:16:17",
+          operName: "abc",
+          operIp: "127.0.0.1",
+          title: "操作日志测试",
+          businessType: "0",
+          requestMethod: "GET",
+          operUrl: "/system/test",
+          status: "0",
+          costTime: 12,
+          errorMsg: null,
+        },
+      ],
       loginLog_data: [],
     };
   },
@@ -91,7 +222,7 @@ export default defineComponent({
     ready() {
       operateLog()
         .then((res: any) => {
-          this.operateLog_data = res.data.list;
+          // this.operateLog_data = res.data.list;
         })
         .catch((err: any) => {
           console.log(err);

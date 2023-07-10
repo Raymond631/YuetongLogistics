@@ -68,7 +68,9 @@ export default defineComponent({
           delete: false,
         },
       },
-      team_data: [],
+      team_data: [
+        
+      ],
       truck_data: [],
     };
   },
@@ -80,6 +82,7 @@ export default defineComponent({
     ready(){
       capacityTeam()
       .then((res:any)=>{
+
         // this.team_data = res.data;
       })
       .catch((err:any)=>{
