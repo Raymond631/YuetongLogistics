@@ -46,8 +46,8 @@ public class OperateLog {
     /**
      * 业务类型
      */
-    @Excel(name = "业务类型", readConverterExp = "0=其它,1=新增,2=删除,3=修改,,4=查询,5=导出")
-    private Integer businessType;
+    @Excel(name = "业务类型")
+    private String businessType;
 
     /**
      * 请求方法
@@ -64,8 +64,8 @@ public class OperateLog {
     /**
      * 操作状态（0正常 1异常）
      */
-    @Excel(name = "状态", readConverterExp = "0=正常,1=异常")
-    private Integer status;
+    @Excel(name = "状态")
+    private String status;
 
     /**
      * 消耗时间

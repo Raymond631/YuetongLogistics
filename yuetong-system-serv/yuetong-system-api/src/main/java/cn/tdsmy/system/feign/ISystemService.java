@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(value = "yuetong-system-impl", path = "/system")
+@FeignClient(value = "yuetong-system-impl", path = "/inner")
 public interface ISystemService {
-    @PostMapping("/inner/checkPwd")
+    @PostMapping("/checkPwd")
     public UserInfoVO checkPwd(@RequestBody LoginBody loginBody);
 
-    @GetMapping("/inner/roleId")
+    @GetMapping("/roleId")
     public int getRoleId(@RequestParam String account);
 
-    @GetMapping("/inner/permission")
+    @GetMapping("/permission")
     public List<String> getPermission(@RequestParam int roleId);
 
-    @PostMapping("/log/operateLog")
+    @PostMapping("/operateLog")
     public AjaxResult saveOperateLog(@RequestBody OperateLog operateLog);
 
-    @PostMapping("/log/loginLog")
+    @PostMapping("/loginLog")
     public AjaxResult saveLoginLog(@RequestBody LoginLog loginLog);
 }

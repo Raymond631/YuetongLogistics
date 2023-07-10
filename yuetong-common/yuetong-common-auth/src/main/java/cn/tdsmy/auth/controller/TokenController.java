@@ -36,7 +36,7 @@ public class TokenController {
             loginLogService.recordLoginLog(loginBody.getAccount(), "success", "登录成功");
             return AjaxResult.success("登录成功", userInfoVO);
         } else {
-            loginLogService.recordLoginLog(loginBody.getAccount(), "fail", "用户名或密码错误");
+            loginLogService.recordLoginLog(loginBody.getAccount(), "failed", "用户名或密码错误");
             return AjaxResult.error("用户名或密码错误");
         }
     }

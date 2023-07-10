@@ -6,6 +6,8 @@ import cn.tdsmy.system.mapper.LogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LogService {
     @Autowired
@@ -17,5 +19,13 @@ public class LogService {
 
     public void saveLog(LoginLog loginLog) {
         logMapper.insertLoginLog(loginLog);
+    }
+
+    public List<OperateLog> getOperateLog() {
+        return logMapper.selectOperateLog();
+    }
+
+    public List<LoginLog> getLoginLog() {
+        return logMapper.selectLoginLog();
     }
 }

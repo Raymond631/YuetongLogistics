@@ -11,7 +11,7 @@
  Target Server Version : 80033
  File Encoding         : 65001
 
- Date: 07/07/2023 16:43:17
+ Date: 09/07/2023 09:57:59
 */
 
 SET NAMES utf8mb4;
@@ -23,14 +23,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `carriers`;
 CREATE TABLE `carriers`  (
   `carriers_id` int NOT NULL AUTO_INCREMENT COMMENT '承运单编号（字段自动编号）',
-  `send_company` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '发货单位',
+  `send_company` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '发货单位',
   `send_address` varchar(100) CHARACTER SET armscii8 COLLATE armscii8_general_ci NULL DEFAULT NULL COMMENT '发货单位地址',
-  `send_linkman` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '发货人',
-  `send_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '发货人电话',
-  `receive_company` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '收货单位',
-  `fk_receive_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '收货单位地址',
-  `receive_linkman` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '收货人/联系人',
-  `receive_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '收货人电话/联系人电话',
+  `send_linkman` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '发货人',
+  `send_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '发货人电话',
+  `receive_company` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收货单位',
+  `fk_receive_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收货单位地址',
+  `receive_linkman` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收货人/联系人',
+  `receive_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收货人电话/联系人电话',
   `leaver_date` datetime NULL DEFAULT NULL COMMENT '承运日期',
   `receive_date` datetime NULL DEFAULT NULL COMMENT '收货时间',
   `finished_state` tinyint NOT NULL COMMENT '完成情况：0:待调度 1:已调度 2:已签收 3:已结算',
@@ -38,7 +38,7 @@ CREATE TABLE `carriers`  (
   `transport_cost` float NULL DEFAULT NULL COMMENT '运费',
   `other_cost` float NULL DEFAULT NULL COMMENT '其他费用',
   `total_cost` float NULL DEFAULT NULL COMMENT '合计费用',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   `fk_user_id` int NOT NULL COMMENT '业务员',
   `check_in_time` datetime NOT NULL COMMENT '录入时间',
   `is_delete` tinyint NOT NULL COMMENT '数据记录状态 : 0:使用中 1:该记录已删',
@@ -46,7 +46,7 @@ CREATE TABLE `carriers`  (
   PRIMARY KEY (`carriers_id`) USING BTREE,
   INDEX `FK_Carriers_User`(`fk_user_id` ASC) USING BTREE,
   CONSTRAINT `FK_Carriers_User` FOREIGN KEY (`fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '承运单信息表用于存放和管理承运单信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '承运单信息表用于存放和管理承运单信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of carriers
@@ -65,7 +65,7 @@ CREATE TABLE `contact`  (
   INDEX `FK_Contact_Truck`(`fk_truck_id` ASC) USING BTREE,
   CONSTRAINT `FK_Contact_Driver` FOREIGN KEY (`fk_driver_id`) REFERENCES `driver` (`driver_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Contact_Truck` FOREIGN KEY (`fk_truck_id`) REFERENCES `truck` (`truck_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车辆司机关联表用于连接车辆与驾驶员' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '车辆司机关联表用于连接车辆与驾驶员' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of contact
@@ -77,21 +77,21 @@ CREATE TABLE `contact`  (
 DROP TABLE IF EXISTS `driver`;
 CREATE TABLE `driver`  (
   `driver_id` int NOT NULL AUTO_INCREMENT COMMENT '司机编号（字段自动编号）',
-  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '司机姓名',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '司机姓名',
   `sex` tinyint NULL DEFAULT NULL COMMENT '性别 ： 0男 1女',
   `birth` datetime NULL DEFAULT NULL COMMENT '出生日期',
-  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '联系电话',
-  `id_card` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '身份证号码',
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '联系电话',
+  `id_card` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '身份证号码',
   `fk_team_id` int NULL DEFAULT NULL COMMENT '车队编号',
   `state` tinyint NULL DEFAULT NULL COMMENT '工作状态 : 1:承运中 2:空闲',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   `check_in_time` datetime NULL DEFAULT NULL COMMENT '加入时间',
   `is_delete` tinyint NULL DEFAULT NULL COMMENT '数据记录状态 : 0:使用中 1:该记录已删除',
   `alter_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`driver_id`) USING BTREE,
   INDEX `FK_Driver_TruckTeam`(`fk_team_id` ASC) USING BTREE,
   CONSTRAINT `FK_Driver_TruckTeam` FOREIGN KEY (`fk_team_id`) REFERENCES `truck_team` (`team_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '驾驶员信息表用于存放和管理驾驶员信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '驾驶员信息表用于存放和管理驾驶员信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of driver
@@ -103,7 +103,7 @@ CREATE TABLE `driver`  (
 DROP TABLE IF EXISTS `goods`;
 CREATE TABLE `goods`  (
   `goods_id` int NOT NULL AUTO_INCREMENT COMMENT '货物编号（字段自动编号）',
-  `goods_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '货物名称',
+  `goods_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '货物名称',
   `amount` int NULL DEFAULT NULL COMMENT '货物数量',
   `weight` float NULL DEFAULT NULL COMMENT '货物重量',
   `volume` float NULL DEFAULT NULL COMMENT '货物体积',
@@ -112,25 +112,60 @@ CREATE TABLE `goods`  (
   PRIMARY KEY (`goods_id`) USING BTREE,
   INDEX `FK_Goods_Carriers`(`fk_carriers_id` ASC) USING BTREE,
   CONSTRAINT `FK_Goods_Carriers` FOREIGN KEY (`fk_carriers_id`) REFERENCES `carriers` (`carriers_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '货物单信息表用于存放和管理货物单信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '货物单信息表用于存放和管理货物单信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for log_dic
+-- Table structure for log_login
 -- ----------------------------
-DROP TABLE IF EXISTS `log_dic`;
-CREATE TABLE `log_dic`  (
-  `type_id` int NOT NULL AUTO_INCREMENT COMMENT '类型 ID（字段自动编号）',
-  `type_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型名',
-  PRIMARY KEY (`type_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统日志信息表用于存放系统日志' ROW_FORMAT = Dynamic;
+DROP TABLE IF EXISTS `log_login`;
+CREATE TABLE `log_login`  (
+  `info_id` bigint NOT NULL AUTO_INCREMENT COMMENT '序号(自增)',
+  `account` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户账号',
+  `status` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '登录状态',
+  `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '描述',
+  `ipaddr` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ip地址',
+  `access_time` datetime NOT NULL COMMENT '访问时间',
+  PRIMARY KEY (`info_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of log_dic
+-- Records of log_login
 -- ----------------------------
+INSERT INTO `log_login` VALUES (1, 'abc', 'success', '登录成功', '127.0.0.1', '2023-07-09 09:06:28');
+INSERT INTO `log_login` VALUES (2, 'abc', 'success', '登录成功', '127.0.0.1', '2023-07-09 09:15:56');
+
+-- ----------------------------
+-- Table structure for log_operate
+-- ----------------------------
+DROP TABLE IF EXISTS `log_operate`;
+CREATE TABLE `log_operate`  (
+  `oper_id` bigint NOT NULL AUTO_INCREMENT COMMENT '操作序号',
+  `oper_time` datetime NOT NULL COMMENT '操作时间',
+  `oper_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '操作人员account',
+  `oper_ip` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '源ip地址',
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '操作模块',
+  `business_type` int NOT NULL COMMENT '业务类型(0=其它,1=新增,2=删除,3=修改,,4=查询,5=导出)',
+  `request_method` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '请求方法',
+  `oper_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '请求地址',
+  `status` int NOT NULL COMMENT '操作状态(0=正常,1=异常)',
+  `cost_time` bigint NOT NULL COMMENT '消耗时间(ms)',
+  `error_msg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '错误消息',
+  PRIMARY KEY (`oper_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of log_operate
+-- ----------------------------
+INSERT INTO `log_operate` VALUES (1, '2023-07-09 09:16:17', 'abc', '127.0.0.1', '操作日志测试', 0, 'GET', '/system/test', 0, 12, NULL);
+INSERT INTO `log_operate` VALUES (2, '2023-07-09 09:19:28', 'abc', '127.0.0.1', '操作日志测试', 0, 'GET', '/system/test', 0, 1, NULL);
+INSERT INTO `log_operate` VALUES (3, '2023-07-09 09:22:22', 'abc', '127.0.0.1', '操作日志测试', 0, 'GET', '/system/test', 0, 1, NULL);
+INSERT INTO `log_operate` VALUES (4, '2023-07-09 09:40:34', 'abc', '127.0.0.1', '操作日志测试', 0, 'GET', '/system/test', 1, 13, '异常测试');
+INSERT INTO `log_operate` VALUES (5, '2023-07-09 09:42:29', 'abc', '127.0.0.1', '操作日志测试', 0, 'GET', '/system/test', 0, 13, NULL);
+INSERT INTO `log_operate` VALUES (6, '2023-07-09 09:54:55', 'abc', '127.0.0.1', '操作日志测试', 0, 'GET', '/system/test', 0, 10, NULL);
 
 -- ----------------------------
 -- Table structure for role
@@ -138,15 +173,15 @@ CREATE TABLE `log_dic`  (
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`  (
   `role_id` int NOT NULL AUTO_INCREMENT COMMENT '角色编号（字段自动编号）',
-  `role_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色名称',
-  `role_purview` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色权限，多个权限用 / 区分',
+  `role_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '角色名称',
+  `role_purview` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '角色权限，多个权限用 / 区分',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统角色表用于存放系统权限数据，管理用户权限' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统角色表用于存放系统权限数据，管理用户权限' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES (1, '承运业务员', 'a/123');
+INSERT INTO `role` VALUES (1, '承运业务员', 'a/123/system');
 
 -- ----------------------------
 -- Table structure for scheduling
@@ -163,7 +198,7 @@ CREATE TABLE `scheduling`  (
   `other_cost` float NULL DEFAULT NULL COMMENT '其他费用',
   `total_cost` float NULL DEFAULT NULL COMMENT '合计成本',
   `fk_user_id` int NULL DEFAULT NULL COMMENT '调度员',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   `check_in_time` datetime NULL DEFAULT NULL COMMENT '调度时间',
   `is_delete` tinyint NOT NULL COMMENT '数据记录状态 : 0:使用中 1:该记录已删除',
   `alter_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
@@ -172,36 +207,10 @@ CREATE TABLE `scheduling`  (
   INDEX `FK_Scheduling_User`(`fk_user_id` ASC) USING BTREE,
   CONSTRAINT `FK_Scheduling_Truck` FOREIGN KEY (`fk_truck_id`) REFERENCES `truck` (`truck_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Scheduling_User` FOREIGN KEY (`fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '调度作业信息表用于存放和管理调度作业信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '调度作业信息表用于存放和管理调度作业信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of scheduling
--- ----------------------------
-
--- ----------------------------
--- Table structure for sys_log
--- ----------------------------
-DROP TABLE IF EXISTS `sys_log`;
-CREATE TABLE `sys_log`  (
-  `log_id` int NOT NULL AUTO_INCREMENT COMMENT '日志编号（字段自动编号）',
-  `behavior` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作行为',
-  `fk_type_id` int NULL DEFAULT NULL COMMENT '行为类型',
-  `fk_user_id` int NULL DEFAULT NULL COMMENT '用户ID',
-  `parameters` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '参数',
-  `proc_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '存储过程名',
-  `ip` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登录 IP',
-  `check_in_time` datetime NULL DEFAULT NULL COMMENT '写入时间',
-  `exception` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '异常信息详情',
-  `is_exception` tinyint NULL DEFAULT NULL COMMENT '0：正常 1：异常',
-  PRIMARY KEY (`log_id`) USING BTREE,
-  INDEX `FK_SysLog_LogDic`(`fk_type_id` ASC) USING BTREE,
-  INDEX `FK_SysLog_User`(`fk_user_id` ASC) USING BTREE,
-  CONSTRAINT `FK_SysLog_LogDic` FOREIGN KEY (`fk_type_id`) REFERENCES `log_dic` (`type_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_SysLog_User` FOREIGN KEY (`fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统日志信息表用于存放系统日志' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_log
 -- ----------------------------
 
 -- ----------------------------
@@ -210,20 +219,20 @@ CREATE TABLE `sys_log`  (
 DROP TABLE IF EXISTS `truck`;
 CREATE TABLE `truck`  (
   `truck_id` int NOT NULL AUTO_INCREMENT COMMENT '车辆编号（字段自动编号）',
-  `number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '车牌号码',
+  `number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '车牌号码',
   `buy_date` datetime NULL DEFAULT NULL COMMENT '购车日期',
-  `type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '车辆类型',
+  `type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '车辆类型',
   `tonnage` int NULL DEFAULT NULL COMMENT '吨位',
   `fk_team_id` int NULL DEFAULT NULL COMMENT '所属车队编号',
   `state` tinyint NULL DEFAULT NULL COMMENT '工作状态 : 1:承运中 2:空闲',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   `check_in_time` datetime NULL DEFAULT NULL COMMENT '加入时间',
   `is_delete` tinyint NOT NULL COMMENT '数据记录状态 : 0:使用中 1:该记录已删',
   `alter_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`truck_id`) USING BTREE,
   INDEX `FK_Truck_TruckTeam`(`fk_team_id` ASC) USING BTREE,
   CONSTRAINT `FK_Truck_TruckTeam` FOREIGN KEY (`fk_team_id`) REFERENCES `truck_team` (`team_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车辆信息表用于存放和管理车辆信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '车辆信息表用于存放和管理车辆信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of truck
@@ -235,14 +244,14 @@ CREATE TABLE `truck`  (
 DROP TABLE IF EXISTS `truck_team`;
 CREATE TABLE `truck_team`  (
   `team_id` int NOT NULL AUTO_INCREMENT COMMENT '车队编号（字段自动编号）',
-  `team_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT ' 车队名称',
-  `leader` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '车队负责人',
-  `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `team_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT ' 车队名称',
+  `leader` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '车队负责人',
+  `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   `check_in_time` datetime NULL DEFAULT NULL COMMENT '创队时间',
   `is_delete` tinyint NULL DEFAULT NULL COMMENT '数据记录状态 0:使用中 1:该记录已删',
   `alter_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`team_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车队信息表用于存放和管理车队信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '车队信息表用于存放和管理车队信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of truck_team
@@ -255,12 +264,12 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `role_id` int NOT NULL COMMENT '用户角色编号',
   `user_id` int NOT NULL AUTO_INCREMENT COMMENT '用户编号（字段自动编号）',
-  `account` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户账号',
-  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户密码',
-  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户姓名',
+  `account` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户账号',
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户密码',
+  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户姓名',
   `sex` tinyint NULL DEFAULT NULL COMMENT '性别',
-  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '联系电话',
-  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '电子邮箱',
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '联系电话',
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '电子邮箱',
   `check_in_time` datetime NOT NULL COMMENT '加入时间',
   `is_delete` tinyint NOT NULL COMMENT '数据记录状态 0:使用中 1:该记录已删除',
   `alter_time` datetime NOT NULL COMMENT '修改时间',
@@ -268,7 +277,7 @@ CREATE TABLE `user`  (
   UNIQUE INDEX `account`(`account` ASC) USING BTREE,
   INDEX `FK_User_Role`(`role_id` ASC) USING BTREE,
   CONSTRAINT `FK_User_Role` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统用户表用于存放用户账户密码信息及用户信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统用户表用于存放用户账户密码信息及用户信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user

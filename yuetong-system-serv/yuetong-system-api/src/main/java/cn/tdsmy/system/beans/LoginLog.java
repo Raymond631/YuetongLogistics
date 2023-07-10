@@ -27,7 +27,7 @@ public class LoginLog {
     /**
      * 状态 0成功 1失败
      */
-    @Excel(name = "状态", readConverterExp = "0=成功,1=失败")
+    @Excel(name = "状态")
     private String status;
 
     /**

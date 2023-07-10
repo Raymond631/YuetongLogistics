@@ -11,4 +11,14 @@
         insert into log_login (account, status, msg, ipaddr, access_time)
         values (#{account}, #{status}, #{msg}, #{ipaddr}, #{accessTime});
     </insert>
+
+    <!-- 使用分页插件后，sql语句后面不要打分号！   -->
+    <select id="selectOperateLog" resultType="cn.tdsmy.system.beans.OperateLog">
+        select *
+        from log_operate
+    </select>
+    <select id="selectLoginLog" resultType="cn.tdsmy.system.beans.LoginLog">
+        select *
+        from log_login
+    </select>
 </mapper>

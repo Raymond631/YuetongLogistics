@@ -1,6 +1,7 @@
 package cn.tdsmy.core.annotation;
 
 
+import cn.tdsmy.core.utils.excel.ExcelHandlerAdapter;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 
@@ -132,6 +133,11 @@ public @interface Excel {
      * 导出字段对齐方式
      */
     public HorizontalAlignment align() default HorizontalAlignment.CENTER;
+
+    /**
+     * 自定义数据处理器
+     */
+    public Class<?> handler() default ExcelHandlerAdapter.class;
 
     /**
      * 自定义数据处理器参数

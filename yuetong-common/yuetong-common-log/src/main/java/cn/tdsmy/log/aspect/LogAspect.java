@@ -3,7 +3,6 @@ package cn.tdsmy.log.aspect;
 import cn.tdsmy.core.utils.IpUtils;
 import cn.tdsmy.core.utils.StringUtils;
 import cn.tdsmy.log.annotation.Log;
-import cn.tdsmy.log.enums.BusinessStatus;
 import cn.tdsmy.system.beans.OperateLog;
 import cn.tdsmy.system.feign.ISystemService;
 import lombok.extern.slf4j.Slf4j;
@@ -66,18 +65,18 @@ public class LogAspect {
             // 4.请求模块（注解标志）
             operateLog.setTitle(controllerLog.title());
             // 5.业务类型（注解标志）
-            operateLog.setBusinessType(controllerLog.businessType().ordinal());
+            operateLog.setBusinessType(controllerLog.businessType().toString());
             // 6.请求方法
             operateLog.setRequestMethod(IpUtils.getRequest().getMethod());
             // 7.请求URL
             operateLog.setOperUrl(StringUtils.substring(IpUtils.getRequest().getRequestURI(), 0, 255));
             // 8.请求是否成功
-            operateLog.setStatus(BusinessStatus.SUCCESS.ordinal());
+            operateLog.setStatus("success");
             // 9.请求消时
             operateLog.setCostTime(System.currentTimeMillis() - TIME_THREADLOCAL.get());
             // 10.异常信息
             if (e != null) {
-                operateLog.setStatus(BusinessStatus.FAIL.ordinal());
+                operateLog.setStatus("failed");
                 operateLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
             }
 
