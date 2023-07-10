@@ -9,7 +9,7 @@ export function allData(finishedState: Number) {
 
 export function getDriverById(carriersId: Number) {
     return request({
-        url: `/transport/capacity/driver/${carriersId}`,
+        url: `/transport/capacity/carriersDriver/${carriersId}`,
         method: 'get',
     })
 }

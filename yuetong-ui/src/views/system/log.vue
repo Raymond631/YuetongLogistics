@@ -9,18 +9,20 @@
             class="table"
             :tableInfo="operateLog"
             :tableContent="operateLog_data"
+            :paginationConfig="paginationConfig"
+            :handlePageChange="handlePageChange"
             :tableHeight="700"
           />
-          <!-- 分页 -->
-          <div class="page">
-            <el-pagination
-                v-model:currentPage="paginationConfig.currentPage"
-                layout="total, prev, pager, next"
-                :page-size="paginationConfig.pageSize"
-                :total="paginationConfig.total"
-                @current-change="handlePageChange"
-            />
-          </div>
+<!--           分页-->
+<!--          <div class="page">-->
+<!--            <el-pagination-->
+<!--                v-model:currentPage="paginationConfig.currentPage"-->
+<!--                layout="total, prev, pager, next"-->
+<!--                :page-size="paginationConfig.pageSize"-->
+<!--                :total="paginationConfig.total"-->
+<!--                @current-change="handlePageChange"-->
+<!--            />-->
+<!--          </div>-->
         </el-tab-pane>
         <el-tab-pane label="登录日志" name="loginLog">
           <ytTable
@@ -136,6 +138,7 @@ export default defineComponent({
         });
     },
     handlePageChange(val: number){
+      console.log('in page change')
       this.paginationConfig.currentPage = val;
       console.log('当前页面数为：'+val)
       this.ready();

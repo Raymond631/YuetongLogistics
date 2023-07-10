@@ -71,7 +71,7 @@ export function request(config: any) {
             break;
           case 404:
             err.message = "请求错误,未找到该资源";
-            window.location.href = "/NotFound";
+            // window.location.href = "/NotFound";
             break;
           case 405:
             err.message = "请求方法未允许";

@@ -69,6 +69,17 @@
           >
         </el-table-column>
       </el-table>
+      <!-- 分页 -->
+      <div class="page">
+        <el-pagination
+            v-model:currentPage="paginationConfig.currentPage"
+            layout="total, prev, pager, next"
+            :page-size="paginationConfig.pageSize"
+            :total="paginationConfig.total"
+            :page-count="paginationConfig.pageCount"
+            @current-change="handlePageChange"
+        />
+      </div>
     </div>
 
     <div v-if="showMask" class="mask"></div>
@@ -130,11 +141,7 @@ export default defineComponent({
   name: "yt-table",
   data() {
     return {
-      paginationConfig: {
-        currentPage: 1, // 当前页码
-        pageSize: 2, // 每页显示的条数
-        total: 0, // 总条数
-      },
+
       edit_team: {
         teamId: "",
         teamName: "",
@@ -154,7 +161,7 @@ export default defineComponent({
       showDeleteForm: false,
     };
   },
-  props: ["tableInfo", "tableContent", "tableHeight"],
+  props: ["tableInfo", "tableContent", "tableHeight" ,"paginationConfig" ,"handlePageChange"],
   mounted() {
     console.log(this.tableInfo.columns[0]);
   },
