@@ -130,6 +130,11 @@ export default defineComponent({
   name: "yt-table",
   data() {
     return {
+      paginationConfig: {
+        currentPage: 1, // 当前页码
+        pageSize: 2, // 每页显示的条数
+        total: 0, // 总条数
+      },
       edit_team: {
         teamId: "",
         teamName: "",

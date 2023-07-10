@@ -6,12 +6,3 @@ export function allData(finishedState: Number) {
         method: 'get',
     })
 }
-
-export function getDriverById(carriersId: Number) {
-    return request({
-        url: `/transport/capacity/driver/${carriersId}`,
-        method: 'get',
-    })
-}
-
-

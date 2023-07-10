@@ -19,9 +19,11 @@
         <div class="bill-block" v-for="capacity in capacityList">
           <label class="carrierId" v-text="capacity.carriersID"></label>
           <div class="user">
-            <el-avatar type="image" class="image" src="https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg"></el-avatar>
-            <div class="user-info">
-              <label class="main-font" v-text="'管理员:#'+capacity.fkUserID"></label>
+            <label class="main-font">驾驶员</label>
+            <el-avatar type="image" class="image"
+                       src="https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg"></el-avatar>
+            <div class="driver-info">
+              <el-tag class="main-font manager-tag" v-text="'#'+capacity.driver[0].driverID +' '+capacity.driver[0].name"></el-tag>
               <label class="third-font" v-text="capacity.phone"></label>
             </div>
           </div>
@@ -44,6 +46,9 @@
               <label v-text="capacity.receivePhone" class="fourth-font"></label>
             </div>
           </div>
+          <div class="manager-info">
+
+          </div>
           <div class="actions">
             <el-button type="primary" class="infoBtn">查看详情</el-button>
             <el-button type="danger" class="infoBtn">删除</el-button>
@@ -61,7 +66,7 @@ import {defineComponent} from "vue";
 import navigationBar from "../../components/navigationBar.vue";
 import welcomeHeader from "../../components/header.vue";
 import ytTable from "../../components/yt-table.vue";
-import {allData} from "@/api/search/history";
+import {allData, getDriverById} from "@/api/search/history";
 
 export default defineComponent({
   name: "history",
@@ -90,7 +95,21 @@ export default defineComponent({
           "fkUserID": 0,
           "checkInTime": "",
           "isDelete": 0,
-          "alterTime": ""
+          "alterTime": "",
+          "driver": {
+            "driverID": 0,
+            "name": "",
+            "sex": 0,
+            "birth": null,
+            "phone": "",
+            "idCard": "",
+            "fkTeamID": 0,
+            "state": 0,
+            "remark": null,
+            "checkInTime": "",
+            "isDelete": 0,
+            "alterTime": ""
+          }
         },
       ],
       search: '',
@@ -105,9 +124,18 @@ export default defineComponent({
       //获取所有状态为待调度的数据
       console.log("获取所有状态为待调度的数据")
       allData(0).then((res: any) => {
-        console.log(res.rows)
         this.capacityList = res.rows;
+        for(let i = 0; i < this.capacityList.length; i++) {
+          console.log("capacityListNum:",this.capacityList.length)
+          getDriverById(this.capacityList[i].carriersID).then((res: any) => {
+            console.log(res.rows)
+            this.capacityList[i].driver = res.rows
+          })
+        }
+        console.log("capacityList:",this.capacityList)
       })
+
+
     },
     goBack() {
     },

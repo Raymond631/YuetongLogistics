@@ -80,17 +80,17 @@ export default defineComponent({
     ready(){
       capacityTeam()
       .then((res:any)=>{
-        // this.team_data = res.data;
+        this.team_data = res.data;
       })
       .catch((err:any)=>{
-        //console.log(err)
+        console.log(err)
       });
       capacityTruck()
       .then((res:any)=>{
-        // this.team_data = res.data;
+        this.team_data = res.data;
       })
       .catch((err:any)=>{
-        //console.log(err)
+        console.log(err)
       })
     },
     goBack() {},
