@@ -1,0 +1,32 @@
+server:
+  port: 10000
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: yuetong-common-gateway
+  profiles:
+    active: dev #激活 dev 的配置
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        group: YueTong
+        # 共享配置 application-dev.yaml
+        shared-configs: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+      discovery:
+        server-addr: 127.0.0.1:8848
+        service: yuetong-common-gateway
+        group: YueTong
+        register-enabled: true
+        heart-beat-interval: 5000
+        heart-beat-timeout: 20000
+        metadata:
+          namespace: dev
+
+#logging:
+#  level:
+#    org.springframework.cloud.gateway: DEBUG
+#    reactor.netty.http.client: DEBUG

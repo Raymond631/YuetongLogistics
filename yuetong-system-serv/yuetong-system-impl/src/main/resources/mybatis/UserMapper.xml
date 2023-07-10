@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tdsmy.system.mapper.UserMapper">
+    <select id="selectUserByAccAndPwd" resultType="cn.tdsmy.system.beans.vo.UserInfoVO">
+        select u.username, r.role_name, r.role_id
+        from user as u
+                 inner join role as r
+                            on u.role_id = r.role_id
+        where u.account = #{account}
+          and u.password = #{password};
+    </select>
+    <select id="getRoleId" resultType="java.lang.Integer">
+        select role_id
+        from user
+        where account = #{account};
+    </select>
+    <select id="getPermission" resultType="java.lang.String">
+        select role_purview
+        from role
+        where role_id = #{roleId};
+    </select>
+</mapper>

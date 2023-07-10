@@ -5,15 +5,19 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-core1/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-log/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/yuetong-auth/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-api/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-impl/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-modules/pom.xml" />
-        <option value="$PROJECT_DIR$/yuetong-resource-serv/pom.xml" />
+        <option value="$PROJECT_DIR$/test-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/test-producer/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-core1/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-common/yuetong-common-redis/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-fleet-serv/yuetong-fleet-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-system-serv/yuetong-system-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/yuetong-transport-serv/yuetong-transport-dao/pom.xml" />
       </set>
     </option>
   </component>

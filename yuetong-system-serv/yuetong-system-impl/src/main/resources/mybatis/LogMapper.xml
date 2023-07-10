@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tdsmy.system.mapper.LogMapper">
+    <insert id="insertOperateLog">
+        insert into log_operate (oper_time, oper_name, oper_ip, title, business_type, request_method, oper_url, status,
+                                 cost_time, error_msg)
+        values (#{operTime}, #{operName}, #{operIp}, #{title}, #{businessType}, #{requestMethod}, #{operUrl}, #{status},
+                #{costTime}, #{errorMsg});
+    </insert>
+    <insert id="insertLoginLog">
+        insert into log_login (account, status, msg, ipaddr, access_time)
+        values (#{account}, #{status}, #{msg}, #{ipaddr}, #{accessTime});
+    </insert>
+</mapper>
