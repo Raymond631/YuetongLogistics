@@ -6,7 +6,7 @@ import { Message } from "@element-plus/icons-vue";
 export function request(config: any) {
   const instance = axios.create({
     // baseURL: "yuetong",
-    baseURL: "api/",
+    baseURL: "/api",
     timeout: 5000,
     // 'transformRequest' 允许在向服务器发送前，修改请求数据
     transformRequest: [
@@ -71,7 +71,7 @@ export function request(config: any) {
             break;
           case 404:
             err.message = "请求错误,未找到该资源";
-            window.location.href = "/NotFound";
+            // window.location.href = "/NotFound";
             break;
           case 405:
             err.message = "请求方法未允许";
@@ -85,11 +85,11 @@ export function request(config: any) {
       } else {
         // 超时处理
         if (JSON.stringify(err).includes("timeout")) {
-          Message.error("服务器响应超时，请刷新当前页");
+          console.log("服务器响应超时，请刷新当前页");
         }
         err.message = "连接服务器失败";
       }
-      Message.error(err.message);
+      console.log(err.message);
       throw err;
     }
   );

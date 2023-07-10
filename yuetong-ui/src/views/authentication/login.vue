@@ -112,6 +112,13 @@ export default {
       // test().then(res => {
       //   console.log(res.data)
       // })
+
+      // axios.request({
+      //   url: "http://127.0.0.1:4523/m1/2962122-0-default/fleet/team",
+      //   method: "GET",
+      // }).then(res => {
+      //   console.log(res.data)
+      // })
     },
     //点击系统管理员登录按钮
     superSubmitForm() {

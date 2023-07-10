@@ -16,6 +16,7 @@
         @row-click="clickRow"
         :cell-style="{ 'background-color': 'transparent' }"
         :row-style="rowStyle"
+        :pagination="paginationConfig"
       >
         <el-table-column type="selection" width="50"> </el-table-column>
         <el-table-column label="车队编号" width="100" prop="teamId">
@@ -98,6 +99,11 @@ export default defineComponent({
   components: { welcomeHeader },
   data() {
     return {
+      paginationConfig: {
+        currentPage: 1, // 当前页码
+        pageSize: 2, // 每页显示的条数
+        total: 3, // 总条数
+      },
       team: [
         {
           teamId: "1",
