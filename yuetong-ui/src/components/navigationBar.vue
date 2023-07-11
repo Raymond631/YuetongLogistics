@@ -108,7 +108,7 @@ export default defineComponent({
   name: "navigationBar",
   data() {
     return {
-      activeIndex:'0',
+      activeIndex:'',
       data: "",
       userType: 6,
     };

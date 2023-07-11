@@ -1,4 +1,7 @@
+import { operateLog, loginlog } from "../api/system/log";
 
-export default{
+const common = {
+ 
+};
 
-}
+export default common;

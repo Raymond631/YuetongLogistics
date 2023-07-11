@@ -10,7 +10,8 @@
       src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
     />
     <el-tag size="large" class="header_profile">{{ profile }}</el-tag>
-    <el-link :underline="false" type="danger" class="header_log">退出登录</el-link>
+    <el-button type="danger" plain class="header_log">退出登录</el-button>
+    
   </div>
 </template>
 

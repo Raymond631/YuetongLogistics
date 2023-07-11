@@ -42,8 +42,7 @@ export function request(config: any) {
   instance.interceptors.response.use(
     (res) => {
       //例：后端数据处理错误，并返回错误原因；前端获取错误原因并展示
-      console.log("响应拦截=>", res.data);
-      console.log("响应拦截=>", res);
+      console.log("响应信息=>", res);
       //这里还需要添加一个token过期之后的token移除
       if (res.data.success == false) {
         alert({
@@ -54,7 +53,7 @@ export function request(config: any) {
       return res ? res.data : res;
     },
     (err) => {
-      console.log("响应拦截错误完整信息=>", err.response);
+      console.log("响应拦截=>", err.response);
       //也可以在这里对不同的错误码做不同的展示处理
       if (err && err.response) {
         // 1.公共错误处理

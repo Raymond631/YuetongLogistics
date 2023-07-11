@@ -69,17 +69,6 @@
           >
         </el-table-column>
       </el-table>
-      <!-- 分页 -->
-<!--      <div class="page">-->
-<!--        <el-pagination-->
-<!--            v-model:currentPage="paginationConfig.currentPage"-->
-<!--            layout="total, prev, pager, next"-->
-<!--            :page-size="paginationConfig.pageSize"-->
-<!--            :total="paginationConfig.total"-->
-<!--            :page-count="paginationConfig.pageCount"-->
-<!--            @current-change="handlePageChange"-->
-<!--        />-->
-<!--      </div>-->
     </div>
 
     <div v-if="showMask" class="mask"></div>
@@ -141,7 +130,6 @@ export default defineComponent({
   name: "yt-table",
   data() {
     return {
-
       edit_team: {
         teamId: "",
         teamName: "",
@@ -161,11 +149,23 @@ export default defineComponent({
       showDeleteForm: false,
     };
   },
-  props: ["tableInfo", "tableContent", "tableHeight" ,"paginationConfig" ,"handlePageChange"],
+  props: [
+    "tableInfo",
+    "tableContent",
+    "tableHeight",
+    "paginationConfig",
+    "handlePageChange",
+    "routerPosition"
+  ],
   mounted() {
-    console.log('tableinfo中的prop值为：',this.tableInfo);
+    this.ready()
   },
   methods: {
+    ready(){
+      let that = this;
+      console.log(this.routerPosition)
+    },
+
     goBack() {},
     //选中该行数据
     clickRow(row: any) {

@@ -58,17 +58,19 @@
         transition: 0.5s;
       }
     }
-
     .action2 {
-      color: #ffffff;
-      border: 2px solid $theme_color;
-      background-color: $theme_color;
-      @include action;
-      &:hover {
-        color: $theme_color;
-        background-color: #eff4f4;
+      .action2_upload {
+        color: #ffffff;
         border: 2px solid $theme_color;
-        transition: 0.5s;
+        background-color: $theme_color;
+        @include action;
+        width: 240px;
+        &:hover {
+          color: $theme_color;
+          background-color: #eff4f4;
+          border: 2px solid $theme_color;
+          transition: 0.5s;
+        }
       }
     }
   }
@@ -95,7 +97,6 @@
     border-radius: 30px;
     background-color: #ffffff;
     display: grid;
-    
 
     .basic-info {
       display: flex;
@@ -128,14 +129,15 @@
           }
         }
       }
-
       .dot {
-        background-color: $back_color;
-        border: 1px solid $theme_color;
-        width: 25px;
-        height: 25px;
+        width: 30px;
+        height: 30px;
         margin-top: 15px;
         margin-left: -10px;
+        font-size: 20px;
+        color: rgba(245, 108, 108);
+        font-weight: bolder;
+        border: 1px solid white;
         border-radius: 25px;
       }
     }
@@ -155,4 +157,11 @@
       }
     }
   }
+}
+.page {
+  position: relative;
+  margin-top: 10px;
+  margin-left: 70%;
+  width: 100px;
+  height: 100px;
 }
