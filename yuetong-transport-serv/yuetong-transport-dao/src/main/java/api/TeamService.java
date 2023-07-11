@@ -43,11 +43,39 @@ public class TeamService {
 
     @DeleteMapping
     public Msg deleteTeam(@RequestParam(name = "teamID",required = true) int teamID){
+        try{
+            int res = teamMapper.deleteTeam(teamID);
+            if (res==1){
+                msg.setCode(200);
+                msg.setMsg("删除成功");
+            }else{
+                msg.setCode(500);
+                msg.setMsg("未找到车队");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            msg.setCode(500);
+            msg.setMsg("删除失败");
+        }
         return msg;
     }
 
     @PutMapping
     public Msg putTeam(@RequestBody TruckTeam truckTeam){
+        try{
+            int res = teamMapper.putTeam(truckTeam);
+            if (res==1){
+                msg.setCode(200);
+                msg.setMsg("修改成功");
+            }else{
+                msg.setCode(500);
+                msg.setMsg("未找到该车队");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            msg.setCode(500);
+            msg.setMsg("修改失败");
+        }
         return msg;
     }
 

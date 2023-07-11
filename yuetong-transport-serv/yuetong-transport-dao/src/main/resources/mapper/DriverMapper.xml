@@ -31,13 +31,28 @@
         where driver_id=#{driverID}
     </update>
 
-    <select id="getDriverByName" resultType="beans.Driver">
+    <resultMap id="driverMap" type="beans.Driver">
+        <id column="driver_id" property="driverID" />
+        <result column="name" property="name" />
+        <result column="sex" property="sex" />
+        <result column="birth" property="birth" />
+        <result column="phone" property="phone" />
+        <result column="id_card" property="idCard" />
+        <result column="fk_team_id" property="fkTeamID" />
+        <result column="state" property="state" />
+        <result column="remark" property="remark" />
+        <result column="check_in_time" property="checkInTime" />
+        <result column="is_delete" property="isDelete" />
+        <result column="alter_time" property="alterTime" />
+    </resultMap>
+
+    <select id="getDriverByName" resultMap="driverMap">
         select *
         from driver
         where name=#{name}
     </select>
 
-    <select id="getDriverById_card" resultType="beans.Driver">
+    <select id="getDriverById_card" resultMap="driverMap">
         select *
         from driver
         where id_card=#{idCard}
