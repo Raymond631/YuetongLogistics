@@ -1,7 +1,250 @@
+@mixin title-font {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+@mixin main-font {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+@mixin second-font {
+  font-family: "宋体", sans-serif;
+  font-size: 15px;
+  color: #4f7df0;
+}
+
+@mixin third-font {
+  font-size: 15px;
+}
+
+@mixin fourth-font {
+  color: #a1a1a1;
+  font-size: 13px;
+}
+
+@mixin action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 60px;
+  border-radius: 15px;
+  margin-left: 60px;
+}
+
 .container {
   .content {
     margin-left: $Mleft;
     height: $max_height;
-    background-color: $back_color;
+    //background-color: $back_color;
+    background-color: #f6f6f6;
+
+    .title {
+      margin: 0 auto;
+      width: 100%;
+      height: 110px;
+      display: flex;
+      justify-content: space-between;
+
+      .search {
+        margin-top: 30px;
+        margin-left: 50px;
+        width: 30%;
+
+        .search-input {
+          height: 60px;
+          font-size: 20px;
+        }
+      }
+
+      .actions {
+        margin-top: 30px;
+        margin-right: 100px;
+        width: 50%;
+        display: flex;
+        justify-content: right;
+
+        .action1 {
+          color: $theme_color;
+          border: 2px solid $theme_color;
+          background-color: #eff4f4;
+          @include action;
+        }
+
+      }
+    }
+
+    .main-form {
+      margin-left: 50px;
+      width: 1530px;
+      height: 850px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      overflow: auto;
+
+      .bill-block {
+        margin-bottom: 50px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        width: 100%;
+        height: 140px;
+        display: flex;
+
+        .main-font {
+          @include main-font;
+        }
+
+        .second-font {
+          @include second-font;
+        }
+
+        .third-font {
+          @include third-font;
+        }
+
+        .fourth-font {
+          @include fourth-font;
+        }
+
+        .title-font {
+          @include title-font;
+        }
+
+        .carrierId {
+          margin-left: 20px;
+          margin-top: 50px;
+          @include main-font;
+        }
+
+        $info_height: 130px;
+
+        .driver {
+          display: grid;
+
+          label {
+            margin-top:20px;
+            margin-left: 50px;
+          }
+
+          .image {
+            margin-left: 45px;
+            margin-top: 5px;
+            width: 70px;
+            height: 70px;
+          }
+
+          .choDriBtn{
+            margin-left:20px;
+          }
+        }
+
+        .carrier-info {
+          display: flex;
+          height: $info_height;
+
+          .send-info {
+            margin-top: 10px;
+            margin-left: 60px;
+            width: 300px;
+            display: grid;
+            height: $info_height;
+          }
+
+          .time {
+            width: 100px;
+            margin-top: 20px;
+            display: grid;
+          }
+
+          .receive-info {
+            margin-top: 10px;
+            margin-left: 80px;
+            width: 300px;
+            display: grid;
+            height: $info_height;
+          }
+        }
+
+
+        .manager-info {
+          display: grid;
+          .manager-id{
+            margin-top: 20px;
+          }
+          .actions {
+            width: 200px;
+            margin-left: 10px;
+
+          }
+        }
+
+        .checkInTime {
+          font-family: 'Open Sans', sans-serif;
+          font-size: 20px;
+          color: #a1a1a1;
+          margin: 0 auto;
+          line-height: $info_height;
+        }
+
+
+
+      }
+    }
+
+    .mask{
+      @include mask;
+    }
+
+    .chooseDriverForm{
+      @include mask-form(1000px,1000px,70px,450px);
+      .form-title{
+        padding-left:400px;
+        .closeBtn{
+          width: 80px;
+          margin-left: 300px;
+        }
+      }
+
+      .form-info {
+        background-color: #ffffff;
+        border-radius: 15px;
+        width: 900px;
+        height: 350px;
+        padding-bottom: 20px;
+        margin:40px auto 0;
+        .flex-item {
+          display: flex;
+          flex-wrap: wrap;
+          .form-item{
+            label{
+              margin-left:10px;
+              font-size:15px;
+            }
+          }
+        }
+        .alreadyChosenForm{
+          width:900px;
+          margin: 0 auto;
+          padding-top: 20px;
+          padding-left: 40px;
+          .descriptions{
+            width: 800px;
+          }
+        }
+      }
+
+      .el-table{
+        margin:50px auto;
+        width:900px;
+        height:400px;
+        overflow:auto;
+      }
+    }
   }
 }
+
+

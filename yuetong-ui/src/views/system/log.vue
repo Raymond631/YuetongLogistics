@@ -14,15 +14,15 @@
             :tableHeight="700"
           />
 <!--           分页-->
-<!--          <div class="page">-->
-<!--            <el-pagination-->
-<!--                v-model:currentPage="paginationConfig.currentPage"-->
-<!--                layout="total, prev, pager, next"-->
-<!--                :page-size="paginationConfig.pageSize"-->
-<!--                :total="paginationConfig.total"-->
-<!--                @current-change="handlePageChange"-->
-<!--            />-->
-<!--          </div>-->
+          <div class="page">
+            <el-pagination
+                v-model:currentPage="paginationConfig.currentPage"
+                layout="total, prev, pager, next"
+                :page-size="paginationConfig.pageSize"
+                :total="paginationConfig.total"
+                @current-change="handlePageChange"
+            />
+          </div>
         </el-tab-pane>
         <el-tab-pane label="登录日志" name="loginLog">
           <ytTable

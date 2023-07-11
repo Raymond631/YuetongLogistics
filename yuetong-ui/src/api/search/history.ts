@@ -1,17 +1,11 @@
 import { request } from '@/utils/request';
 
-export function allData(finishedState: Number) {
+export function allHistoryCarriers() {
     return request({
-        url: `/transport/capacity/carrier/${finishedState}`,
+        url: `/transport/capacity/history`,
         method: 'get',
     })
 }
 
-export function getDriverById(carriersId: Number) {
-    return request({
-        url: `/transport/capacity/carriersDriver/${carriersId}`,
-        method: 'get',
-    })
-}
 
 

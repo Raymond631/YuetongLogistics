@@ -6,41 +6,6 @@
   }
 }
 
-@mixin card($width,$height) {
-  background-color: #ffffff;
-  border-radius: 15px;
-  width: $width;
-  height: $height;
-  padding-bottom: 20px;
-  margin-bottom: 10px;
-  display: grid;
-  .title {
-    font: {
-      family: coca_cola;
-      size: 30px;
-    }
-    height:50px;
-    margin:20px auto 0;
-  }
-  .item {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-    height: 50px;
-
-    label {
-      width: 70px;
-      margin-left: 50px;
-    }
-
-    .el-input {
-      margin-left:10px;
-      width: $width - 200px;
-      height: 40px;
-    }
-  }
-}
-
 .main-form{
   display: flex;
   .main-form-left {
