@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tdsmy.fleet.mapper.DriverMapper">
+    <insert id="insertDriver">
+        insert into driver (name, sex, birth, phone, id_card, fk_team_id, state, remark, check_in_time, alter_time)
+        values (#{name}, #{sex}, #{birth}, #{phone}, #{idCard}, #{fkTeamId}, #{state}, #{remark}, #{checkInTime},
+                #{alterTime});
+    </insert>
+    <delete id="deleteDriver">
+        delete
+        from driver
+        where driver_id = #{driverId};
+    </delete>
+    <select id="selectDriverList" resultType="cn.tdsmy.fleet.beans.Driver">
+        select *
+        from driver
+    </select>
+</mapper>

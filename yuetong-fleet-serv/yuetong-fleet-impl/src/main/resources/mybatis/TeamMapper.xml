@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tdsmy.fleet.mapper.TeamMapper">
+    <insert id="insertDriver">
+        insert into truck_team (team_name, leader, remark, check_in_time, alter_time)
+        values (#{teamName}, #{leader}, #{remark}, #{checkInTime}, #{alterTime});
+    </insert>
+    <delete id="deleteTeam">
+        delete
+        from truck_team
+        where team_id = #{teamId};
+    </delete>
+    <select id="selectTeamList" resultType="cn.tdsmy.fleet.beans.TruckTeam">
+        select *
+        from truck_team
+    </select>
+</mapper>

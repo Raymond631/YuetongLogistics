@@ -4,7 +4,6 @@ import cn.tdsmy.core.response.AjaxResult;
 import cn.tdsmy.core.utils.excel.ExcelUtil;
 import cn.tdsmy.log.annotation.Log;
 import cn.tdsmy.log.enums.BusinessType;
-import cn.tdsmy.system.beans.OperateLog;
 import cn.tdsmy.system.beans.User;
 import cn.tdsmy.system.service.UserService;
 import com.github.pagehelper.PageHelper;
@@ -25,7 +24,7 @@ public class UserController {
 
     @PostMapping("/importUser")
     @Log(title = "批量导入用户", businessType = BusinessType.IMPORT)
-    public AjaxResult importData(MultipartFile file) throws Exception {
+    public AjaxResult importUser(@RequestParam("file") MultipartFile file) throws Exception {
         ExcelUtil<User> util = new ExcelUtil<>(User.class);
         List<User> userList = util.importExcel(file.getInputStream());
         String message = userService.importUser(userList);
@@ -49,7 +48,7 @@ public class UserController {
     @GetMapping
     @Log(title = "查询用户信息", businessType = BusinessType.SELECT)
     public AjaxResult getUserList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        PageInfo<OperateLog> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
+        PageInfo<User> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
             userService.getUserList();
         });
         return AjaxResult.success(pageInfo);

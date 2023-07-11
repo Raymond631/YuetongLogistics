@@ -1,4 +1,4 @@
-package cn.tdsmy.system.beans;
+package cn.tdsmy.fleet.beans;
 
 import cn.tdsmy.core.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -8,32 +8,35 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Driver {
 
-    @Excel(name = "用户角色编号")
-    private int roleId;
+    private int driverId;
 
-    private int userId;
-
-    private String account;
-
-    private String password;
-
-    @Excel(name = "用户姓名")
-    private String username;
+    @Excel(name = "司机姓名")
+    private String name;
 
     @Excel(name = "性别")
     private String sex;
 
+    @Excel(name = "出生日期")
+    private String birth;
+
     @Excel(name = "联系电话")
     private String phone;
 
-    @Excel(name = "电子邮箱")
-    private String email;
+    @Excel(name = "身份证号码")
+    private String idCard;
+
+    @Excel(name = "车队编号")
+    private int fkTeamId;
+
+    private String state;
+
+    @Excel(name = "备注")
+    private String remark;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date checkInTime;

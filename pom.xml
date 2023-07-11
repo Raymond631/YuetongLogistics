@@ -18,7 +18,6 @@
         <module>yuetong-common</module>
         <module>yuetong-system-serv</module>
         <module>yuetong-fleet-serv</module>
-        <module>yuetong-transport-serv</module>
     </modules>
 
     <properties>
