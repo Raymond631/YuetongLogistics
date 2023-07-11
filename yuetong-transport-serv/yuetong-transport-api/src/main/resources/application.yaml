@@ -1,0 +1,23 @@
+server:
+  port: 11200
+
+spring:
+  application:
+    name: transport-api
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        service: transport-api
+        heart-beat-interval: 5000
+        heart-beat-timeout: 20000
+        metadata:
+          data: test
+        naming-load-cache-at-start: false
+        namespace: dev
+        group: transport
+        register-enabled: true
+
+logging:
+  level:
+    com.broadview.coupon: debug

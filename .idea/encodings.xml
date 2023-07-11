@@ -28,12 +28,15 @@
     <file url="file://$PROJECT_DIR$/yuetong-common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-auth/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-core1/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-core1/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-exception/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-exception/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-impl/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-log/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yuetong-common/yuetong-common-log/src/main/resources" charset="UTF-8" />

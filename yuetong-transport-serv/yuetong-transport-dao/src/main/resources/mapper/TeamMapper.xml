@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.TeamMapper">
+
+    <insert id="postTeam" useGeneratedKeys="true">
+        insert into truck_team(team_name, leader, remark, check_in_time, is_delete, alter_time)
+        values(#{teamName}, #{leader}, #{remark}, #{checkInTime}, #{isDelete}, #{alterTime})
+    </insert>
+
+    <delete id="deleteTeam">
+        delete from truck_team
+        where team_id=#{teamID}
+    </delete>
+
+    <update id="putTeam">
+        update truck_team
+        set
+            team_name=#{teamName},
+            leader=#{leader},
+            remark=#{remark},
+            check_in_time=#{checkInTime},
+            is_delete=#{isDelete},
+            alter_time=#{alterTime}
+        where team_id=#{teamID}
+    </update>
+
+    <resultMap id="teamMap" type="beans.TruckTeam">
+        <id column="team_id" property="teamID"></id>
+        <result column="team_name" property="teamName"></result>
+        <result column="leader" property="leader"></result>
+        <result column="remark" property="remark"></result>
+        <result column="check_in_time" property="checkInTime"></result>
+        <result column="is_delete" property="isDelete"></result>
+        <result column="alter_time" property="alterTime"></result>
+    </resultMap>
+    
+    <select id="getTeam" resultMap="teamMap">
+        select *
+        from truck_team
+        where team_name=#{teamName}
+    </select>
+
+</mapper>
