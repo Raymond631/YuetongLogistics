@@ -130,11 +130,6 @@ export default defineComponent({
   name: "yt-table",
   data() {
     return {
-      paginationConfig: {
-        currentPage: 1, // 当前页码
-        pageSize: 2, // 每页显示的条数
-        total: 0, // 总条数
-      },
       edit_team: {
         teamId: "",
         teamName: "",
@@ -154,11 +149,23 @@ export default defineComponent({
       showDeleteForm: false,
     };
   },
-  props: ["tableInfo", "tableContent", "tableHeight"],
+  props: [
+    "tableInfo",
+    "tableContent",
+    "tableHeight",
+    "paginationConfig",
+    "handlePageChange",
+    "routerPosition"
+  ],
   mounted() {
-    console.log(this.tableInfo.columns[0]);
+    this.ready()
   },
   methods: {
+    ready(){
+      let that = this;
+      console.log(this.routerPosition)
+    },
+
     goBack() {},
     //选中该行数据
     clickRow(row: any) {

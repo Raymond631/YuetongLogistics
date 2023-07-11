@@ -4,74 +4,79 @@
     <div class="content">
       <welcomeHeader/>
       <div class="main-form">
-        <div class="form">
-          <div class="sender">
-            <label class="title">发货信息</label>
-            <div class="item">
-              <label>发货单位</label>
-              <el-input type="text"></el-input>
+        <div class="main-form-left">
+          <div class="form">
+            <div class="sender">
+              <label class="title">发货信息</label>
+              <div class="item">
+                <label>发货单位</label>
+                <el-input type="text"></el-input>
+              </div>
+              <div class="item">
+                <label>发货地址</label>
+                <el-input type="text"></el-input>
+              </div>
+              <div class="item">
+                <label>联系人</label>
+                <el-input type="text"></el-input>
+              </div>
+              <div class="item">
+                <label>联系电话</label>
+                <el-input type="text"></el-input>
+              </div>
             </div>
-            <div class="item">
-              <label>发货地址</label>
-              <el-input type="text"></el-input>
-            </div>
-            <div class="item">
-              <label>联系人</label>
-              <el-input type="text"></el-input>
-            </div>
-            <div class="item">
-              <label>联系电话</label>
-              <el-input type="text"></el-input>
+            <div class="receiver">
+              <label class="title">收货信息</label>
+
+              <div class="item">
+                <label>收货单位</label>
+                <el-input type="text"></el-input>
+              </div>
+              <div class="item">
+                <label>收货地址</label>
+                <el-input type="text"></el-input>
+              </div>
+              <div class="item">
+                <label>收货人</label>
+                <el-input type="text"></el-input>
+              </div>
+              <div class="item">
+                <label>联系电话</label>
+                <el-input type="text"></el-input>
+              </div>
+
             </div>
           </div>
-          <div class="receiver">
-            <label class="title">收货信息</label>
-
-            <div class="item">
-              <label>收货单位</label>
-              <el-input type="text"></el-input>
+          <div class="details">
+            <label class="title">承运单信息</label>
+            <div class="detail">
+              <div class="item">
+                <label>发货时间</label>
+                <el-input type="text"></el-input>
+              </div>
+              <div class="item">
+                <label>收货时间</label>
+                <el-input type="text"></el-input>
+              </div>
+              <div class="item">
+                <label>备注</label>
+                <el-input type="text"></el-input>
+              </div>
+              <div class="item">
+                <label>开票时间</label>
+                <el-input type="text"></el-input>
+              </div>
             </div>
-            <div class="item">
-              <label>收货地址</label>
-              <el-input type="text"></el-input>
+            <div class="actions">
+              <el-button type="primary">提交</el-button>
+              <el-button type="info">关闭</el-button>
             </div>
-            <div class="item">
-              <label>收货人</label>
-              <el-input type="text"></el-input>
-            </div>
-            <div class="item">
-              <label>联系电话</label>
-              <el-input type="text"></el-input>
-            </div>
-
           </div>
         </div>
-        <div class="details">
-          <label class="title">承运单信息</label>
-          <div class="detail">
-            <div class="item">
-              <label>发货时间</label>
-              <el-input type="text"></el-input>
-            </div>
-            <div class="item">
-              <label>收货时间</label>
-              <el-input type="text"></el-input>
-            </div>
-            <div class="item">
-              <label>备注</label>
-              <el-input type="text"></el-input>
-            </div>
-            <div class="item">
-              <label>开票时间</label>
-              <el-input type="text"></el-input>
-            </div>
-          </div>
-          <div class="actions">
-            <el-button type="primary">提交</el-button>
-            <el-button type="info">关闭</el-button>
-          </div>
+        <div class="main-right">
         </div>
       </div>
+
     </div>
   </div>
 </template>

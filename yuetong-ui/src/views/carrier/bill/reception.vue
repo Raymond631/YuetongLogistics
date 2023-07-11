@@ -3,6 +3,9 @@
     <navigationBar/>
     <div class="content">
       <welcomeHeader />
+
+
+
     </div>
   </div>
 </template>

@@ -30,7 +30,7 @@
 
     label {
       width: 70px;
-      margin-left: 60px;
+      margin-left: 50px;
     }
 
     .el-input {
@@ -41,54 +41,65 @@
   }
 }
 
-.main-form {
-  width: 1600px;
-  height: 510px;
-  margin: 0 auto;
-  .form {
-    width: 1200px;
-    margin-top:30px;
-    margin-left: 100px;
-    display: flex;
-
-    .sender {
-      @include card(600px,450px);
-    }
-
-    .receiver {
-      @include card(600px,450px);
-      margin-left: 30px;
-    }
-
-  }
-  .details {
-    @include card(1200px,300px);
-    margin-top:40px;
-    margin-left: 100px;
-    .detail{
+.main-form{
+  display: flex;
+  .main-form-left {
+    width: 1230px;
+    height: 510px;
+    margin-left:80px;
+    .form {
+      width: 1200px;
+      margin-top:50px;
       display: flex;
-      flex-wrap:wrap;
-      .item{
-        margin-left:40px;
-        .el-input {
-          margin-left:10px;
-          width: 350px;
+      .sender {
+        @include card(600px,450px);
+      }
+
+      .receiver {
+        @include card(600px,450px);
+        margin-left: 30px;
+      }
+
+    }
+    .details {
+      @include card(1200px,300px);
+      margin-top:40px;
+      .detail{
+        display: flex;
+        flex-wrap:wrap;
+        .item{
+          margin-left:40px;
+          .el-input {
+            margin-left:10px;
+            width: 350px;
+            height: 40px;
+          }
+        }
+      }
+      .actions {
+        width:600px;
+        display: flex;
+        margin-top:20px;
+        margin-left: 400px;
+        .el-button {
+          margin-left: 70px;
+          width:100px;
           height: 40px;
+          font-size: large;
         }
       }
     }
-    .actions {
-      width:600px;
-      display: flex;
-      margin-top:20px;
-      margin-left: 400px;
-      .el-button {
-        margin-left: 70px;
-        width:100px;
-        height: 40px;
-        font-size: large;
-      }
-    }
-  }
 
+  }
+  .main-right{
+    margin-top: 50px;
+    width:300px;
+    height: 800px;
+    //background-color:#0e6f64;
+    background-image: url("../../../assets/images/truck3.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+  }
 }
+

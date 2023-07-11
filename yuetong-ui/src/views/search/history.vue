@@ -96,7 +96,7 @@ export default defineComponent({
           "checkInTime": "",
           "isDelete": 0,
           "alterTime": "",
-          "driver": {
+          "driver": [{
             "driverID": 0,
             "name": "",
             "sex": 0,
@@ -109,7 +109,7 @@ export default defineComponent({
             "checkInTime": "",
             "isDelete": 0,
             "alterTime": ""
-          }
+          }]
         },
       ],
       search: '',
@@ -128,14 +128,12 @@ export default defineComponent({
         for(let i = 0; i < this.capacityList.length; i++) {
           console.log("capacityListNum:",this.capacityList.length)
           getDriverById(this.capacityList[i].carriersID).then((res: any) => {
-            console.log(res.rows)
+            console.log('driver:',res.rows)
             this.capacityList[i].driver = res.rows
           })
         }
         console.log("capacityList:",this.capacityList)
       })
-
-
     },
     goBack() {
     },

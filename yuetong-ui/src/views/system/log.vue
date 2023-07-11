@@ -5,24 +5,46 @@
       <welcomeHeader />
       <el-tabs v-model="logName" class="logTabs">
         <el-tab-pane label="操作日志" name="operateLog">
+          <div class="upload">
+            <el-link
+              href="http://127.0.0.1:4523/m1/2962122-0-default/system/log/exportOperateLog"
+              type="primary"
+              :underline="false"
+              class="link"
+              target="_blank"
+              ><el-icon><Download /></el-icon>导出操作日志</el-link
+            >
+          </div>
           <ytTable
             class="table"
             :tableInfo="operateLog"
             :tableContent="operateLog_data"
-            :tableHeight="670"
+            :paginationConfig="paginationConfig"
+            :handlePageChange="handlePageChange"
+            :tableHeight="700"
           />
           <!-- 分页 -->
           <div class="page">
             <el-pagination
-                v-model:currentPage="paginationConfig.currentPage"
-                layout="total, prev, pager, next"
-                :page-size="paginationConfig.pageSize"
-                :total="paginationConfig.total"
-                @current-change="handlePageChange"
+              v-model:currentPage="paginationConfig.currentPage"
+              layout="total, prev, pager, next"
+              :page-size="paginationConfig.pageSize"
+              :total="paginationConfig.total"
+              @current-change="handlePageChange"
             />
           </div>
         </el-tab-pane>
         <el-tab-pane label="登录日志" name="loginLog">
+          <div class="upload">
+            <el-link
+              href="http://127.0.0.1:4523/m1/2962122-0-default/system/log/exportLoginLog"
+              type="primary"
+              :underline="false"
+              class="link"
+              target = '_blank'
+              ><el-icon><Download /></el-icon>导出登录日志</el-link
+            >
+          </div>
           <ytTable
             class="table"
             :tableInfo="loginLog"
@@ -32,12 +54,12 @@
           <!-- 分页 -->
           <div class="page">
             <el-pagination
-                v-model:currentPage="paginationConfig.currentPage"
-                layout="total, prev, pager, next"
-                :page-size="paginationConfig.pageSize"
-                :total="paginationConfig.total"
-                :page-count="paginationConfig.pageCount"
-                @current-change="handlePageChange"
+              v-model:currentPage="paginationConfig.currentPage"
+              layout="total, prev, pager, next"
+              :page-size="paginationConfig.pageSize"
+              :total="paginationConfig.total"
+              :page-count="paginationConfig.pageCount"
+              @current-change="handlePageChange"
             />
           </div>
         </el-tab-pane>
@@ -106,138 +128,7 @@ export default defineComponent({
           delete: true,
         },
       },
-      operateLog_data: [
-        {
-          operId: 1,
-          operTime: "2023-07-09 01:16:17",
-          operName: "abc",
-          operIp: "127.0.0.1",
-          title: "操作日志测试",
-          businessType: "0",
-          requestMethod: "GET",
-          operUrl: "/system/test",
-          status: "0",
-          costTime: 12,
-          errorMsg: null,
-        },
-        {
-          operId: 1,
-          operTime: "2023-07-09 01:16:17",
-          operName: "abc",
-          operIp: "127.0.0.1",
-          title: "操作日志测试",
-          businessType: "0",
-          requestMethod: "GET",
-          operUrl: "/system/test",
-          status: "0",
-          costTime: 12,
-          errorMsg: null,
-        },
-        {
-          operId: 1,
-          operTime: "2023-07-09 01:16:17",
-          operName: "abc",
-          operIp: "127.0.0.1",
-          title: "操作日志测试",
-          businessType: "0",
-          requestMethod: "GET",
-          operUrl: "/system/test",
-          status: "0",
-          costTime: 12,
-          errorMsg: null,
-        },
-        {
-          operId: 1,
-          operTime: "2023-07-09 01:16:17",
-          operName: "abc",
-          operIp: "127.0.0.1",
-          title: "操作日志测试",
-          businessType: "0",
-          requestMethod: "GET",
-          operUrl: "/system/test",
-          status: "0",
-          costTime: 12,
-          errorMsg: null,
-        },
-        {
-          operId: 1,
-          operTime: "2023-07-09 01:16:17",
-          operName: "abc",
-          operIp: "127.0.0.1",
-          title: "操作日志测试",
-          businessType: "0",
-          requestMethod: "GET",
-          operUrl: "/system/test",
-          status: "0",
-          costTime: 12,
-          errorMsg: null,
-        },
-        {
-          operId: 1,
-          operTime: "2023-07-09 01:16:17",
-          operName: "abc",
-          operIp: "127.0.0.1",
-          title: "操作日志测试",
-          businessType: "0",
-          requestMethod: "GET",
-          operUrl: "/system/test",
-          status: "0",
-          costTime: 12,
-          errorMsg: null,
-        },
-        {
-          operId: 1,
-          operTime: "2023-07-09 01:16:17",
-          operName: "abc",
-          operIp: "127.0.0.1",
-          title: "操作日志测试",
-          businessType: "0",
-          requestMethod: "GET",
-          operUrl: "/system/test",
-          status: "0",
-          costTime: 12,
-          errorMsg: null,
-        },
-        {
-          operId: 1,
-          operTime: "2023-07-09 01:16:17",
-          operName: "abc",
-          operIp: "127.0.0.1",
-          title: "操作日志测试",
-          businessType: "0",
-          requestMethod: "GET",
-          operUrl: "/system/test",
-          status: "0",
-          costTime: 12,
-          errorMsg: null,
-        },
-        {
-          operId: 1,
-          operTime: "2023-07-09 01:16:17",
-          operName: "abc",
-          operIp: "127.0.0.1",
-          title: "操作日志测试",
-          businessType: "0",
-          requestMethod: "GET",
-          operUrl: "/system/test",
-          status: "0",
-          costTime: 12,
-          errorMsg: null,
-        },
-        {
-          operId: 1,
-          operTime: "2023-07-09 01:16:17",
-          operName: "abc",
-          operIp: "127.0.0.1",
-          title: "操作日志测试",
-          businessType: "0",
-          requestMethod: "GET",
-          operUrl: "/system/test",
-          status: "0",
-          costTime: 12,
-          errorMsg: null,
-        },
-      ],
+      operateLog_data: [],
       loginLog_data: [],
     };
   },
@@ -247,20 +138,24 @@ export default defineComponent({
   },
   methods: {
     ready() {
-      operateLog(this.paginationConfig.currentPage, this.paginationConfig.pageSize)
+      operateLog(
+        this.paginationConfig.currentPage,
+        this.paginationConfig.pageSize
+      )
         .then((res: any) => {
-
           this.operateLog_data = res.data.list;
           // this.paginationConfig.pageSize = res.data.pageSize;
           this.paginationConfig.pageCount = res.data.pages;
           // this.paginationConfig.total = res.data.size;
           this.paginationConfig.total = res.data.list.length;
-
         })
         .catch((err: any) => {
           console.log(err);
         });
-      loginlog(this.paginationConfig.pageSize, this.paginationConfig.currentPage)
+      loginlog(
+        this.paginationConfig.pageSize,
+        this.paginationConfig.currentPage
+      )
         .then((res: any) => {
           this.loginLog_data = res.data.list;
         })
@@ -268,9 +163,9 @@ export default defineComponent({
           console.log(err);
         });
     },
-    handlePageChange(val: number){
+    handlePageChange(val: number) {
       this.paginationConfig.currentPage = val;
-      console.log('当前页面数为：'+val)
+      console.log("当前页面数为：" + val);
       this.ready();
     },
 
