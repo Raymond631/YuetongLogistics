@@ -53,47 +53,47 @@
 
     <div v-if="showMask" class="mask"></div>
     <div class="editForm" v-if="showEditForm">
-      <label class="title">编辑车队信息</label>
+      <label class="form-title">编辑车队信息</label>
       <div>
-        <div class="edit-item">
+        <div class="form-item">
           <label>车队编号</label>
-          <el-input type="text" class="editInput" v-model="edit_team.teamId"/>
+          <el-input type="text" class="form-input" v-model="edit_team.teamId"/>
         </div>
-        <div class="edit-item">
+        <div class="form-item">
           <label>车队名</label>
           <el-input
               type="text"
-              class="editInput"
+              class="form-input"
               v-model="edit_team.teamName"
           />
         </div>
-        <div class="edit-item">
+        <div class="form-item">
           <label>队长</label>
-          <el-input type="text" class="editInput" v-model="edit_team.leader"/>
+          <el-input type="text" class="form-input" v-model="edit_team.leader"/>
         </div>
-        <div class="edit-item">
+        <div class="form-item">
           <label>标记</label>
-          <el-input type="text" class="editInput" v-model="edit_team.remark"/>
+          <el-input type="text" class="form-input" v-model="edit_team.remark"/>
         </div>
-        <div class="edit-item">
+        <div class="form-item">
           <label>登记日期</label>
           <el-input
               type="text"
-              class="editInput"
+              class="form-input"
               v-model="edit_team.checkInTime"
           />
         </div>
       </div>
-      <div class="editBtns">
+      <div class="actionBtns">
         <el-button
             size="default"
             type="primary"
             @click="confirmEdit"
-            class="editBtn"
+            class="actionBtn btn1"
         >提交
         </el-button
         >
-        <el-button size="default" @click="cancelEdit" class="editBtn"
+        <el-button size="default" @click="cancelEdit" class="actionBtn btn2"
         >取消
         </el-button
         >

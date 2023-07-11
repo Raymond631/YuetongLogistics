@@ -110,7 +110,7 @@ export default defineComponent({
     return {
       activeIndex:'',
       data: "",
-      userType: 5,
+      userType: 6,
     };
   },
   mounted() {
