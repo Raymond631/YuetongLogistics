@@ -19,4 +19,14 @@
         from role
         where role_id = #{roleId};
     </select>
+    <select id="selectOldAccount" resultType="java.lang.String">
+        select account
+        from user;
+    </select>
+
+    <insert id="insertUser">
+        insert into user (role_id, account, password, username, sex, phone, email, check_in_time, alter_time)
+        values (#{roleId}, #{account}, #{password}, #{username}, #{sex}, #{phone}, #{email}, #{checkInTime},
+                #{alterTime});
+    </insert>
 </mapper>

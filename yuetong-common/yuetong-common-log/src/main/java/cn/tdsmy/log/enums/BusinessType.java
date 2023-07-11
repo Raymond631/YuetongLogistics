@@ -32,6 +32,11 @@ public enum BusinessType {
     /**
      * 导出
      */
-    EXPORT
+    EXPORT,
+
+    /**
+     * 导入
+     */
+    IMPORT
 }
 
