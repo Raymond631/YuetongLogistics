@@ -101,7 +101,7 @@ public class UserService {
 
     public void updatePassword(PasswordVO passwordVO, String account, Date date) {
         User user = userMapper.checkPwd(account, passwordVO.getOldPassword());
-        if (user != null) {
+        if (user == null) {
             throw new ServiceException("原密码错误");
         } else {
             userMapper.updatePassword(account, passwordVO.getNewPassword(), date);

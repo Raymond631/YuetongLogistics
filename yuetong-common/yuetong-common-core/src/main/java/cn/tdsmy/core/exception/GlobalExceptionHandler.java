@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
                                                           HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',不支持'{}'请求", requestURI, e.getMethod());
-        return AjaxResult.error(HttpStatus.BAD_METHOD, e.getMessage());
+        return AjaxResult.error(HttpStatus.BAD_METHOD, "请求方式不支持");
     }
 
     /**
@@ -79,7 +79,7 @@ public class GlobalExceptionHandler {
     public AjaxResult handleRuntimeException(RuntimeException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生未知异常.", requestURI, e);
-        return AjaxResult.error(e.getMessage());
+        return AjaxResult.error("服务器开了个小差，请稍后再试~");
     }
 
     /**
@@ -89,7 +89,7 @@ public class GlobalExceptionHandler {
     public AjaxResult handleException(Exception e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生系统异常.", requestURI, e);
-        return AjaxResult.error(e.getMessage());
+        return AjaxResult.error("服务器繁忙，请稍后再试");
     }
 }
 

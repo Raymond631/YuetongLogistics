@@ -1,6 +1,7 @@
 package cn.tdsmy.system.beans;
 
 import cn.tdsmy.core.annotation.Excel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,9 @@ public class User {
     @Excel(name = "电子邮箱")
     private String email;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date checkInTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date alterTime;
 }

@@ -28,7 +28,7 @@ public interface UserMapper {
 
     void updateUserRole(@Param("userId") int userId, @Param("roleId") int roleId);
 
-    void updateUserInfo(PersonInfo info, @Param("account") String account, @Param("date") Date date);
+    void updateUserInfo(@Param("info") PersonInfo info, @Param("account") String account, @Param("date") Date date);
 
     User checkPwd(@Param("account") String account, @Param("password") String password);
 

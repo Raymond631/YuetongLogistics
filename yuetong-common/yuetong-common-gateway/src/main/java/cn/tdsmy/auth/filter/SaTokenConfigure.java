@@ -33,7 +33,7 @@ public class SaTokenConfigure {
 
                     // 权限认证 -- 不同模块, 校验不同权限
                     SaRouter.match("/fleet/**", r -> StpUtil.checkPermission("fleet"));
-                    SaRouter.match("/system/**", "/system/user/password", r -> StpUtil.checkPermission("system"));
+                    SaRouter.match("/system/**", "/system/self/**", r -> StpUtil.checkPermission("system"));
                     SaRouter.match("/transport/carrier/**", r -> StpUtil.checkPermission("carrier"));
                     SaRouter.match("/transport/capacity/**", r -> StpUtil.checkPermission("capacity"));
                     SaRouter.match("/transport/scheduling/**", r -> StpUtil.checkPermission("scheduling"));

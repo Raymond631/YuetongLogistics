@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/self")
+@RequestMapping("/system/self")
 public class SelfController {
     @Autowired
     private UserService userService;
