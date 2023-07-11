@@ -5,6 +5,8 @@ import cn.tdsmy.core.utils.RandomUtils;
 import cn.tdsmy.core.utils.StringUtils;
 import cn.tdsmy.system.beans.User;
 import cn.tdsmy.system.beans.vo.LoginBody;
+import cn.tdsmy.system.beans.vo.PasswordVO;
+import cn.tdsmy.system.beans.vo.PersonInfo;
 import cn.tdsmy.system.beans.vo.UserInfoVO;
 import cn.tdsmy.system.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -79,5 +81,30 @@ public class UserService {
             successMsg.insert(0, "恭喜您，数据已全部导入成功！共 " + successNum + " 条，数据如下：");
         }
         return successMsg.toString();
+    }
+
+    public List<User> getUserList() {
+        return userMapper.selectUser();
+    }
+
+    public void deleteUser(int userId) {
+        userMapper.deleteUserById(userId);
+    }
+
+    public void updateUserRole(int userId, int roleId) {
+        userMapper.updateUserRole(userId, roleId);
+    }
+
+    public void updateUserInfo(PersonInfo info, String account, Date date) {
+        userMapper.updateUserInfo(info, account, date);
+    }
+
+    public void updatePassword(PasswordVO passwordVO, String account, Date date) {
+        User user = userMapper.checkPwd(account, passwordVO.getOldPassword());
+        if (user != null) {
+            throw new ServiceException("原密码错误");
+        } else {
+            userMapper.updatePassword(account, passwordVO.getNewPassword(), date);
+        }
     }
 }
