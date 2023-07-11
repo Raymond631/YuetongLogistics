@@ -28,7 +28,7 @@
             <label>用户名</label>
             <input
               type="text"
-              v-model="user.username"
+              v-model="user.account"
               autocomplete="off"
               class="usernameInput"
               @blur="validateUsername"
@@ -36,8 +36,8 @@
           </div>
           <label
             class="inputMsg usernameMsg"
-            v-text="inputMsg.usernameMsg"
-            v-if="inputMsg.usernameMsg !== ''"
+            v-text="inputMsg.accountMsg"
+            v-if="inputMsg.accountMsg !== ''"
           ></label>
           <div class="form-item">
             <label>密码</label>
@@ -54,14 +54,14 @@
             <label>邮箱</label>
             <input type="text" v-model="user.email" class="emailInput" @blur="validateEmail">
           </div> -->
-          <label
+          <!-- <label
             class="inputMsg emailMsg"
             v-text="inputMsg.emailMsg"
             v-if="inputMsg.emailMsg !== ''"
-          ></label>
+          ></label> -->
           <div class="form-item check-item">
             <label>验证码</label>
-            <input v-model="user.checkCode" class="checkCodeInput" />
+            <input v-model="user.code" class="checkCodeInput" />
             <a class="checkCodeBtn"
               ><img
                 :src="codeUrl"
@@ -73,8 +73,8 @@
           </div>
           <label
             class="inputMsg checkCodeMsg"
-            v-text="inputMsg.checkCodeMsg"
-            v-if="inputMsg.checkCodeMsg !== ''"
+            v-text="inputMsg.codeMsg"
+            v-if="inputMsg.codeMsg !== ''"
           ></label>
           <div class="buttons-item">
             <el-button type="primary" @click="submitForm()" class="loginBtn"
@@ -101,17 +101,16 @@ export default {
     return {
       codeUrl: "",
       user: {
-        username: "",
+        account: "",
         password: "",
-        email: "",
-        checkCode: "",
+        code: "",
+        uuid: "",
       },
       //表单input输入值格式判断
       inputMsg: {
-        usernameMsg: "",
+        accountMsg: "",
         passwordMsg: "",
-        emailMsg: "",
-        checkCodeMsg: "",
+        codeMsg: "",
       },
     };
   },
@@ -122,6 +121,7 @@ export default {
       vertify()
         .then((res:any) => {
           console.log(res)
+          that.user.uuid = res.uuid;
           that.codeUrl= "data:image/gif;base64," + res.img;
         })
         .catch((err:any) => {
@@ -131,11 +131,11 @@ export default {
 
     //判断用户名、密码、邮箱的输入格式
     validateUsername() {
-      const usernameStr = this.user.username;
+      const usernameStr = this.user.account;
       if (usernameStr == "") {
-        this.inputMsg.usernameMsg = "请输入用户名";
+        this.inputMsg.accountMsg = "请输入用户名";
       } else {
-        this.inputMsg.usernameMsg = "";
+        this.inputMsg.accountMsg = "";
       }
     },
     validatePassword() {
@@ -146,18 +146,18 @@ export default {
         this.inputMsg.passwordMsg = "";
       }
     },
-    validateEmail() {
-      const emailStr = this.user.email;
-      if (emailStr == "") {
-        this.inputMsg.emailMsg = "请输入邮箱账号";
-      } else {
-        this.inputMsg.emailMsg = "";
-      }
-    },
+    
     //点击登录按钮
     submitForm() {
       //普通管理员登录系统
-      this.$router.push('/authentication/main')
+      login(this.user) .then((res: any) => {
+          console.log("login success");
+          
+          this.$router.push('/authentication/main')
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
       //调用登录接口
 
     },

@@ -6,14 +6,15 @@
       <el-tabs v-model="logName" class="logTabs">
         <el-tab-pane label="操作日志" name="operateLog">
           <div class="upload">
-            <el-link
-              href="http://127.0.0.1:4523/m1/2962122-0-default/system/log/exportOperateLog"
+            <!-- <el-link
+              href="http://192.168.3.107:10000/system/log/exportOperateLog"
               type="primary"
               :underline="false"
               class="link"
               target="_blank"
               ><el-icon><Download /></el-icon>导出操作日志</el-link
-            >
+            > -->
+              <el-button type="primary" @click="getOperationData">导出操作日志</el-button>
           </div>
           <ytTable
             class="table"
@@ -36,14 +37,15 @@
         </el-tab-pane>
         <el-tab-pane label="登录日志" name="loginLog">
           <div class="upload">
-            <el-link
-              href="http://127.0.0.1:4523/m1/2962122-0-default/system/log/exportLoginLog"
+            <!-- <el-link
+              href="http://192.168.3.107:10000/system/log/exportLoginLog"
               type="primary"
               :underline="false"
               class="link"
-              target = '_blank'
+              target="_blank"
               ><el-icon><Download /></el-icon>导出登录日志</el-link
-            >
+            > -->
+            <el-button type="primary" @click="getLoginData">导出登录日志</el-button>
           </div>
           <ytTable
             class="table"
@@ -73,7 +75,13 @@ import { defineComponent } from "vue";
 import navigationBar from "../../components/navigationBar.vue";
 import welcomeHeader from "../../components/header.vue";
 import ytTable from "../../components/yt-table.vue";
-import { operateLog, loginlog } from "../../api/system/log";
+import {
+  operateLog,
+  loginLog,
+  loginLogExport,
+  operateLogExport,
+} from "../../api/system/log";
+import { saveAs } from "file-saver";
 
 export default defineComponent({
   name: "log",
@@ -82,7 +90,7 @@ export default defineComponent({
       data: "",
       paginationConfig: {
         currentPage: 1, // 当前页码
-        pageSize: 2, // 每页显示的条数
+        pageSize: 10, // 每页显示的条数
         pageCount: 1, //总共有多少页
         total: 0, // 总条数
       },
@@ -152,7 +160,7 @@ export default defineComponent({
         .catch((err: any) => {
           console.log(err);
         });
-      loginlog(
+      loginLog(
         this.paginationConfig.pageSize,
         this.paginationConfig.currentPage
       )
@@ -169,7 +177,29 @@ export default defineComponent({
       this.ready();
     },
 
-    goBack() {},
+    getOperationData() {
+      operateLogExport()
+        .then((res: any) => {
+          console.log(res);
+          const filename = "operationLog.xlsx"; // 设置文件名
+          saveAs(new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }), filename); // 使用 FileSaver.js 下载文件
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    },
+
+    getLoginData() {
+      loginLogExport()
+        .then((res: any) => {
+          console.log(res);
+          const filename = "loginLog.xlsx"; // 设置文件名
+          saveAs(res, filename); // 使用 FileSaver.js 下载文件
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    },
   },
 });
 </script>

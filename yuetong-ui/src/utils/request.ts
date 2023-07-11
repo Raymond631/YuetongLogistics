@@ -58,6 +58,7 @@ export function request(config: any) {
       if (err && err.response) {
         // 1.公共错误处理
         // 2.根据响应码具体处理
+        
         switch (err.response.status) {
           case 400:
             err.message = "错误请求";
@@ -88,10 +89,14 @@ export function request(config: any) {
         }
         err.message = "连接服务器失败";
       }
-      Message.error(err.message);
+      // alert(err.response.msg);
       throw err;
     }
   );
 
   return instance(config);
 }
+
+
+
+
