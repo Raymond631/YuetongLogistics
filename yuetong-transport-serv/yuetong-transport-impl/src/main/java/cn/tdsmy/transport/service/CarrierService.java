@@ -2,6 +2,7 @@ package cn.tdsmy.transport.service;
 
 import cn.tdsmy.transport.beans.Carrier;
 import cn.tdsmy.transport.beans.Goods;
+import cn.tdsmy.transport.beans.vo.CarrierAndDriver;
 import cn.tdsmy.transport.mapper.CarrierMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class CarrierService {
         carrierMapper.updateCarrier(carrierId, receiveDate, finishedState);
     }
 
-    public List<Carrier> getCarriers(String account) {
+    public List<CarrierAndDriver> getCarriers(String account) {
         return carrierMapper.searchCarriers(account);
     }
 }

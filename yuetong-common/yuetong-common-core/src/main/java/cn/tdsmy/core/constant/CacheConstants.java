@@ -5,9 +5,9 @@ package cn.tdsmy.core.constant;
  */
 public class CacheConstants {
     /**
-     * 权限缓存有效期，默认60（秒）
+     * 权限缓存有效期，默认300（秒）
      */
-    public final static long PERMISSION_EXPIRATION = 60;
+    public final static long PERMISSION_EXPIRATION = 300;
 
     /**
      * 验证码 redis key

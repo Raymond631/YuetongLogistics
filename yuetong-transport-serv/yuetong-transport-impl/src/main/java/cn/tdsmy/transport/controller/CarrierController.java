@@ -5,6 +5,7 @@ import cn.tdsmy.core.response.AjaxResult;
 import cn.tdsmy.log.annotation.Log;
 import cn.tdsmy.log.enums.BusinessType;
 import cn.tdsmy.transport.beans.Carrier;
+import cn.tdsmy.transport.beans.vo.CarrierAndDriver;
 import cn.tdsmy.transport.beans.vo.CarrierVO;
 import cn.tdsmy.transport.service.CarrierService;
 import com.github.pagehelper.PageHelper;
@@ -48,7 +49,7 @@ public class CarrierController {
     @GetMapping
     @Log(title = "查询本人提交的承运单（运输中）", businessType = BusinessType.SELECT)
     public AjaxResult searchCarriers(@RequestHeader("account") String account, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        PageInfo<Carrier> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
+        PageInfo<CarrierAndDriver> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
             carrierService.getCarriers(account);
         });
         return AjaxResult.success(pageInfo);

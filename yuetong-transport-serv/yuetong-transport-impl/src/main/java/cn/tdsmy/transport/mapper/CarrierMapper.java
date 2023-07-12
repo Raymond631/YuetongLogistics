@@ -2,6 +2,7 @@ package cn.tdsmy.transport.mapper;
 
 import cn.tdsmy.transport.beans.Carrier;
 import cn.tdsmy.transport.beans.Goods;
+import cn.tdsmy.transport.beans.vo.CarrierAndDriver;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,5 +17,5 @@ public interface CarrierMapper {
 
     void updateCarrier(@Param("carrierId") int carrierId, @Param("receiveDate") Date receiveDate, @Param("finishedState") int finishedState);
 
-    List<Carrier> searchCarriers(@Param("account") String account);
+    List<CarrierAndDriver> searchCarriers(@Param("account") String account);
 }

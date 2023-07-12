@@ -11,7 +11,7 @@
  Target Server Version : 80033
  File Encoding         : 65001
 
- Date: 12/07/2023 21:52:38
+ Date: 12/07/2023 23:08:11
 */
 
 SET NAMES utf8mb4;
@@ -49,6 +49,7 @@ CREATE TABLE `carriers`  (
 -- ----------------------------
 -- Records of carriers
 -- ----------------------------
+INSERT INTO `carriers` VALUES (1, 'qui', '云南省佳木斯市雁江区', 'elit ut sunt', '19840510269', 'ad Ut', '四川省三沙市景谷傣族彝族自治县', 'ut', '13138768380', '1988-01-07', NULL, 1, 9, 81, 23, 113, 'labore tempor exercitation pariatur deserunt', 'abc', '2023-07-12 22:53:23', '2023-07-12 22:53:23');
 
 -- ----------------------------
 -- Table structure for contact
@@ -64,6 +65,7 @@ CREATE TABLE `contact`  (
 -- ----------------------------
 -- Records of contact
 -- ----------------------------
+INSERT INTO `contact` VALUES (1, 1, 1);
 
 -- ----------------------------
 -- Table structure for driver
@@ -88,6 +90,8 @@ CREATE TABLE `driver`  (
 -- ----------------------------
 -- Records of driver
 -- ----------------------------
+INSERT INTO `driver` VALUES (1, '张三', '男', '1988-10-01', '12345678900', '123456789123456789', 1, 'Working', '无', '2023-07-12 22:51:58', '2023-07-12 22:51:58');
+INSERT INTO `driver` VALUES (2, '李四', '男', '1975-01-21', '98765432100', '123456789123456789', 1, 'Free', '无', '2023-07-12 22:51:58', '2023-07-12 22:51:58');
 
 -- ----------------------------
 -- Table structure for goods
@@ -108,6 +112,8 @@ CREATE TABLE `goods`  (
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
+INSERT INTO `goods` VALUES (1, 1, '问马青', 67, 59, 0);
+INSERT INTO `goods` VALUES (2, 1, '根强农', 46, 85, 0);
 
 -- ----------------------------
 -- Table structure for log_login
@@ -126,6 +132,7 @@ CREATE TABLE `log_login`  (
 -- ----------------------------
 -- Records of log_login
 -- ----------------------------
+INSERT INTO `log_login` VALUES (13, 'abc', 'success', '登录成功', '127.0.0.1', '2023-07-12 22:41:47');
 
 -- ----------------------------
 -- Table structure for log_operate
@@ -149,6 +156,23 @@ CREATE TABLE `log_operate`  (
 -- ----------------------------
 -- Records of log_operate
 -- ----------------------------
+INSERT INTO `log_operate` VALUES (36, '2023-07-12 22:42:16', 'abc', '127.0.0.1', '批量导入车队', 'IMPORT', 'POST', '/fleet/team/importTeam', 'success', 1462, NULL);
+INSERT INTO `log_operate` VALUES (37, '2023-07-12 22:44:08', 'abc', '127.0.0.1', '批量导入车辆', 'IMPORT', 'POST', '/fleet/truck/importTruck', 'success', 72, NULL);
+INSERT INTO `log_operate` VALUES (38, '2023-07-12 22:51:57', 'abc', '127.0.0.1', '批量导入司机', 'IMPORT', 'POST', '/fleet/driver/importDriver', 'success', 27, NULL);
+INSERT INTO `log_operate` VALUES (39, '2023-07-12 22:52:33', 'abc', '127.0.0.1', '绑定司机和车辆', 'INSERT', 'POST', '/fleet/contact', 'success', 8, NULL);
+INSERT INTO `log_operate` VALUES (40, '2023-07-12 22:53:23', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'success', 792, NULL);
+INSERT INTO `log_operate` VALUES (41, '2023-07-12 22:53:39', 'abc', '127.0.0.1', '调度承运任务', 'INSERT', 'POST', '/transport/scheduling', 'success', 49, NULL);
+INSERT INTO `log_operate` VALUES (42, '2023-07-12 22:54:09', 'abc', '127.0.0.1', '查询本人提交的承运单（运输中）', 'SELECT', 'GET', '/transport/carrier', 'success', 91, NULL);
+INSERT INTO `log_operate` VALUES (43, '2023-07-12 23:06:14', 'abc', '127.0.0.1', '查询承运单（待调度）', 'SELECT', 'GET', '/transport/scheduling/getCarriers', 'success', 14, NULL);
+INSERT INTO `log_operate` VALUES (44, '2023-07-12 23:06:23', 'abc', '127.0.0.1', '查询承运单（已完成）', 'SELECT', 'GET', '/transport/cost/getCarriers', 'success', 7, NULL);
+INSERT INTO `log_operate` VALUES (45, '2023-07-12 23:06:30', 'abc', '127.0.0.1', '查询本人提交的承运单（运输中）', 'SELECT', 'GET', '/transport/carrier', 'success', 22, NULL);
+INSERT INTO `log_operate` VALUES (46, '2023-07-12 23:06:37', 'abc', '127.0.0.1', '查询车队列表', 'SELECT', 'GET', '/fleet/team', 'success', 110, NULL);
+INSERT INTO `log_operate` VALUES (47, '2023-07-12 23:06:45', 'abc', '127.0.0.1', '查询车辆列表', 'SELECT', 'GET', '/fleet/truck', 'success', 8, NULL);
+INSERT INTO `log_operate` VALUES (48, '2023-07-12 23:06:50', 'abc', '127.0.0.1', '查询司机列表', 'SELECT', 'GET', '/fleet/driver', 'success', 9, NULL);
+INSERT INTO `log_operate` VALUES (49, '2023-07-12 23:06:55', 'abc', '127.0.0.1', '查询绑定信息', 'SELECT', 'GET', '/fleet/contact', 'success', 7, NULL);
+INSERT INTO `log_operate` VALUES (50, '2023-07-12 23:07:05', 'abc', '127.0.0.1', '查询绑定信息', 'SELECT', 'GET', '/fleet/contact', 'success', 7, NULL);
+INSERT INTO `log_operate` VALUES (51, '2023-07-12 23:07:15', 'abc', '127.0.0.1', '查询用户信息', 'SELECT', 'GET', '/system/user', 'success', 96, NULL);
+INSERT INTO `log_operate` VALUES (52, '2023-07-12 23:07:40', 'abc', '127.0.0.1', '查询个人信息', 'SELECT', 'GET', '/system/self/userInfo', 'success', 8, NULL);
 
 -- ----------------------------
 -- Table structure for role
@@ -159,7 +183,7 @@ CREATE TABLE `role`  (
   `role_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色名称',
   `role_purview` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色权限，多个权限用 / 区分',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统角色表用于存放系统权限数据，管理用户权限' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统角色表用于存放系统权限数据，管理用户权限' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role
@@ -194,6 +218,7 @@ CREATE TABLE `scheduling`  (
 -- ----------------------------
 -- Records of scheduling
 -- ----------------------------
+INSERT INTO `scheduling` VALUES (1, '2023-07-12 22:53:39', 1, 1, NULL, NULL, NULL, NULL, NULL, 'abc', '2023-07-12 22:53:39', '2023-07-12 22:53:39');
 
 -- ----------------------------
 -- Table structure for truck
@@ -217,6 +242,8 @@ CREATE TABLE `truck`  (
 -- ----------------------------
 -- Records of truck
 -- ----------------------------
+INSERT INTO `truck` VALUES (1, '湘A12345', '2022-10-01', '大货车', 20, 1, 'Working', '无', '2023-07-12 22:44:08', '2023-07-12 22:44:08');
+INSERT INTO `truck` VALUES (2, '湘A67890', '2022-10-01', '小货车', 5, 1, 'Free', '无', '2023-07-12 22:44:08', '2023-07-12 22:44:08');
 
 -- ----------------------------
 -- Table structure for truck_team
@@ -235,6 +262,8 @@ CREATE TABLE `truck_team`  (
 -- ----------------------------
 -- Records of truck_team
 -- ----------------------------
+INSERT INTO `truck_team` VALUES (1, 'aaa', '张三', '无', '2023-07-12 22:42:16', '2023-07-12 22:42:16');
+INSERT INTO `truck_team` VALUES (2, 'bbb', '李四', '无', '2023-07-12 22:42:16', '2023-07-12 22:42:16');
 
 -- ----------------------------
 -- Table structure for user
