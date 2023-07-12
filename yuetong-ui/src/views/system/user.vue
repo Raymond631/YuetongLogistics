@@ -18,7 +18,7 @@
           </div>
           <el-upload
             class="action2"
-            action="http://127.0.0.1:4523/m1/2962122-0-default/system/user/importUser"
+            action="http://192.168.3.107:10000/system/user/importUser"
             :on-preview="handlePreview"
             :on-remove="handleRemove"
             :before-remove="beforeRemove"
@@ -26,8 +26,10 @@
             :limit="1"
             :on-exceed="handleExceed"
             :file-list="fileList"
+            name="file"
           >
-            <el-button class="action2_upload">点击上传</el-button>
+            <el-button size="small" class="action2_upload" type="primary">点击上传</el-button>
+            
           </el-upload>
         </div>
       </div>
@@ -172,13 +174,19 @@ import { defineComponent } from "vue";
 import navigationBar from "../../components/navigationBar.vue";
 import welcomeHeader from "../../components/header.vue";
 import ytTable from "../../components/yt-table.vue";
-import { searchUsers, deleteUser, updateUser } from "../../api/system/user";
+import {
+  searchUsers,
+  deleteUser,
+  updateUser,
+  uploadUser,
+} from "../../api/system/user";
 
 export default defineComponent({
   name: "user",
   data() {
     return {
       search: "",
+      fileList: [],
       dialogTableVisible: false,
       authority: {
         value: 1,
@@ -194,7 +202,6 @@ export default defineComponent({
         pageCount: 1, //总共有多少页
         total: 1, // 总条数
       },
-      fileList: [],
       userList: [
         {
           userId: 123,
@@ -243,6 +250,11 @@ export default defineComponent({
           console.log(err);
         });
     },
+    handlePageChange(val: number) {
+      this.paginationConfig.currentPage = val;
+      console.log("当前页面数为：" + val);
+      this.ready();
+    },
     handleDelete(userId: number) {
       let that = this;
       deleteUser(userId)
@@ -277,27 +289,19 @@ export default defineComponent({
           console.log(err);
         });
     },
-    handlePageChange(val: number) {
-      this.paginationConfig.currentPage = val;
-      console.log("当前页面数为：" + val);
-      this.ready();
-    },
-    handleRemove(file: any, fileList: any) {
-      console.log(file, fileList);
-    },
-    handlePreview(file: any) {
-      console.log(file);
-    },
-    handleExceed(files: any, fileList: any) {
-      alert(
-        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
-          files.length + fileList.length
-        } 个文件`
-      );
-    },
-    beforeRemove(file: any, fileList: any) {
-      return alert(`确定移除 ${file.name}？`);
-    },
+    //上传文件
+      handleRemove(file:any, fileList:any) {
+        console.log(file, fileList);
+      },
+      handlePreview(file:any) {
+        console.log(file);
+      },
+      handleExceed(files:any, fileList:any) {
+        alert(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+      beforeRemove(file:any, fileList:any) {
+        return alert(`确定移除 ${ file.name }？`);
+      }
   },
 });
 </script>

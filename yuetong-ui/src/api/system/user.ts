@@ -21,3 +21,14 @@ export function updateUser(userId:number, roleId:number) {
         method: 'put',
     })  
 }
+
+export function uploadUser(data:any) {
+    return request({
+        url: "v",
+        method: 'post',
+        data,
+        Headers:{
+            contentType: 'multipart/form-data'
+        }
+    })  
+}

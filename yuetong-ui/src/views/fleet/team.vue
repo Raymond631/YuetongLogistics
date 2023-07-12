@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <navigationBar/>
+    <navigationBar />
     <div class="content">
-      <welcomeHeader/>
+      <welcomeHeader />
       <div class="block-list">
         <div class="block1"></div>
         <div class="block2"></div>
         <div class="block3"></div>
       </div>
-      <el-table
+      <!-- <el-table
           :data="teamList"
           class="table"
           tooltip-effect="dark"
@@ -36,17 +36,41 @@
           </el-button
           >
         </el-table-column>
-      </el-table>
-
+      </el-table> -->
+      <el-row style="margin-left: 20px;">
+        <el-col
+          class="card"
+          v-for="(team, index) in teamList"
+          :key="index"
+          :span="3"
+        >
+          <el-card :body-style="{ padding: '10px', height:'250px',}">
+            <span style="font-size: 24px;">{{ team.teamName }}</span>
+            <br />
+            <span style="font-size: 15px; margin-left: 45%;">队伍序号：{{ team.teamId }}</span>
+            <br />
+            <span>队长： {{ team.leader }}</span>
+            <br />
+            <span> 备注：{{ team.remark }}</span>
+            <div style="padding: 14px">
+              <div class="bottom">
+                <time class="time">登记日期：{{ team.checkInTime }}</time>
+                <el-button text class="button">Operating</el-button>
+                
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
       <!-- 分页 -->
       <div class="page">
         <el-pagination
-            v-model:currentPage="paginationConfig.currentPage"
-            layout="total, prev, pager, next"
-            small
-            :page-size="paginationConfig.pageSize"
-            :total="paginationConfig.total"
-            @current-change="handleCurrentChange"
+          v-model:currentPage="paginationConfig.currentPage"
+          layout="total, prev, pager, next"
+          small
+          :page-size="paginationConfig.pageSize"
+          :total="paginationConfig.total"
+          @current-change="handleCurrentChange"
         />
       </div>
     </div>
@@ -57,46 +81,44 @@
       <div>
         <div class="form-item">
           <label>车队编号</label>
-          <el-input type="text" class="form-input" v-model="edit_team.teamId"/>
+          <el-input type="text" class="form-input" v-model="edit_team.teamId" />
         </div>
         <div class="form-item">
           <label>车队名</label>
           <el-input
-              type="text"
-              class="form-input"
-              v-model="edit_team.teamName"
+            type="text"
+            class="form-input"
+            v-model="edit_team.teamName"
           />
         </div>
         <div class="form-item">
           <label>队长</label>
-          <el-input type="text" class="form-input" v-model="edit_team.leader"/>
+          <el-input type="text" class="form-input" v-model="edit_team.leader" />
         </div>
         <div class="form-item">
           <label>标记</label>
-          <el-input type="text" class="form-input" v-model="edit_team.remark"/>
+          <el-input type="text" class="form-input" v-model="edit_team.remark" />
         </div>
         <div class="form-item">
           <label>登记日期</label>
           <el-input
-              type="text"
-              class="form-input"
-              v-model="edit_team.checkInTime"
+            type="text"
+            class="form-input"
+            v-model="edit_team.checkInTime"
           />
         </div>
       </div>
       <div class="actionBtns">
         <el-button
-            size="default"
-            type="primary"
-            @click="confirmEdit"
-            class="actionBtn btn1"
-        >提交
-        </el-button
-        >
+          size="default"
+          type="primary"
+          @click="confirmEdit"
+          class="actionBtn btn1"
+          >提交
+        </el-button>
         <el-button size="default" @click="cancelEdit" class="actionBtn btn2"
-        >取消
-        </el-button
-        >
+          >取消
+        </el-button>
       </div>
     </div>
     <div class="deleteForm" v-if="showDeleteForm">
@@ -106,48 +128,32 @@
 </template>
 
 <script lang="ts">
+import navigationBar from "../../components/navigationBar.vue";
 import welcomeHeader from "../../components/header.vue";
-import {defineComponent} from "vue";
-import {allData} from "@/api/fleet/team";
+import { defineComponent } from "vue";
+import { teamInfo } from "../../api/fleet/team";
 
 export default defineComponent({
   name: "team",
-  components: {welcomeHeader},
+  components: { welcomeHeader, navigationBar },
   data() {
     return {
       paginationConfig: {
         currentPage: 1, // 当前页码
-        pageSize: 2, // 每页显示的条数
-        total: 0, // 总条数
+        pageSize: 10, // 每页显示的条数
+        pageCount: 1, //总共有多少页
+        total: 1, // 总条数
       },
       teamList: [
-        // {
-        //   teamId: "1",
-        //   teamName: "冲冲队",
-        //   leader: "张三",
-        //   remark: "1",
-        //   checkInTime: "2022/07/04",
-        //   isDelete: "1",
-        //   alterTime: "2022/07/04",
-        // },
-        // {
-        //   teamId: "2",
-        //   teamName: "宝宝队",
-        //   leader: "李四",
-        //   remark: "1",
-        //   checkInTime: "2022/07/04",
-        //   isDelete: "1",
-        //   alterTime: "2022/07/04",
-        // },
-        // {
-        //   teamId: "3",
-        //   teamName: "丫丫队",
-        //   leader: "王五",
-        //   remark: "1",
-        //   checkInTime: "2022/07/04",
-        //   isDelete: "1",
-        //   alterTime: "2022/07/04",
-        // },
+       
+        {
+          teamId: 1,
+          teamName: "hhh",
+          leader: "清",
+          remark: "无",
+          checkInTime: "2023-07-11 07:27:34",
+          alterTime: "2023-07-11 07:27:37",
+        },
       ],
       edit_team: {
         teamId: "",
@@ -172,18 +178,19 @@ export default defineComponent({
     this.ready();
   },
   methods: {
-
     ready() {
-      allData(0).then((res: any) => {
-        console.log(res.rows.length);
-        this.teamList = res.rows;
-        this.paginationConfig.total = res.rows.length;
-      })
+      teamInfo( this.paginationConfig.currentPage,
+        this.paginationConfig.pageSize).then((res: any) => {
+        console.log(res);
+        this.teamList = res.data.list;
+        this.paginationConfig.total = Number(res.data.total);
+        this.paginationConfig.pageCount = Number(res.data.pageNum);
+      });
     },
 
-    handleCurrentChange(val: number){
-      this.paginationConfig.currentPage = val
-      this.ready()
+    handleCurrentChange(val: number) {
+      this.paginationConfig.currentPage = val;
+      this.ready();
     },
 
     //选中该行数据
@@ -192,7 +199,7 @@ export default defineComponent({
       this.selectedRow = row;
     },
 
-    rowStyle({row}: any) {
+    rowStyle({ row }: any) {
       if (row === this.selectedRow) {
         console.log("添加样式......" + row.teamId);
         return {
@@ -210,8 +217,7 @@ export default defineComponent({
       this.showEditForm = true;
     },
     //删除
-    deleteRow() {
-    },
+    deleteRow() {},
 
     //编辑表单的确认和取消按钮
     confirmEdit() {
@@ -229,5 +235,31 @@ export default defineComponent({
 
 <style lang="scss" scoped="scoped">
 @import "../../assets/style/css/team.scss";
+.time {
+  font-size: 12px;
+  color: #999;
+}
 
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  padding: 0px;
+  // margin-top: 30px;
+}
+
+.card {
+  margin: 10px;
+  margin-left: 50px;
+  height: 250px;
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
 </style>

@@ -1,8 +1,8 @@
 import { request } from '@/utils/request';
 
-export function allData(finishedState: Number) {
+export function teamInfo(pageNum:number,pageSize:number) {
     return request({
-        url: `/transport/capacity/carrier/${finishedState}`,
+        url: `/fleet/team?pageNum=${pageNum}&pageSize=${pageSize}`,
         method: 'get',
     })
 }

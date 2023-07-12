@@ -1,11 +1,16 @@
 <template>
   <div class="container">
-    <navigationBar/>
+    <navigationBar />
     <div class="content">
       <welcomeHeader />
       <div class="block-list">
         <div class="search">
-          <el-input type="text" class="search-input" v-model="search" placeholder="请搜索用户"></el-input>
+          <el-input
+            type="text"
+            class="search-input"
+            v-model="search"
+            placeholder="请搜索用户"
+          ></el-input>
         </div>
         <div class="actions">
           <div class="action1">
@@ -17,276 +22,170 @@
         </div>
       </div>
       <div class="user-main">
-        <div class="user-block" v-for="user in userList" :key="user">
+        <div class="user-block" v-for="driver in driverList" :key="driver.driverId">
           <div class="basic-info">
-            <el-avatar type="image" :src="user.image" class="image"></el-avatar>
+            <el-avatar type="image" :src="driver.image" class="image"></el-avatar>
             <div class="right-info">
-              <label v-text="user.username" class="username"></label>
-              <label v-text="'#'+user.role" class="role"></label>
+              <label v-text="driver.name" class="username"></label>
+              <label v-text="'#' + driver.state" class="role"></label>
               <div class="icons">
-                <el-icon :size="35" :color="'#0e6f64'" class="icon">
-                  <Avatar/>
-                </el-icon>
-                <el-icon :size="35" :color="'#0e6f64'" class="icon">
-                  <PhoneFilled/>
-                </el-icon>
-                <el-icon :size="35" :color="'#0e6f64'" class="icon">
-                  <ChatLineRound/>
-                </el-icon>
+                <el-popover
+                  placement="top-start"
+                  title="生日很重要啊！"
+                  :width="20"
+                  trigger="hover"
+                  :content="'生日:' + driver.birth"
+                >
+                  <template #reference>
+                    <el-icon :size="30" :color="'#0e6f64'" class="icon">
+                      <Avatar />
+                    </el-icon>
+                  </template>
+                </el-popover>
+
+                <el-popover
+                  placement="top-start"
+                  title="联系电话"
+                  :width="20"
+                  trigger="hover"
+                  :content="'移动电话：'+driver.phone"
+                >
+                  <template #reference>
+                    <el-icon :size="30" :color="'#0e6f64'" class="icon">
+                      <PhoneFilled />
+                    </el-icon>
+                  </template>
+                </el-popover>
+                <el-popover
+                  placement="top-start"
+                  title="入厂时间"
+                  :width="20"
+                  trigger="hover"
+                  :content="driver.checkInTime"
+                >
+                  <template #reference>
+                    <el-icon :size="30" :color="'#0e6f64'" class="icon">
+                      <ChatLineRound />
+                    </el-icon>
+                  </template>
+                </el-popover>
               </div>
             </div>
-            <el-icon :size="30" class="more">
-              <More/>
-            </el-icon>
+
+            <el-popconfirm
+              title="这是一段内容确定删除吗？"
+              @confirm="handleDelete(driver.driverId)"
+            >
+              <template #reference>
+                <el-button class="dot">
+                  <el-icon><CloseBold /></el-icon>
+                </el-button>
+              </template>
+            </el-popconfirm>
+
+            <!-- <el-icon :size="30" class="more">
+              <More />
+            </el-icon> -->
           </div>
           <div class="extra-info">
-            <label class="title">Email</label>
-            <label class="email" v-text="user.email"></label>
+            <label class="title">alterTime</label>
+            <label class="email" v-text="driver.alterTime"></label>
           </div>
         </div>
-
+      </div>
+      <div class="page">
+        <el-pagination
+          v-model:currentPage="paginationConfig.currentPage"
+          layout="total, prev, pager, next"
+          :page-size="paginationConfig.pageSize"
+          :total="paginationConfig.total"
+          :page-count="paginationConfig.pageCount"
+          @current-change="handlePageChange"
+        />
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import welcomeHeader from "../../components/header.vue";
 import navigationBar from "../../components/navigationBar.vue";
 import ytTable from "../../components/yt-table.vue";
+import { searchDrivers, deleteDrivers } from "../../api/fleet/driver";
 
 export default {
   name: "driver",
-  components: { welcomeHeader, navigationBar, ytTable },
   data() {
     return {
-      search: '',
-      userList: [
+      search: "",
+      paginationConfig: {
+        currentPage: 1, // 当前页码
+        pageSize: 12, // 每页显示的条数
+        pageCount: 1, //总共有多少页
+        total: 1, // 总条数
+      },
+      driverList: [
         {
-          image: 'https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg',
-          username: '彭狗',
-          role: '调度员',
-          sex: '男',
-          phone: '19573135235',
-          email: '1139040315@qq.com',
-        },
-        {
-          image: 'https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg',
-          username: '彭狗',
-          role: '调度员',
-          sex: '男',
-          phone: '19573135235',
-          email: '1139040315@qq.com',
-        },
-        {
-          image: 'https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg',
-          username: '彭狗',
-          role: '调度员',
-          sex: '男',
-          phone: '19573135235',
-          email: '1139040315@qq.com',
-        },
-        {
-          image: 'https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg',
-          username: '彭狗',
-          role: '调度员',
-          sex: '男',
-          phone: '19573135235',
-          email: '1139040315@qq.com',
-        },
-        {
-          image: 'https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg',
-          username: '彭狗',
-          role: '调度员',
-          sex: '男',
-          phone: '19573135235',
-          email: '1139040315@qq.com',
-        },
-        {
-          image: 'https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg',
-          username: '彭狗',
-          role: '调度员',
-          sex: '男',
-          phone: '19573135235',
-          email: '1139040315@qq.com',
-        },
-        {
-          image: 'https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg',
-          username: '彭狗',
-          role: '调度员',
-          sex: '男',
-          phone: '19573135235',
-          email: '1139040315@qq.com',
-        },
-        {
-          image: 'https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg',
-          username: '彭狗',
-          role: '调度员',
-          sex: '男',
-          phone: '19573135235',
-          email: '1139040315@qq.com',
-        },
-        {
-          image: 'https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg',
-          username: '彭狗',
-          role: '调度员',
-          sex: '男',
-          phone: '19573135235',
-          email: '1139040315@qq.com',
+          driverId: 1,
+          image: "",
+          name: "张三",
+          sex: "男",
+          birth: "1988-10-01",
+          phone: "12345678900",
+          idCard: "123456789123456789",
+          fkTeamId: 1,
+          state: "空闲",
+          remark: "无",
+          checkInTime: "2023-07-21 07:58:15",
+          alterTime: "2023-07-11 07:58:15",
         },
       ],
-
-    }
-  }
-}
+    };
+  },
+  components: { welcomeHeader, navigationBar, ytTable },
+  mounted() {
+    this.ready();
+  },
+  methods: {
+    ready() {
+      searchDrivers(
+        this.paginationConfig.currentPage,
+        this.paginationConfig.pageSize
+      )
+        .then((res: any) => {
+          console.log(res);
+          this.driverList = res.data.list;
+          this.paginationConfig.total = Number(res.data.total);
+          this.paginationConfig.pageCount = Number(res.data.pageNum);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    },
+    handlePageChange(val: number) {
+      this.paginationConfig.currentPage = val;
+      console.log("当前页面数为：" + val);
+      this.ready();
+    },
+    //删除驾驶员
+    handleDelete(userId: number) {
+      let that = this;
+      deleteDrivers(userId)
+        .then((res: any) => {
+          console.log("delete success");
+          //重新请求该页面数据
+          that.ready();
+          console.log(res);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
-.container {
-  .content {
-    margin-left: $Mleft;
-    height: $max_height;
-    //background-color: $back_color;
-    background-color: #f6f6f6;
-  }
-}
-
-@mixin font {
-  font-family: "Microsoft YaHei", sans-serif;
-  font-size: 20px;
-}
-
-@mixin action {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  height: 60px;
-  @include font;
-  border-radius: 15px;
-  margin-left: 60px;
-}
-
-.block-list {
-  margin: 0 auto;
-  width: 100%;
-  height: 200px;
-  display: flex;
-  justify-content: space-between;
-
-  .search {
-    margin-top: 50px;
-    margin-left: 50px;
-    width: 30%;
-
-    .search-input {
-      height: 60px;
-      font-size: 20px;
-    }
-  }
-
-  .actions {
-    margin-top: 50px;
-    margin-right: 100px;
-    width: 50%;
-    display: flex;
-    justify-content: right;
-
-    .action1 {
-      color: $theme_color;
-      border: 2px solid $theme_color;
-      background-color: #eff4f4;
-      @include action;
-    }
-
-    .action2 {
-      color: #ffffff;
-      border: 2px solid $theme_color;
-      background-color: $theme_color;
-      @include action;
-    }
-
-  }
-}
-
-@mixin bold_font {
-  font-family: "Microsoft YaHei", sans-serif;
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.user-main {
-  margin-left: 50px;
-  width: 1530px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  overflow: hidden;
-
-  .user-block {
-    margin-right: 32px;
-    margin-bottom: 30px;
-    width: 350px;
-    height: 200px;
-    border-radius: 30px;
-    background-color: #ffffff;
-    display: grid;
-
-    .basic-info {
-      display: flex;
-
-      .image {
-        margin-top: 20px;
-        margin-left: 20px;
-        width: 90px;
-        height: 90px;
-      }
-
-      .right-info {
-        display: grid;
-        margin-top: 20px;
-        margin-left: 30px;
-
-        .username {
-          @include bold_font;
-          height: 30px;
-        }
-
-        .role {
-          font-family: "Microsoft YaHei", sans-serif;
-          font-size: 15px;
-          color: #0e6f64;
-        }
-
-        .icons {
-          .icon {
-            margin-right: 20px;
-          }
-        }
-      }
-
-      .more {
-        margin-top: 20px;
-      }
-    }
-
-    .extra-info {
-      margin-left: 20px;
-      display: grid;
-
-      .email {
-        font-family: "宋体", sans-serif;
-        font-size: 20px;
-        font-weight: bold;
-      }
-
-    }
-
-  }
-
-
-}
-
+@import "../../assets/style/css/user.scss";
 
 </style>
-

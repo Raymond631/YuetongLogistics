@@ -39,7 +39,8 @@
 }
 
 .page{
-  margin-left: 1400px;
+  margin-top: 20px;
+  margin-left: 70%;
 }
 
 .mask {
@@ -50,3 +51,4 @@
   //width,height,top,left
   @include mask-form(650px,500px,300px,630px);
 }
+
