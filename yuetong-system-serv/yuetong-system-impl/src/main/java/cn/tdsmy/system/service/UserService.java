@@ -107,4 +107,10 @@ public class UserService {
             userMapper.updatePassword(account, passwordVO.getNewPassword(), date);
         }
     }
+
+    public User getUserInfo(String account) {
+        User user = userMapper.selectPersonInfo(account);
+        user.setPassword("");
+        return user;
+    }
 }

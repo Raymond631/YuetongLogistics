@@ -68,4 +68,9 @@
         where account = #{account}
           and password = #{password};
     </select>
+    <select id="selectPersonInfo" resultType="cn.tdsmy.system.beans.User">
+        select *
+        from user
+        where account = #{account};
+    </select>
 </mapper>

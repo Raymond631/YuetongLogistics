@@ -22,7 +22,7 @@ public class TruckController {
 
     @PostMapping("/importTruck")
     @Log(title = "批量导入车辆", businessType = BusinessType.IMPORT)
-    public AjaxResult importTruck(MultipartFile file) throws Exception {
+    public AjaxResult importTruck(@RequestParam("file") MultipartFile file) throws Exception {
         ExcelUtil<Truck> util = new ExcelUtil<>(Truck.class);
         List<Truck> truckList = util.importExcel(file.getInputStream());
         String message = truckService.importTruck(truckList);

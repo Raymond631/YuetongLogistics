@@ -1,4 +1,4 @@
-package cn.tdsmy.auth.filter;
+package cn.tdsmy.gateway.filter;
 
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
@@ -35,10 +35,8 @@ public class SaTokenConfigure {
                     SaRouter.match("/system/**", "/system/self/**", r -> StpUtil.checkPermission("system"));
                     SaRouter.match("/fleet/**", r -> StpUtil.checkPermission("fleet"));
                     SaRouter.match("/transport/carrier/**", r -> StpUtil.checkPermission("carrier"));
-                    SaRouter.match("/transport/capacity/**", r -> StpUtil.checkPermission("capacity"));
                     SaRouter.match("/transport/scheduling/**", r -> StpUtil.checkPermission("scheduling"));
                     SaRouter.match("/transport/cost/**", r -> StpUtil.checkPermission("cost"));
-                    SaRouter.match("/transport/capacity/carrier/**", r -> StpUtil.checkPermission("cost"));
                 })
                 // 异常处理方法：每次setAuth函数出现异常时进入
                 .setError(e -> {

@@ -10,4 +10,43 @@
         from contact
         where contact_id = #{contactId};
     </delete>
+    <select id="selectContact" resultMap="DriverAndTruck">
+        select *
+        from (contact as c
+            inner join driver as d on c.fk_driver_id = d.driver_id)
+                 inner join truck as t on c.fk_truck_id = t.truck_id
+        where c.contact_id = #{contactId}
+    </select>
+    <resultMap id="DriverAndTruck" type="cn.tdsmy.fleet.beans.Contact">
+        <id property="contactId" column="contact_id"/>
+        <result property="truckId" column="fk_truck_id"/>
+        <result property="driverId" column="fk_driver_id"/>
+        <collection property="truck" column="fk_truck_id"
+                    ofType="cn.tdsmy.fleet.beans.Truck">
+            <id property="truckId" column="truck_id"/>
+            <result property="number" column="number"/>
+            <result property="buyDate" column="buy_date"/>
+            <result property="truckType" column="truck_type"/>
+            <result property="tonnage" column="tonnage"/>
+            <result property="fkTeamId" column="fk_team_id"/>
+            <result property="state" column="state"/>
+            <result property="remark" column="remark"/>
+            <result property="checkInTime" column="check_in_time"/>
+            <result property="alterTime" column="alter_time"/>
+        </collection>
+        <collection property="driver" column="fk_driver_id"
+                    ofType="cn.tdsmy.fleet.beans.Driver">
+            <id property="driverId" column="driver_id"/>
+            <result property="name" column="name"/>
+            <result property="sex" column="sex"/>
+            <result property="birth" column="birth"/>
+            <result property="phone" column="phone"/>
+            <result property="idCard" column="id_card"/>
+            <result property="fkTeamId" column="fk_team_id"/>
+            <result property="state" column="state"/>
+            <result property="remark" column="remark"/>
+            <result property="checkInTime" column="check_in_time"/>
+            <result property="alterTime" column="alter_time"/>
+        </collection>
+    </resultMap>
 </mapper>

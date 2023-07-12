@@ -1,5 +1,7 @@
 server:
-  port: 11020
+  port: 10100
+
+
 
 spring:
   application:
@@ -23,6 +25,10 @@ spring:
         heart-beat-timeout: 20000
         metadata:
           namespace: dev
+
+logging:
+  file:
+    path: log/auth-log
 
 sa-token:
   # token 名称（同时也是 cookie 名称）

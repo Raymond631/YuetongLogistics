@@ -11,7 +11,7 @@
  Target Server Version : 80033
  File Encoding         : 65001
 
- Date: 11/07/2023 20:55:20
+ Date: 12/07/2023 11:15:51
 */
 
 SET NAMES utf8mb4;
@@ -23,30 +23,28 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `carriers`;
 CREATE TABLE `carriers`  (
   `carriers_id` int NOT NULL AUTO_INCREMENT COMMENT '承运单编号（字段自动编号）',
-  `send_company` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '发货单位',
-  `send_address` varchar(100) CHARACTER SET armscii8 COLLATE armscii8_general_ci NULL DEFAULT NULL COMMENT '发货单位地址',
-  `send_linkman` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '发货人',
-  `send_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '发货人电话',
-  `receive_company` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收货单位',
-  `fk_receive_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收货单位地址',
-  `receive_linkman` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收货人/联系人',
-  `receive_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收货人电话/联系人电话',
-  `leaver_date` datetime NULL DEFAULT NULL COMMENT '承运日期',
+  `send_company` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '发货单位',
+  `send_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '发货单位地址',
+  `send_linkman` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '发货人',
+  `send_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '发货人电话',
+  `receive_company` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货单位',
+  `receive_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货单位地址',
+  `receive_linkman` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货人',
+  `receive_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货人电话',
+  `leaver_date` date NOT NULL COMMENT '承运日期',
   `receive_date` datetime NULL DEFAULT NULL COMMENT '收货时间',
-  `finished_state` tinyint NOT NULL COMMENT '完成情况：0:待调度 1:已调度 2:已签收 3:已结算',
-  `insurance_cost` float NULL DEFAULT NULL COMMENT '保险费',
-  `transport_cost` float NULL DEFAULT NULL COMMENT '运费',
-  `other_cost` float NULL DEFAULT NULL COMMENT '其他费用',
-  `total_cost` float NULL DEFAULT NULL COMMENT '合计费用',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  `fk_user_id` int NOT NULL COMMENT '业务员',
+  `finished_state` int NOT NULL COMMENT '完成情况（0:待调度 1:已调度 2:运输中 3:已完成）',
+  `insurance_cost` double NOT NULL COMMENT '保险费',
+  `transport_cost` double NOT NULL COMMENT '运费',
+  `other_cost` double NOT NULL COMMENT '其他费用',
+  `total_cost` double NOT NULL COMMENT '合计费用',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '备注',
+  `account` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '承运业务员',
   `check_in_time` datetime NOT NULL COMMENT '录入时间',
-  `is_delete` tinyint NOT NULL COMMENT '数据记录状态 : 0:使用中 1:该记录已删',
-  `alter_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `alter_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`carriers_id`) USING BTREE,
-  INDEX `FK_Carriers_User`(`fk_user_id` ASC) USING BTREE,
-  CONSTRAINT `FK_Carriers_User` FOREIGN KEY (`fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '承运单信息表用于存放和管理承运单信息' ROW_FORMAT = Dynamic;
+  INDEX `FK_Carriers_User`(`account` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '承运单信息表用于存放和管理承运单信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of carriers
@@ -62,14 +60,13 @@ CREATE TABLE `contact`  (
   `fk_driver_id` int NULL DEFAULT NULL COMMENT '司机编号',
   PRIMARY KEY (`contact_id`) USING BTREE,
   INDEX `FK_Contact_Driver`(`fk_driver_id` ASC) USING BTREE,
-  INDEX `FK_Contact_Truck`(`fk_truck_id` ASC) USING BTREE,
-  CONSTRAINT `FK_Contact_Driver` FOREIGN KEY (`fk_driver_id`) REFERENCES `driver` (`driver_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Contact_Truck` FOREIGN KEY (`fk_truck_id`) REFERENCES `truck` (`truck_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '车辆司机关联表用于连接车辆与驾驶员' ROW_FORMAT = Dynamic;
+  INDEX `FK_Contact_Truck`(`fk_truck_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车辆司机关联表用于连接车辆与驾驶员' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of contact
 -- ----------------------------
+INSERT INTO `contact` VALUES (2, 1, 1);
 
 -- ----------------------------
 -- Table structure for driver
@@ -77,20 +74,19 @@ CREATE TABLE `contact`  (
 DROP TABLE IF EXISTS `driver`;
 CREATE TABLE `driver`  (
   `driver_id` int NOT NULL AUTO_INCREMENT COMMENT '司机编号（字段自动编号）',
-  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '司机姓名',
-  `sex` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '性别',
-  `birth` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '出生日期',
-  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '联系电话',
-  `id_card` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '身份证号码',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '司机姓名',
+  `sex` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '性别',
+  `birth` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '出生日期',
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '联系电话',
+  `id_card` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '身份证号码',
   `fk_team_id` int NOT NULL COMMENT '车队编号',
-  `state` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '工作状态（承运中、空闲）',
-  `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '备注',
+  `state` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '工作状态（承运中、空闲）',
+  `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '备注',
   `check_in_time` datetime NOT NULL COMMENT '加入时间',
   `alter_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`driver_id`) USING BTREE,
-  INDEX `FK_Driver_TruckTeam`(`fk_team_id` ASC) USING BTREE,
-  CONSTRAINT `FK_Driver_TruckTeam` FOREIGN KEY (`fk_team_id`) REFERENCES `truck_team` (`team_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '驾驶员信息表用于存放和管理驾驶员信息' ROW_FORMAT = Dynamic;
+  INDEX `FK_Driver_TruckTeam`(`fk_team_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '驾驶员信息表用于存放和管理驾驶员信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of driver
@@ -105,7 +101,7 @@ INSERT INTO `driver` VALUES (3, '张三', '男', '1988-10-01', '12345678900', '1
 DROP TABLE IF EXISTS `goods`;
 CREATE TABLE `goods`  (
   `goods_id` int NOT NULL AUTO_INCREMENT COMMENT '货物编号（字段自动编号）',
-  `goods_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '货物名称',
+  `goods_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '货物名称',
   `amount` int NULL DEFAULT NULL COMMENT '货物数量',
   `weight` float NULL DEFAULT NULL COMMENT '货物重量',
   `volume` float NULL DEFAULT NULL COMMENT '货物体积',
@@ -114,7 +110,7 @@ CREATE TABLE `goods`  (
   PRIMARY KEY (`goods_id`) USING BTREE,
   INDEX `FK_Goods_Carriers`(`fk_carriers_id` ASC) USING BTREE,
   CONSTRAINT `FK_Goods_Carriers` FOREIGN KEY (`fk_carriers_id`) REFERENCES `carriers` (`carriers_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '货物单信息表用于存放和管理货物单信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '货物单信息表用于存放和管理货物单信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of goods
@@ -132,7 +128,7 @@ CREATE TABLE `log_login`  (
   `ipaddr` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ip地址',
   `access_time` datetime NOT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of log_login
@@ -148,6 +144,7 @@ INSERT INTO `log_login` VALUES (8, 'abc', 'success', '登录成功', '192.168.3.
 INSERT INTO `log_login` VALUES (9, 'abc', 'success', '登录成功', '192.168.3.187', '2023-07-11 19:31:16');
 INSERT INTO `log_login` VALUES (10, 'abc', 'success', '登录成功', '192.168.3.187', '2023-07-11 20:00:31');
 INSERT INTO `log_login` VALUES (11, 'abc', 'success', '登录成功', '192.168.3.187', '2023-07-11 20:00:53');
+INSERT INTO `log_login` VALUES (12, 'abc', 'success', '登录成功', '127.0.0.1', '2023-07-12 08:58:01');
 
 -- ----------------------------
 -- Table structure for log_operate
@@ -166,7 +163,7 @@ CREATE TABLE `log_operate`  (
   `cost_time` bigint NOT NULL COMMENT '消耗时间(ms)',
   `error_msg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '错误消息',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of log_operate
@@ -190,6 +187,22 @@ INSERT INTO `log_operate` VALUES (16, '2023-07-11 13:04:52', 'abc', '127.0.0.1',
 INSERT INTO `log_operate` VALUES (17, '2023-07-11 13:07:34', 'abc', '127.0.0.1', '修改个人信息', 'UPDATE', 'PUT', '/system/self/userInfo', 'success', 1830, NULL);
 INSERT INTO `log_operate` VALUES (18, '2023-07-11 13:09:13', 'abc', '127.0.0.1', '修改个人账号密码', 'UPDATE', 'PUT', '/system/self/password', 'failed', 49, '原密码错误');
 INSERT INTO `log_operate` VALUES (19, '2023-07-11 13:10:39', 'abc', '127.0.0.1', '修改个人账号密码', 'UPDATE', 'PUT', '/system/self/password', 'success', 1706, NULL);
+INSERT INTO `log_operate` VALUES (20, '2023-07-12 09:14:13', 'abc', '127.0.0.1', '查询个人信息', 'SELECT', 'GET', '/system/self/userInfo', 'success', 736, NULL);
+INSERT INTO `log_operate` VALUES (21, '2023-07-12 09:22:44', 'abc', '127.0.0.1', '绑定司机和车辆', 'INSERT', 'POST', '/fleet/contact', 'success', 690, NULL);
+INSERT INTO `log_operate` VALUES (22, '2023-07-12 09:24:03', 'abc', '127.0.0.1', '解绑司机和车辆', 'DELETE', 'DELETE', '/fleet/contact', 'success', 23, NULL);
+INSERT INTO `log_operate` VALUES (23, '2023-07-12 10:05:36', 'abc', '127.0.0.1', '绑定司机和车辆', 'INSERT', 'POST', '/fleet/contact', 'success', 709, NULL);
+INSERT INTO `log_operate` VALUES (24, '2023-07-12 10:05:40', 'abc', '127.0.0.1', '查询绑定信息', 'SELECT', 'GET', '/fleet/contact', 'failed', 131, '\r\n### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column \'t.truck_id\' in \'on clause\'\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-fleet-serv\\yuetong-fleet-impl\\target\\classes\\mybatis\\ContactMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: SELECT count(0) FROM (contact AS c INNER JOIN driver AS d ON c.fk_driver_id = d.driver_id) INNER JOIN truck ON c.fk_truck_id = t.truck_id WHERE c.contact_id = ?\r\n### Cause: java.sql.SQLSyntaxErrorException: Unknown column \'t.truck_id\' in \'on clause\'\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Unknown column \'t.truck_id\' in \'on clause\'');
+INSERT INTO `log_operate` VALUES (25, '2023-07-12 10:06:37', 'abc', '127.0.0.1', '查询绑定信息', 'SELECT', 'GET', '/fleet/contact', 'success', 753, NULL);
+INSERT INTO `log_operate` VALUES (26, '2023-07-12 10:07:28', 'abc', '127.0.0.1', '查询绑定信息', 'SELECT', 'GET', '/fleet/contact', 'success', 12, NULL);
+INSERT INTO `log_operate` VALUES (27, '2023-07-12 10:39:44', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 771, 'nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named \'fkUserID\' in \'class cn.tdsmy.transport.beans.Carrier\'');
+INSERT INTO `log_operate` VALUES (28, '2023-07-12 10:44:17', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 757, '\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carrier(send_company, send_address, send_linkman, send_phone,                             receive_company, receive_address, receive_linkman, receive_phone,                             leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                             remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist');
+INSERT INTO `log_operate` VALUES (29, '2023-07-12 10:50:04', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 783, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (30, '2023-07-12 10:52:09', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 785, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (31, '2023-07-12 10:55:47', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 12, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (32, '2023-07-12 10:59:50', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 770, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (33, '2023-07-12 11:01:07', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 12, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (34, '2023-07-12 11:13:06', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 800, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (35, '2023-07-12 11:13:37', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 3, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1');
 
 -- ----------------------------
 -- Table structure for role
@@ -197,16 +210,19 @@ INSERT INTO `log_operate` VALUES (19, '2023-07-11 13:10:39', 'abc', '127.0.0.1',
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`  (
   `role_id` int NOT NULL AUTO_INCREMENT COMMENT '角色编号（字段自动编号）',
-  `role_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '角色名称',
-  `role_purview` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '角色权限，多个权限用 / 区分',
+  `role_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色名称',
+  `role_purview` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色权限，多个权限用 / 区分',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统角色表用于存放系统权限数据，管理用户权限' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统角色表用于存放系统权限数据，管理用户权限' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES (1, '测试人员', 'system/fleet/carrier/capacity/scheduling/cost');
-INSERT INTO `role` VALUES (2, '测试', 'a/123');
+INSERT INTO `role` VALUES (1, '系统管理员', 'system');
+INSERT INTO `role` VALUES (2, '运输管理员', 'fleet');
+INSERT INTO `role` VALUES (3, '承运业务员', 'carrier');
+INSERT INTO `role` VALUES (4, '调度员', 'capacity/scheduling');
+INSERT INTO `role` VALUES (5, '财务人员', 'capacity/cost');
 
 -- ----------------------------
 -- Table structure for scheduling
@@ -223,7 +239,7 @@ CREATE TABLE `scheduling`  (
   `other_cost` float NULL DEFAULT NULL COMMENT '其他费用',
   `total_cost` float NULL DEFAULT NULL COMMENT '合计成本',
   `fk_user_id` int NULL DEFAULT NULL COMMENT '调度员',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   `check_in_time` datetime NULL DEFAULT NULL COMMENT '调度时间',
   `is_delete` tinyint NOT NULL COMMENT '数据记录状态 : 0:使用中 1:该记录已删除',
   `alter_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
@@ -232,7 +248,7 @@ CREATE TABLE `scheduling`  (
   INDEX `FK_Scheduling_User`(`fk_user_id` ASC) USING BTREE,
   CONSTRAINT `FK_Scheduling_Truck` FOREIGN KEY (`fk_truck_id`) REFERENCES `truck` (`truck_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Scheduling_User` FOREIGN KEY (`fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '调度作业信息表用于存放和管理调度作业信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '调度作业信息表用于存放和管理调度作业信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of scheduling
@@ -244,24 +260,23 @@ CREATE TABLE `scheduling`  (
 DROP TABLE IF EXISTS `truck`;
 CREATE TABLE `truck`  (
   `truck_id` int NOT NULL AUTO_INCREMENT COMMENT '车辆编号（字段自动编号）',
-  `number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '车牌号码',
-  `buy_date` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '购车日期',
-  `truck_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '车辆类型',
+  `number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '车牌号码',
+  `buy_date` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '购车日期',
+  `truck_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '车辆类型',
   `tonnage` int NOT NULL COMMENT '吨位',
   `fk_team_id` int NOT NULL COMMENT '所属车队编号',
-  `state` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '工作状态',
-  `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '备注',
+  `state` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '工作状态',
+  `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '备注',
   `check_in_time` datetime NOT NULL COMMENT '加入时间',
   `alter_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`truck_id`) USING BTREE,
-  INDEX `FK_Truck_TruckTeam`(`fk_team_id` ASC) USING BTREE,
-  CONSTRAINT `FK_Truck_TruckTeam` FOREIGN KEY (`fk_team_id`) REFERENCES `truck_team` (`team_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '车辆信息表用于存放和管理车辆信息' ROW_FORMAT = Dynamic;
+  INDEX `FK_Truck_TruckTeam`(`fk_team_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车辆信息表用于存放和管理车辆信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of truck
 -- ----------------------------
-INSERT INTO `truck` VALUES (1, '湘A12345', '2022-10-01', '大货车', 20, 1, '空闲', '无', '2023-07-11 17:17:32', '2023-07-11 17:17:32');
+INSERT INTO `truck` VALUES (1, '湘A12345', '2022-10-01', '大货车', 20, 3, '空闲', '无', '2023-07-11 17:17:32', '2023-07-11 17:17:32');
 
 -- ----------------------------
 -- Table structure for truck_team
@@ -269,13 +284,13 @@ INSERT INTO `truck` VALUES (1, '湘A12345', '2022-10-01', '大货车', 20, 1, '�
 DROP TABLE IF EXISTS `truck_team`;
 CREATE TABLE `truck_team`  (
   `team_id` int NOT NULL AUTO_INCREMENT COMMENT '车队编号（字段自动编号）',
-  `team_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '车队名称',
-  `leader` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '车队负责人',
-  `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '备注',
+  `team_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '车队名称',
+  `leader` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '车队负责人',
+  `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '备注',
   `check_in_time` datetime NOT NULL COMMENT '创队时间',
   `alter_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`team_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '车队信息表用于存放和管理车队信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车队信息表用于存放和管理车队信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of truck_team
@@ -290,30 +305,21 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `user_id` int NOT NULL AUTO_INCREMENT COMMENT '用户编号（字段自动编号）',
   `role_id` int NOT NULL COMMENT '用户角色编号',
-  `account` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户账号',
-  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户密码',
-  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户姓名',
-  `sex` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '性别',
-  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '联系电话',
-  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '电子邮箱',
+  `account` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户账号',
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户密码',
+  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户姓名',
+  `sex` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '性别',
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '联系电话',
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '电子邮箱',
   `check_in_time` datetime NOT NULL COMMENT '加入时间',
   `alter_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`user_id`) USING BTREE,
   UNIQUE INDEX `account`(`account` ASC) USING BTREE,
-  INDEX `FK_User_Role`(`role_id` ASC) USING BTREE,
-  CONSTRAINT `FK_User_Role` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统用户表用于存放用户账户密码信息及用户信息' ROW_FORMAT = Dynamic;
+  INDEX `FK_User_Role`(`role_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统用户表用于存放用户账户密码信息及用户信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 1, 'abc', '123', 'hahah', '男', '15813482972', '12345@test.com', '2023-07-06 11:13:01', '2023-07-11 13:10:38');
+INSERT INTO `user` VALUES (0, 1, 'abc', '123', 'hahah', '男', '15813482972', '12345@test.com', '2023-07-06 11:13:01', '2023-07-11 13:10:38');
 INSERT INTO `user` VALUES (3, 2, 'fwf57', '8vvnreWH', '李四', '男', '98765432100', '9876543210@csu.edu.com', '2023-07-11 09:49:05', '2023-07-11 09:49:05');
-
--- ----------------------------
--- View structure for view_cost
--- ----------------------------
-DROP VIEW IF EXISTS `view_cost`;
-CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `view_cost` AS select `carriers`.`carriers_id` AS `carriers_id`,`truck`.`truck_id` AS `truck_id`,`truck`.`number` AS `number`,`truck_team`.`team_id` AS `team_id`,`truck_team`.`team_name` AS `team_name`,`driver`.`driver_id` AS `driver_id`,`driver`.`name` AS `name`,`user`.`user_id` AS `salesman_id`,`user`.`account` AS `username`,`carriers`.`total_cost` AS `income`,`scheduling`.`total_cost` AS `expenditure`,`carriers`.`insurance_cost` AS `insurance_cost`,`carriers`.`transport_cost` AS `transport_cost`,`carriers`.`other_cost` AS `other_income_cost`,`scheduling`.`oil_cost` AS `oil_cost`,`scheduling`.`fine` AS `fine`,`scheduling`.`toll` AS `toll`,`scheduling`.`other_cost` AS `other_expenditure_cost`,`carriers`.`receive_date` AS `receive_date` from (((((`carriers` join `user` on((`carriers`.`fk_user_id` = `user`.`user_id`))) join `truck`) join `truck_team` on((`truck`.`fk_team_id` = `truck_team`.`team_id`))) join `driver` on((`truck_team`.`team_id` = `driver`.`fk_team_id`))) join `scheduling` on(((`truck`.`truck_id` = `scheduling`.`fk_truck_id`) and (`user`.`user_id` = `scheduling`.`fk_user_id`))));
-
-SET FOREIGN_KEY_CHECKS = 1;

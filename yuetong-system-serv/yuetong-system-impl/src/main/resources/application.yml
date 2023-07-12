@@ -1,5 +1,5 @@
 server:
-  port: 11010
+  port: 10200
   error:
     include-message: always
 spring:
@@ -30,5 +30,5 @@ mybatis:
     map-underscore-to-camel-case: true
 
 logging:
-  level:
-    cn.tdsmy.system: debug
+  file:
+    path: log/system-log

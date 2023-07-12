@@ -33,4 +33,6 @@ public interface UserMapper {
     User checkPwd(@Param("account") String account, @Param("password") String password);
 
     void updatePassword(@Param("account") String account, @Param("newPassword") String newPassword, @Param("date") Date date);
+
+    User selectPersonInfo(@Param("account") String account);
 }

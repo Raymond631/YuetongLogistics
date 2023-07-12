@@ -1,4 +1,4 @@
-package cn.tdsmy.auth.filter;
+package cn.tdsmy.gateway.filter;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.tdsmy.core.utils.StringUtils;

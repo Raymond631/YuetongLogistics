@@ -1,16 +1,18 @@
-package cn.tdsmy;
+package cn.tdsmy.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = {"cn.tdsmy"})
-public class YueTongAuthApplication {
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@ComponentScan("cn.tdsmy")
+public class YueTongGatewayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(YueTongAuthApplication.class, args);
+        SpringApplication.run(YueTongGatewayApplication.class, args);
     }
 }

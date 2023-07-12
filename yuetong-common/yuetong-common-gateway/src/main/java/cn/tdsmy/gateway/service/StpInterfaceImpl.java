@@ -1,4 +1,4 @@
-package cn.tdsmy.auth.service;
+package cn.tdsmy.gateway.service;
 
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.session.SaSessionCustomUtil;

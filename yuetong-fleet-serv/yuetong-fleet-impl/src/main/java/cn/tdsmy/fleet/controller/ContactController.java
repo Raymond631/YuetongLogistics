@@ -1,14 +1,14 @@
 package cn.tdsmy.fleet.controller;
 
 import cn.tdsmy.core.response.AjaxResult;
+import cn.tdsmy.fleet.beans.Contact;
 import cn.tdsmy.fleet.service.ContactService;
 import cn.tdsmy.log.annotation.Log;
 import cn.tdsmy.log.enums.BusinessType;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/fleet/contact")
@@ -23,19 +23,19 @@ public class ContactController {
         return AjaxResult.success("绑定成功");
     }
 
-    @PostMapping
+    @DeleteMapping
     @Log(title = "解绑司机和车辆", businessType = BusinessType.DELETE)
     public AjaxResult unbind(@RequestParam("contactId") int contactId) {
         contactService.unbind(contactId);
         return AjaxResult.success("解绑成功");
     }
 
-//    @GetMapping
-//    @Log(title = "解绑司机和车辆", businessType = BusinessType.SELECT)
-//    public AjaxResult getDriverList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-//        PageInfo<Driver> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
-//            driverService.getDriverList();
-//        });
-//        return AjaxResult.success(pageInfo);
-//    }
+    @GetMapping
+    @Log(title = "查询绑定信息", businessType = BusinessType.SELECT)
+    public AjaxResult getBindInfo(@RequestParam("contactId") int contactId, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+        PageInfo<Contact> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
+            contactService.getContactList(contactId);
+        });
+        return AjaxResult.success(pageInfo);
+    }
 }

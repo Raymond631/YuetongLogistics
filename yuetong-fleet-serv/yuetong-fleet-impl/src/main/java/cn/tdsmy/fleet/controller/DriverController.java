@@ -22,7 +22,7 @@ public class DriverController {
 
     @PostMapping("/importDriver")
     @Log(title = "批量导入司机", businessType = BusinessType.IMPORT)
-    public AjaxResult importDriver(MultipartFile file) throws Exception {
+    public AjaxResult importDriver(@RequestParam("file") MultipartFile file) throws Exception {
         ExcelUtil<Driver> util = new ExcelUtil<>(Driver.class);
         List<Driver> driverList = util.importExcel(file.getInputStream());
         String message = driverService.importUser(driverList);

@@ -22,7 +22,7 @@ public class TeamController {
 
     @PostMapping("/importTeam")
     @Log(title = "批量导入车队", businessType = BusinessType.IMPORT)
-    public AjaxResult importTeam(MultipartFile file) throws Exception {
+    public AjaxResult importTeam(@RequestParam("file") MultipartFile file) throws Exception {
         ExcelUtil<TruckTeam> util = new ExcelUtil<>(TruckTeam.class);
         List<TruckTeam> teamList = util.importExcel(file.getInputStream());
         String message = teamService.importTeam(teamList);

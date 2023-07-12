@@ -9,7 +9,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>cn.tdsmy</groupId>
     <artifactId>yuetong-common-auth</artifactId>
 
     <properties>
@@ -19,19 +18,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.tdsmy</groupId>
-            <artifactId>yuetong-system-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>cn.tdsmy</groupId>
-            <artifactId>yuetong-common-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -77,6 +63,13 @@
         <dependency>
             <groupId>pro.fessional</groupId>
             <artifactId>kaptcha</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.tdsmy</groupId>
+            <artifactId>yuetong-system-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

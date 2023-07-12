@@ -11,7 +11,6 @@
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/yuetong-transport-serv/pom.xml" />
         <option value="$PROJECT_DIR$/yuetong-transport-serv/yuetong-transport-dao/pom.xml" />
       </set>
     </option>

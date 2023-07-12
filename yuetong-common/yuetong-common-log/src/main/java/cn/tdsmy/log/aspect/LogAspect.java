@@ -80,6 +80,7 @@ public class LogAspect {
                 operateLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
             }
 
+            log.info(operateLog.toString());
             // 保存数据库
             Runnable task = () -> iSystemService.saveOperateLog(operateLog);
             Thread thread = new Thread(task);
