@@ -69,28 +69,70 @@
           <el-descriptions-item label="收货地址">{{ currentCarrier.receiveAddress }}</el-descriptions-item>
         </el-descriptions>
         <div class="form">
-          <div class="form-item">
-            <label></label>
-            <el-input class="form-input"></el-input>
+          <div class="flex-item">
+            <div class="form-item">
+              <label>用户名</label>
+              <el-input class="form-input"></el-input>
+            </div>
+            <div class="form-item">
+              <label>保险费</label>
+              <el-input class="form-input"></el-input>
+            </div>
           </div>
-          <div class="form-item">
-            <label></label>
-            <el-input class="form-input"></el-input>
+          <div class="flex-item">
+            <div class="form-item">
+              <label>运费</label>
+              <el-input class="form-input"></el-input>
+            </div>
+            <div class="form-item">
+              <label>罚款</label>
+              <el-input class="form-input"></el-input>
+            </div>
           </div>
-          <div class="form-item">
-            <label></label>
-            <el-input class="form-input"></el-input>
+          <div class="flex-item">
+            <div class="form-item">
+              <label>其他支出</label>
+              <el-input class="form-input"></el-input>
+            </div>
+            <div class="form-item">
+              <label>运费</label>
+              <el-input class="form-input"></el-input>
+            </div>
           </div>
-          <div class="form-item">
-            <label></label>
-            <el-input class="form-input"></el-input>
-          </div>
+        </div>
+        <div class="actionBtns">
+          <el-button type="primary" class="actionBtn" size="large" @click="confirmBtnClick">录入</el-button>
+          <el-button type="info" class="actionBtn" size="large" @click="resetBtnClick">重置</el-button>
+        </div>
+      </div>
 
+      <div class="details" v-if="showDetailsForm">
+        <div class="form-title">
+          <label>承运任务详情</label>
+          <el-button type="danger" class="closeBtn" @click="closeForm">关闭</el-button>
         </div>
-        <div class="actions">
-          <el-button type="primary" size="large">接收</el-button>
-          <el-button type="info" size="large">取消</el-button>
-        </div>
+        <template class="form-info">
+          <el-descriptions :title="'承运单列表 编号：#'+currentCarrier.carriersID" direction="vertical" size="large"
+                           :column="5" border>
+            <el-descriptions-item label="发货单位">{{ currentCarrier.sendCompany }}</el-descriptions-item>
+            <el-descriptions-item label="发货地址">{{ currentCarrier.sendAddress }}</el-descriptions-item>
+            <el-descriptions-item label="发货人">{{ currentCarrier.sendLinkman }}</el-descriptions-item>
+            <el-descriptions-item label="联系电话">{{ currentCarrier.sendPhone }}</el-descriptions-item>
+            <el-descriptions-item label="收货单位">{{ currentCarrier.receiveCompany }}</el-descriptions-item>
+            <el-descriptions-item label="收获地址">{{ currentCarrier.receiveAddress }}</el-descriptions-item>
+            <el-descriptions-item label="收货人">{{ currentCarrier.receiveLinkman }}</el-descriptions-item>
+            <el-descriptions-item label="联系方式">{{ currentCarrier.receivePhone }}</el-descriptions-item>
+            <el-descriptions-item label="出发时间">{{ currentCarrier.leaverDate }}</el-descriptions-item>
+            <el-descriptions-item label="送达时间">{{ currentCarrier.receiveDate }}</el-descriptions-item>
+            <el-descriptions-item label="保险费用">{{ currentCarrier.insuranceCost }}</el-descriptions-item>
+            <el-descriptions-item label="运输费用">{{ currentCarrier.transportCost }}</el-descriptions-item>
+            <el-descriptions-item label="总费用">{{ currentCarrier.totalCost }}</el-descriptions-item>
+            <el-descriptions-item label="备注">
+              <el-tag size="small">{{ currentCarrier.remark }}</el-tag>
+            </el-descriptions-item>
+          </el-descriptions>
+
+        </template>
       </div>
     </div>
   </div>
@@ -178,8 +220,10 @@ export default defineComponent({
       this.showMaintainForm = true;
     },
     //点击详细信息按钮
-    detailsBtnClick(index: any) {
-
+    detailsBtnClick(index:any) {
+      this.currentCarrier = this.maintainCarrierList[index];
+      this.showMask = true;
+      this.showDetailsForm=true;
     },
     closeForm() {
       this.showMask = false;
@@ -188,6 +232,16 @@ export default defineComponent({
     },
     goBack() {
     },
+    //点击form表单中的录入按钮
+    confirmBtnClick() {
+
+
+      this.closeForm();
+    },
+    resetBtnClick() {
+
+    }
+
   },
 });
 </script>

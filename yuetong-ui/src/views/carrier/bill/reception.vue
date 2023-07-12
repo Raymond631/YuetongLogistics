@@ -52,7 +52,7 @@
             </div>
           </div>
           <div class="state">
-            <el-tag size="large">未接收</el-tag>
+            <el-tag size="large" type="warning">未接收</el-tag>
             <label v-text="reception.carrier.checkInTime"></label>
           </div>
         </div>

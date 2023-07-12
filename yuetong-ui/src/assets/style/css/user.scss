@@ -165,3 +165,28 @@
   width: 100px;
   height: 100px;
 }
+
+.mask{
+  @include mask;
+}
+.details{
+  //width,height,top,left
+  @include mask-form(1000px,600px,200px,450px);
+  .form-title{
+    padding-left:400px;
+    .closeBtn{
+      width: 80px;
+      margin-left: 300px;
+    }
+  }
+  .form-info{
+    margin-left:50px;
+    display: block;
+    width:900px;
+    .el-descriptions{
+      margin-bottom:50px;
+    }
+  }
+}
+
+

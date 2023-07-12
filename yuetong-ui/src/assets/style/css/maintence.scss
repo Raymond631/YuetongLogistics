@@ -93,7 +93,8 @@
         width: 1510px;
         height: 140px;
         display: flex;
-        &:hover{
+
+        &:hover {
           box-shadow: 0 0 10px rgba(93, 93, 93, 0.5);
         }
 
@@ -175,11 +176,14 @@
             height: $info_height;
           }
         }
+
         .manager-info {
           display: grid;
-          .manager-id{
+
+          .manager-id {
             margin-top: 20px;
           }
+
           .actions {
             width: 200px;
             margin-left: 10px;
@@ -191,42 +195,89 @@
           display: grid;
           align-content: center;
           font-size: 20px;
+
           label {
             font-family: 'Open Sans', sans-serif;
             color: #a1a1a1;
           }
+
           margin: 0 auto;
         }
       }
 
-
     }
 
-    .mask{
+    .mask {
       @include mask;
     }
-    .putCostForm{
+
+    .putCostForm {
       //width,height,top,left
-      @include mask-form(1000px,1000px,70px,450px);
-      .form-title{
-        padding-left:400px;
-        .closeBtn{
+      @include mask-form(1000px, 650px, 70px, 450px);
+      display: flex;
+      flex-direction: column;
+
+      .form-title {
+        padding-left: 443px;
+
+        .closeBtn {
           width: 80px;
           margin-left: 300px;
         }
       }
-      .el-descriptions{
-        width:900px;
-        margin:0 auto;
-      }
-      .form{
-        margin-left:50px;
-        display: block;
-        width:900px;
 
+      .el-descriptions {
+        width: 900px;
+        margin: 20px auto;
       }
+
+      .form {
+        background-color: #ffffff;
+        border-radius: 10px;
+        margin-top: 30px;
+        margin-left: 50px;
+        display: block;
+        width: 900px;
+        height: 200px;
+
+        .flex-item {
+          display: flex;
+          flex-wrap: wrap;
+
+          .form-item {
+            label {
+              margin-left: 10px;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+
     }
 
+    .details {
+      //width,height,top,left
+      @include mask-form(1000px, 600px, 200px, 450px);
+
+      .form-title {
+        padding-left: 400px;
+
+        .closeBtn {
+          width: 80px;
+          margin-left: 300px;
+        }
+      }
+
+      .form-info {
+        margin-left: 50px;
+        display: block;
+        width: 900px;
+
+        .el-descriptions {
+          margin-bottom: 50px;
+        }
+      }
+    }
   }
 }
 

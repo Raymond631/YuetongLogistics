@@ -105,3 +105,41 @@ $Mleft: 330px;
     }
   }
 }
+
+//承运单样式
+@mixin title-font {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+@mixin main-font {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+@mixin second-font {
+  font-family: "宋体", sans-serif;
+  font-size: 15px;
+  color: #4f7df0;
+}
+
+@mixin third-font {
+  font-size: 15px;
+}
+
+@mixin fourth-font {
+  color: #a1a1a1;
+  font-size: 13px;
+}
+
+@mixin action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 60px;
+  border-radius: 15px;
+  margin-left: 60px;
+}

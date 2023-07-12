@@ -48,7 +48,7 @@
             </div>
           </div>
           <div class="state">
-            <el-tag size="large">未调度</el-tag>
+            <el-tag size="large" type="warning">未调度</el-tag>
             <label v-text="carrier.checkInTime"></label>
           </div>
 
@@ -159,7 +159,7 @@ import {defineComponent} from "vue";
 import navigationBar from "../../../components/navigationBar.vue";
 import welcomeHeader from "../../../components/header.vue";
 import ytTable from "../../../components/yt-table.vue";
-import {allFreeTrucks, allSchedulingCarriers} from "@/api/carrier/task/dispatch";
+import {allFreeTruckAndDriver, allSchedulingCarriers} from "@/api/carrier/task/dispatch";
 
 export default defineComponent({
   name: "dispatch",
@@ -275,17 +275,17 @@ export default defineComponent({
   methods: {
     ready() {
       //获取所有待调度的承运单
-      allSchedulingCarriers(0).then((res: any) => {
-        this.schedulingCarriersList = res.data;
+      allSchedulingCarriers().then((res: any) => {
+        this.schedulingCarriersList = res.data.list;
         console.log(res.data);
       })
     },
     //点击调度承运任务按钮
     schedulingCarrier(index: number) {
       this.currentItem = this.schedulingCarriersList[index];
-      allFreeTrucks().then((res: any) => {
-        console.log(res.data);
-        this.freeTrucksDriverList = res.data;
+      allFreeTruckAndDriver().then((res: any) => {
+        console.log(res.data.list);
+        this.freeTrucksDriverList = res.data.list;
       })
       this.showMask = true;
       this.showScheForm = true;

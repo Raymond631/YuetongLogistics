@@ -4,14 +4,17 @@
       {{ page_name }}
     </div>
     <div class="header_content">欢迎您，{{ user_name }}</div>
-    <el-avatar
-      :size="80"
-      class="header_photo"
-      src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-    />
+    <RouterLink to="/authentication/selfCenter">
+      <el-avatar
+          :size="80"
+          class="header_photo"
+          src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+      />
+    </RouterLink>
+
     <el-tag size="large" class="header_profile">{{ profile }}</el-tag>
     <el-button type="danger" plain class="header_log">退出登录</el-button>
-    
+
   </div>
 </template>
 
