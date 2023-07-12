@@ -89,7 +89,7 @@ export function request(config: any) {
         }
         err.message = "连接服务器失败";
       }
-      // alert(err.response.msg);
+       alert(err.response.msg);
       throw err;
     }
   );
