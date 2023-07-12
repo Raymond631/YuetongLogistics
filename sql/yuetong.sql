@@ -11,7 +11,7 @@
  Target Server Version : 80033
  File Encoding         : 65001
 
- Date: 12/07/2023 11:15:51
+ Date: 12/07/2023 15:59:45
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,7 @@ CREATE TABLE `carriers`  (
   `receive_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货人电话',
   `leaver_date` date NOT NULL COMMENT '承运日期',
   `receive_date` datetime NULL DEFAULT NULL COMMENT '收货时间',
-  `finished_state` int NOT NULL COMMENT '完成情况（0:待调度 1:已调度 2:运输中 3:已完成）',
+  `finished_state` int NOT NULL COMMENT '完成情况（0:待调度 1:运输中 2:已完成）',
   `insurance_cost` double NOT NULL COMMENT '保险费',
   `transport_cost` double NOT NULL COMMENT '运费',
   `other_cost` double NOT NULL COMMENT '其他费用',
@@ -44,11 +44,13 @@ CREATE TABLE `carriers`  (
   `alter_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`carriers_id`) USING BTREE,
   INDEX `FK_Carriers_User`(`account` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '承运单信息表用于存放和管理承运单信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '承运单信息表用于存放和管理承运单信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of carriers
 -- ----------------------------
+INSERT INTO `carriers` VALUES (3, 'qui', '云南省佳木斯市雁江区', 'elit ut sunt', '19840510269', 'ad Ut', '四川省三沙市景谷傣族彝族自治县', 'ut', '13138768380', '1988-01-07', '2023-07-12 15:03:38', 2, 9, 81, 23, 113, 'labore tempor exercitation pariatur deserunt', 'abc', '2023-07-12 14:11:28', '2023-07-12 14:11:28');
+INSERT INTO `carriers` VALUES (4, 'qui', '云南省佳木斯市雁江区', 'elit ut sunt', '19840510269', 'ad Ut', '四川省三沙市景谷傣族彝族自治县', 'ut', '13138768380', '1988-01-07', NULL, 1, 9, 81, 23, 113, 'labore tempor exercitation pariatur deserunt', 'abc', '2023-07-12 14:59:26', '2023-07-12 14:59:26');
 
 -- ----------------------------
 -- Table structure for contact
@@ -61,7 +63,7 @@ CREATE TABLE `contact`  (
   PRIMARY KEY (`contact_id`) USING BTREE,
   INDEX `FK_Contact_Driver`(`fk_driver_id` ASC) USING BTREE,
   INDEX `FK_Contact_Truck`(`fk_truck_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车辆司机关联表用于连接车辆与驾驶员' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车辆司机关联表用于连接车辆与驾驶员' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of contact
@@ -86,7 +88,7 @@ CREATE TABLE `driver`  (
   `alter_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`driver_id`) USING BTREE,
   INDEX `FK_Driver_TruckTeam`(`fk_team_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '驾驶员信息表用于存放和管理驾驶员信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '驾驶员信息表用于存放和管理驾驶员信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of driver
@@ -101,20 +103,23 @@ INSERT INTO `driver` VALUES (3, '张三', '男', '1988-10-01', '12345678900', '1
 DROP TABLE IF EXISTS `goods`;
 CREATE TABLE `goods`  (
   `goods_id` int NOT NULL AUTO_INCREMENT COMMENT '货物编号（字段自动编号）',
-  `goods_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '货物名称',
-  `amount` int NULL DEFAULT NULL COMMENT '货物数量',
-  `weight` float NULL DEFAULT NULL COMMENT '货物重量',
-  `volume` float NULL DEFAULT NULL COMMENT '货物体积',
-  `fk_carriers_id` int NULL DEFAULT NULL COMMENT '承运单编号',
-  `is_delete` tinyint NOT NULL COMMENT '数据记录状态 : 0:使用中 1:该记录已删除',
+  `fk_carriers_id` int NOT NULL COMMENT '承运单编号',
+  `goods_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '货物名称',
+  `amount` int NOT NULL COMMENT '货物数量',
+  `weight` double NOT NULL COMMENT '货物重量',
+  `volume` double NOT NULL COMMENT '货物体积',
   PRIMARY KEY (`goods_id`) USING BTREE,
   INDEX `FK_Goods_Carriers`(`fk_carriers_id` ASC) USING BTREE,
   CONSTRAINT `FK_Goods_Carriers` FOREIGN KEY (`fk_carriers_id`) REFERENCES `carriers` (`carriers_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '货物单信息表用于存放和管理货物单信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '货物单信息表用于存放和管理货物单信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
+INSERT INTO `goods` VALUES (1, 3, '问马青', 67, 59, 0);
+INSERT INTO `goods` VALUES (2, 3, '根强农', 46, 85, 0);
+INSERT INTO `goods` VALUES (3, 4, '问马青', 67, 59, 0);
+INSERT INTO `goods` VALUES (4, 4, '根强农', 46, 85, 0);
 
 -- ----------------------------
 -- Table structure for log_login
@@ -128,7 +133,7 @@ CREATE TABLE `log_login`  (
   `ipaddr` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ip地址',
   `access_time` datetime NOT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of log_login
@@ -145,6 +150,7 @@ INSERT INTO `log_login` VALUES (9, 'abc', 'success', '登录成功', '192.168.3.
 INSERT INTO `log_login` VALUES (10, 'abc', 'success', '登录成功', '192.168.3.187', '2023-07-11 20:00:31');
 INSERT INTO `log_login` VALUES (11, 'abc', 'success', '登录成功', '192.168.3.187', '2023-07-11 20:00:53');
 INSERT INTO `log_login` VALUES (12, 'abc', 'success', '登录成功', '127.0.0.1', '2023-07-12 08:58:01');
+INSERT INTO `log_login` VALUES (13, 'abc', 'success', '登录成功', '127.0.0.1', '2023-07-12 14:07:04');
 
 -- ----------------------------
 -- Table structure for log_operate
@@ -163,7 +169,7 @@ CREATE TABLE `log_operate`  (
   `cost_time` bigint NOT NULL COMMENT '消耗时间(ms)',
   `error_msg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '错误消息',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of log_operate
@@ -195,14 +201,27 @@ INSERT INTO `log_operate` VALUES (24, '2023-07-12 10:05:40', 'abc', '127.0.0.1',
 INSERT INTO `log_operate` VALUES (25, '2023-07-12 10:06:37', 'abc', '127.0.0.1', '查询绑定信息', 'SELECT', 'GET', '/fleet/contact', 'success', 753, NULL);
 INSERT INTO `log_operate` VALUES (26, '2023-07-12 10:07:28', 'abc', '127.0.0.1', '查询绑定信息', 'SELECT', 'GET', '/fleet/contact', 'success', 12, NULL);
 INSERT INTO `log_operate` VALUES (27, '2023-07-12 10:39:44', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 771, 'nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named \'fkUserID\' in \'class cn.tdsmy.transport.beans.Carrier\'');
-INSERT INTO `log_operate` VALUES (28, '2023-07-12 10:44:17', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 757, '\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carrier(send_company, send_address, send_linkman, send_phone,                             receive_company, receive_address, receive_linkman, receive_phone,                             leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                             remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist');
-INSERT INTO `log_operate` VALUES (29, '2023-07-12 10:50:04', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 783, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
-INSERT INTO `log_operate` VALUES (30, '2023-07-12 10:52:09', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 785, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
-INSERT INTO `log_operate` VALUES (31, '2023-07-12 10:55:47', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 12, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
-INSERT INTO `log_operate` VALUES (32, '2023-07-12 10:59:50', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 770, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
-INSERT INTO `log_operate` VALUES (33, '2023-07-12 11:01:07', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 12, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1');
-INSERT INTO `log_operate` VALUES (34, '2023-07-12 11:13:06', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 800, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1');
-INSERT INTO `log_operate` VALUES (35, '2023-07-12 11:13:37', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 3, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (28, '2023-07-12 10:44:17', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 757, '\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carrier(send_company, send_address, send_linkman, send_phone,                             receive_company, fk_receive_address, receive_linkman, receive_phone,                             leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                             remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist');
+INSERT INTO `log_operate` VALUES (29, '2023-07-12 10:50:04', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 783, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, fk_receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (30, '2023-07-12 10:52:09', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 785, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, fk_receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (31, '2023-07-12 10:55:47', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 12, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, fk_receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (32, '2023-07-12 10:59:50', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 770, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, fk_receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE6\\xB9\\x96\\xE5\\x8D\\x97...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (33, '2023-07-12 11:01:07', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 12, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, fk_receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (34, '2023-07-12 11:13:06', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 800, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, fk_receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (35, '2023-07-12 11:13:37', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 3, '\r\n### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, fk_receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1\n; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1; nested exception is java.sql.SQLException: Incorrect string value: \'\\xE9\\x87\\x8D\\xE5\\xBA\\x86...\' for column \'send_address\' at row 1');
+INSERT INTO `log_operate` VALUES (36, '2023-07-12 11:25:59', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 801, '\r\n### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column \'fk_receive_address\' cannot be null\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, fk_receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLIntegrityConstraintViolationException: Column \'fk_receive_address\' cannot be null\n; Column \'fk_receive_address\' cannot be null; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column \'fk_receive_address\' cannot be null');
+INSERT INTO `log_operate` VALUES (37, '2023-07-12 11:27:38', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'failed', 828, '\r\n### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column \'receive_address\' cannot be null\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into carriers (send_company, send_address, send_linkman, send_phone,                               receive_company, receive_address, receive_linkman, receive_phone,                               leaver_date, finished_state, insurance_cost, transport_cost, other_cost, total_cost,                               remark, account, check_in_time, alter_time)         values (?, ?, ?, ?,                 ?, ?, ?, ?,                 ?, ?, ?, ?, ?, ?,                 ?, ?, ?, ?);\r\n### Cause: java.sql.SQLIntegrityConstraintViolationException: Column \'receive_address\' cannot be null\n; Column \'receive_address\' cannot be null; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column \'receive_address\' cannot be null');
+INSERT INTO `log_operate` VALUES (38, '2023-07-12 11:28:26', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'success', 9, NULL);
+INSERT INTO `log_operate` VALUES (39, '2023-07-12 11:32:13', 'abc', '127.0.0.1', '承运单已接收', 'UPDATE', 'PUT', '/transport/carrier', 'failed', 38, '\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist\r\n### The error may exist in file [D:\\Project\\shixun\\YuetongLogistics\\yuetong-transport-serv\\yuetong-transport-impl\\target\\classes\\mybatis\\CarrierMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: update carrier         set receive_date= ?,             finished_state = ?         where carriers_id = ?;\r\n### Cause: java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table \'yuetong.carrier\' doesn\'t exist');
+INSERT INTO `log_operate` VALUES (40, '2023-07-12 11:33:19', 'abc', '127.0.0.1', '承运单已完成', 'UPDATE', 'PUT', '/transport/carrier', 'success', 688, NULL);
+INSERT INTO `log_operate` VALUES (41, '2023-07-12 11:35:55', 'abc', '127.0.0.1', '删除承运单', 'DELETE', 'DELETE', '/transport/carrier', 'success', 23, NULL);
+INSERT INTO `log_operate` VALUES (42, '2023-07-12 11:37:02', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'success', 15, NULL);
+INSERT INTO `log_operate` VALUES (43, '2023-07-12 11:45:02', 'abc', '127.0.0.1', '查询承运单', 'SELECT', 'GET', '/transport/carrier', 'success', 883, NULL);
+INSERT INTO `log_operate` VALUES (44, '2023-07-12 14:11:28', 'abc', '127.0.0.1', '录入承运单', 'INSERT', 'POST', '/transport/carrier', 'success', 755, NULL);
+INSERT INTO `log_operate` VALUES (45, '2023-07-12 15:02:28', 'abc', '127.0.0.1', '查询承运单', 'SELECT', 'GET', '/transport/carrier', 'success', 11, NULL);
+INSERT INTO `log_operate` VALUES (46, '2023-07-12 15:02:34', 'abc', '127.0.0.1', '查询承运单', 'SELECT', 'GET', '/transport/carrier', 'success', 7, NULL);
+INSERT INTO `log_operate` VALUES (47, '2023-07-12 15:03:04', 'abc', '127.0.0.1', '查询承运单', 'SELECT', 'GET', '/transport/carrier', 'success', 5, NULL);
+INSERT INTO `log_operate` VALUES (48, '2023-07-12 15:03:38', 'abc', '127.0.0.1', '标记承运单为已完成', 'UPDATE', 'PUT', '/transport/carrier', 'success', 4, NULL);
 
 -- ----------------------------
 -- Table structure for role
@@ -213,7 +232,7 @@ CREATE TABLE `role`  (
   `role_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色名称',
   `role_purview` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色权限，多个权限用 / 区分',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统角色表用于存放系统权限数据，管理用户权限' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统角色表用于存放系统权限数据，管理用户权限' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role
@@ -221,8 +240,8 @@ CREATE TABLE `role`  (
 INSERT INTO `role` VALUES (1, '系统管理员', 'system');
 INSERT INTO `role` VALUES (2, '运输管理员', 'fleet');
 INSERT INTO `role` VALUES (3, '承运业务员', 'carrier');
-INSERT INTO `role` VALUES (4, '调度员', 'capacity/scheduling');
-INSERT INTO `role` VALUES (5, '财务人员', 'capacity/cost');
+INSERT INTO `role` VALUES (4, '调度员', 'scheduling');
+INSERT INTO `role` VALUES (5, '财务人员', 'cost');
 
 -- ----------------------------
 -- Table structure for scheduling
@@ -230,25 +249,19 @@ INSERT INTO `role` VALUES (5, '财务人员', 'capacity/cost');
 DROP TABLE IF EXISTS `scheduling`;
 CREATE TABLE `scheduling`  (
   `scheduling_id` int NOT NULL AUTO_INCREMENT COMMENT '调度编号（字段自动编号）',
-  `start_time` datetime NULL DEFAULT NULL COMMENT '出发时间',
-  `fk_carriers_id` int NULL DEFAULT NULL COMMENT '承运单编号',
-  `fk_truck_id` int NULL DEFAULT NULL COMMENT '车辆编号',
-  `oil_cost` float NULL DEFAULT NULL COMMENT '油费',
-  `toll` float NULL DEFAULT NULL COMMENT '过桥费',
-  `fine` float NULL DEFAULT NULL COMMENT '罚款',
-  `other_cost` float NULL DEFAULT NULL COMMENT '其他费用',
-  `total_cost` float NULL DEFAULT NULL COMMENT '合计成本',
-  `fk_user_id` int NULL DEFAULT NULL COMMENT '调度员',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `check_in_time` datetime NULL DEFAULT NULL COMMENT '调度时间',
-  `is_delete` tinyint NOT NULL COMMENT '数据记录状态 : 0:使用中 1:该记录已删除',
-  `alter_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`scheduling_id`) USING BTREE,
-  INDEX `FK_Scheduling_Truck`(`fk_truck_id` ASC) USING BTREE,
-  INDEX `FK_Scheduling_User`(`fk_user_id` ASC) USING BTREE,
-  CONSTRAINT `FK_Scheduling_Truck` FOREIGN KEY (`fk_truck_id`) REFERENCES `truck` (`truck_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Scheduling_User` FOREIGN KEY (`fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '调度作业信息表用于存放和管理调度作业信息' ROW_FORMAT = Dynamic;
+  `start_time` datetime NOT NULL COMMENT '出发时间',
+  `fk_carriers_id` int NOT NULL COMMENT '承运单编号',
+  `fk_truck_id` int NOT NULL COMMENT '车辆编号',
+  `oil_cost` double NULL DEFAULT NULL COMMENT '油费',
+  `toll` double NULL DEFAULT NULL COMMENT '过桥费',
+  `fine` double NULL DEFAULT NULL COMMENT '罚款',
+  `other_cost` double NULL DEFAULT NULL COMMENT '其他费用',
+  `total_cost` double NULL DEFAULT NULL COMMENT '合计成本',
+  `account` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度员',
+  `check_in_time` datetime NOT NULL COMMENT '调度时间',
+  `alter_time` datetime NOT NULL COMMENT '修改时间',
+  PRIMARY KEY (`scheduling_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '调度作业信息表用于存放和管理调度作业信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of scheduling
@@ -271,7 +284,7 @@ CREATE TABLE `truck`  (
   `alter_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`truck_id`) USING BTREE,
   INDEX `FK_Truck_TruckTeam`(`fk_team_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车辆信息表用于存放和管理车辆信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车辆信息表用于存放和管理车辆信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of truck
@@ -290,7 +303,7 @@ CREATE TABLE `truck_team`  (
   `check_in_time` datetime NOT NULL COMMENT '创队时间',
   `alter_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`team_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车队信息表用于存放和管理车队信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '车队信息表用于存放和管理车队信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of truck_team
@@ -316,10 +329,12 @@ CREATE TABLE `user`  (
   PRIMARY KEY (`user_id`) USING BTREE,
   UNIQUE INDEX `account`(`account` ASC) USING BTREE,
   INDEX `FK_User_Role`(`role_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统用户表用于存放用户账户密码信息及用户信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统用户表用于存放用户账户密码信息及用户信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (0, 1, 'abc', '123', 'hahah', '男', '15813482972', '12345@test.com', '2023-07-06 11:13:01', '2023-07-11 13:10:38');
 INSERT INTO `user` VALUES (3, 2, 'fwf57', '8vvnreWH', '李四', '男', '98765432100', '9876543210@csu.edu.com', '2023-07-11 09:49:05', '2023-07-11 09:49:05');
+INSERT INTO `user` VALUES (4, 1, 'abc', '123', 'hahah', '男', '15813482972', '12345@test.com', '2023-07-06 11:13:01', '2023-07-11 13:10:38');
+
+SET FOREIGN_KEY_CHECKS = 1;

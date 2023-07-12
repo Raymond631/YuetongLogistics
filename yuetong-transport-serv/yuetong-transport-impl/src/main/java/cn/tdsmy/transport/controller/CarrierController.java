@@ -17,14 +17,14 @@ import java.util.Date;
 
 @Slf4j
 @RestController
-@RequestMapping("/transport")
+@RequestMapping("/transport/carrier")
 public class CarrierController {
 
     @Autowired
     private CarrierService carrierService;
 
 
-    @PostMapping("/carrier")
+    @PostMapping
     @Log(title = "录入承运单", businessType = BusinessType.INSERT)
     public AjaxResult newCarrier(@RequestBody CarrierVO carrierVO, @RequestHeader("account") String account) {
         Carrier carrier = Carrier.getCarrier(carrierVO);
@@ -45,20 +45,21 @@ public class CarrierController {
         return AjaxResult.success("录入成功");
     }
 
-
-    @PutMapping("/carrier")
-    @Log(title = "标记承运单为已完成", businessType = BusinessType.UPDATE)
-    public AjaxResult updateCarriers(@RequestParam("carrierId") int carrierId) {
-        carrierService.updateCarrier(carrierId, new Date(), CarrierStatus.COMPLETED.ordinal());
-        return AjaxResult.success("承运单标记为已完成");
-    }
-
-    @GetMapping("/carrier")
-    @Log(title = "查询承运单", businessType = BusinessType.SELECT)
+    @GetMapping
+    @Log(title = "查询本人提交的承运单（运输中）", businessType = BusinessType.SELECT)
     public AjaxResult searchCarriers(@RequestHeader("account") String account, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
         PageInfo<Carrier> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
             carrierService.getCarriers(account);
         });
         return AjaxResult.success(pageInfo);
     }
+
+    @PutMapping
+    @Log(title = "标记承运单为已完成", businessType = BusinessType.UPDATE)
+    public AjaxResult updateCarriers(@RequestParam("carrierId") int carrierId) {
+        carrierService.updateCarrier(carrierId, new Date(), CarrierStatus.COMPLETED.ordinal());
+        return AjaxResult.success("承运单标记为已完成");
+    }
+
+
 }
