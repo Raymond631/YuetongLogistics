@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tdsmy.fleet.mapper.TeamMapper">
+    <insert id="insertDriver">
+        insert into truck_team (team_name, leader, remark, check_in_time, alter_time)
+        values (#{teamName}, #{leader}, #{remark}, #{checkInTime}, #{alterTime});
+    </insert>
+    <delete id="deleteTeam">
+        delete
+        from truck_team
+        where team_id = #{teamId};
+    </delete>
+
+    <select id="selectTeamList" resultMap="TeamAndTruck">
+        select *
+        from truck_team
+                 inner join truck on truck_team.team_id = truck.fk_team_id
+    </select>
+    <resultMap id="TeamAndTruck" type="cn.tdsmy.fleet.beans.vo.TruckTeamVO">
+        <association property="truckTeam">
+            <id property="teamId" column="team_id"/>
+            <result property="teamName" column="team_name"/>
+            <result property="leader" column="leader"/>
+            <result property="remark" column="remark"/>
+            <result property="checkInTime" column="check_in_time"/>
+            <result property="alterTime" column="alter_time"/>
+        </association>
+        <collection property="truckList" column="truck_team.team_id" ofType="cn.tdsmy.fleet.beans.Truck">
+            <id property="truckId" column="truck_id"/>
+            <result property="number" column="number"/>
+            <result property="buyDate" column="buy_date"/>
+            <result property="truckType" column="truck_type"/>
+            <result property="tonnage" column="tonnage"/>
+            <result property="fkTeamId" column="fk_team_id"/>
+            <result property="state" column="state"/>
+            <result property="remark" column="remark"/>
+            <result property="checkInTime" column="check_in_time"/>
+            <result property="alterTime" column="alter_time"/>
+        </collection>
+    </resultMap>
+</mapper>

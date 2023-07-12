@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tdsmy.fleet.mapper.ContactMapper">
+    <insert id="insertContact">
+        insert into contact (fk_truck_id, fk_driver_id)
+        values (#{truckId}, #{driverId});
+    </insert>
+    <delete id="deleteContact">
+        delete
+        from contact
+        where contact_id = #{contactId};
+    </delete>
+    <select id="selectContact" resultMap="DriverAndTruck">
+        select *
+        from (contact as c
+            inner join driver as d on c.fk_driver_id = d.driver_id)
+                 inner join truck as t on c.fk_truck_id = t.truck_id
+        where c.contact_id = #{contactId}
+    </select>
+    <resultMap id="DriverAndTruck" type="cn.tdsmy.fleet.beans.Contact">
+        <id property="contactId" column="contact_id"/>
+        <result property="truckId" column="fk_truck_id"/>
+        <result property="driverId" column="fk_driver_id"/>
+        <association property="truck">
+            <id property="truckId" column="truck_id"/>
+            <result property="number" column="number"/>
+            <result property="buyDate" column="buy_date"/>
+            <result property="truckType" column="truck_type"/>
+            <result property="tonnage" column="tonnage"/>
+            <result property="fkTeamId" column="fk_team_id"/>
+            <result property="state" column="state"/>
+            <result property="remark" column="remark"/>
+            <result property="checkInTime" column="check_in_time"/>
+            <result property="alterTime" column="alter_time"/>
+        </association>
+        <association property="driver">
+            <id property="driverId" column="driver_id"/>
+            <result property="name" column="name"/>
+            <result property="sex" column="sex"/>
+            <result property="birth" column="birth"/>
+            <result property="phone" column="phone"/>
+            <result property="idCard" column="id_card"/>
+            <result property="fkTeamId" column="fk_team_id"/>
+            <result property="state" column="state"/>
+            <result property="remark" column="remark"/>
+            <result property="checkInTime" column="check_in_time"/>
+            <result property="alterTime" column="alter_time"/>
+        </association>
+    </resultMap>
+</mapper>

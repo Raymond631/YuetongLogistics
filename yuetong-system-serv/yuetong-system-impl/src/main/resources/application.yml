@@ -1,0 +1,36 @@
+server:
+  port: 10200
+  error:
+    include-message: always
+spring:
+  application:
+    name: yuetong-system-impl
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/yuetong
+    username: Raymond
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        service: yuetong-system-impl
+        group: YueTong
+        register-enabled: true
+        heart-beat-interval: 5000
+        heart-beat-timeout: 20000
+        metadata:
+          namespace: dev
+
+mybatis:
+  mapper-locations: classpath:mybatis/*.xml
+  type-aliases-package: cn/tdsmy/system/beans;
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  file:
+    path: log/system-log
+  level:
+    cn.tdsmy.system: debug
