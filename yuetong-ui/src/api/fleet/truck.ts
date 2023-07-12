@@ -1,9 +1,9 @@
 import { request } from '@/utils/request';
 
 //导出login方法，供其它地方使用
-export function searchTruck(pageSize:number,pageNum:number) {
+export function searchTruck(pageNum:number,pageSize:number,queryType:number) {
     return request({
-        url: `/fleet/truck?pageNum=${pageNum}&pageSize=${pageSize}`,
+        url: `/fleet/truck?pageNum=${pageNum}&pageSize=${pageSize}&queryType=${queryType}`,
         method: 'get',
     })
 }

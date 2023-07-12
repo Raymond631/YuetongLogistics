@@ -19,7 +19,7 @@ export function loginLogExport() {
     return request({
         url:"/system/log/exportLoginLog",
         method: 'get',
-        Headers:{responseType: 'blob'}
+        responseType: 'blob'
     })
 }
 
@@ -27,6 +27,6 @@ export function operateLogExport() {
     return request({
         url:"/system/log/exportOperateLog",
         method: 'get',
-        Headers:{ responseType: 'blob'}
+        responseType: 'blob'
     })
 }

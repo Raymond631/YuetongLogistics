@@ -17,7 +17,7 @@ export function request(config: any) {
     ],
   });
 
-  instance.defaults.headers.post["Content-Type"] = "application/json;";
+  instance.defaults.headers.post["Content-Type"] = "application/json; ";
   //------------------请求拦截-------------------//
   //------------在发送请求之前做些什么------------//
   instance.interceptors.request.use(
@@ -89,7 +89,7 @@ export function request(config: any) {
         }
         err.message = "连接服务器失败";
       }
-       alert(err.response.msg);
+       alert("错误");
       throw err;
     }
   );

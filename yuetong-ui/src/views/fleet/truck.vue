@@ -3,6 +3,34 @@
     <navigationBar />
     <div class="content">
       <welcomeHeader />
+      <div class="block-list">
+        <div class="search">
+          <el-input
+            type="text"
+            class="search-input"
+            v-model="search"
+            placeholder="请搜索用户"
+          ></el-input>
+        </div>
+      <div class="actions">
+        <div class="action1">
+          <label @click="handleAll()">查看所有</label>
+        </div>
+        <el-popconfirm
+          title="选择筛选项"
+          confirm-button-text="空闲"
+          cancel-button-text="运输中"
+          @confirm="handleFree()"
+          @cancel="handleWork()"
+        >
+          <template #reference>
+            <div class="action2">
+              <label>筛选</label>
+            </div>
+          </template>
+        </el-popconfirm>
+      </div>
+      </div>
       <div class="card" v-for="(truck, index) in truckList" :key="index">
         <div class="car_id">
           {{ truck.truckId }}
@@ -52,13 +80,15 @@
 import navigationBar from "../../components/navigationBar.vue";
 import welcomeHeader from "../../components/header.vue";
 import { defineComponent } from "vue";
-import { searchTruck, deleteTruck, uploadTruck } from "../../api/fleet/Truck";
+import { searchTruck, deleteTruck, uploadTruck } from "../../api/fleet/truck";
 
 export default defineComponent({
   name: "truck",
   components: { welcomeHeader, navigationBar },
   data() {
     return {
+      search:'',
+      selectType:0,
       paginationConfig: {
         currentPage: 1, // 当前页码
         pageSize: 10, // 每页显示的条数
@@ -89,7 +119,8 @@ export default defineComponent({
     ready() {
       searchTruck(
         this.paginationConfig.currentPage,
-        this.paginationConfig.pageSize
+        this.paginationConfig.pageSize,
+        this.selectType
       ).then((res: any) => {
         console.log(res);
         this.truckList = res.data.list;
@@ -111,10 +142,21 @@ export default defineComponent({
           console.log(err);
         });
     },
-
     handleCurrentChange(val: number) {
       this.paginationConfig.currentPage = val;
       this.ready();
+    },
+    handleFree() {
+      this.selectType = 2;
+      this.ready()
+    },
+    handleWork() {
+      this.selectType = 1;
+      this.ready()
+    },
+    handleAll() {
+      this.selectType = 0;
+      this.ready()
     },
   },
 });

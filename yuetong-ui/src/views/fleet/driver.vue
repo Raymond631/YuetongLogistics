@@ -12,14 +12,24 @@
             placeholder="请搜索用户"
           ></el-input>
         </div>
-        <div class="actions">
-          <div class="action1">
-            <label>筛选</label>
-          </div>
-          <div class="action2">
-            <label>添加用户</label>
-          </div>
+      <div class="actions">
+        <div class="action1">
+          <label @click="handleAll()">查看所有</label>
         </div>
+        <el-popconfirm
+          title="选择筛选项"
+          confirm-button-text="空闲"
+          cancel-button-text="已绑定"
+          @confirm="handleFree()"
+          @cancel="handleWork()"
+        >
+          <template #reference>
+            <div class="action2">
+              <label>筛选</label>
+            </div>
+          </template>
+        </el-popconfirm>
+      </div>
       </div>
       <div class="user-main">
         <div class="user-block" v-for="driver in driverList" :key="driver.driverId">
@@ -99,7 +109,6 @@
           layout="total, prev, pager, next"
           :page-size="paginationConfig.pageSize"
           :total="paginationConfig.total"
-          :page-count="paginationConfig.pageCount"
           @current-change="handlePageChange"
         />
       </div>
@@ -118,6 +127,7 @@ export default {
   data() {
     return {
       search: "",
+      selectType:0,
       paginationConfig: {
         currentPage: 1, // 当前页码
         pageSize: 12, // 每页显示的条数
@@ -150,7 +160,8 @@ export default {
     ready() {
       searchDrivers(
         this.paginationConfig.currentPage,
-        this.paginationConfig.pageSize
+        this.paginationConfig.pageSize,
+        this.selectType
       )
         .then((res: any) => {
           console.log(res);
@@ -181,8 +192,20 @@ export default {
           console.log(err);
         });
     },
-  },
-};
+    handleFree() {
+      this.selectType = 2;
+      this.ready()
+    },
+    handleWork() {
+      this.selectType = 1;
+      this.ready()
+    },
+    handleAll() {
+      this.selectType = 0;
+      this.ready()
+    },
+}
+}
 </script>
 
 <style scoped lang="scss">

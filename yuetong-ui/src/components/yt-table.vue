@@ -163,7 +163,6 @@ export default defineComponent({
   methods: {
     ready(){
       let that = this;
-      console.log(this.routerPosition)
     },
 
     goBack() {},

@@ -93,7 +93,6 @@
 <script lang="ts">
 import "font-awesome/css/font-awesome.min.css";
 import { login, vertify } from "../../api/authentication/login";
-import axios from "axios";
 
 export default {
   name: "login",
@@ -114,17 +113,20 @@ export default {
       },
     };
   },
-  mounted() { this.newVertification()},
+  mounted() {
+    this.newVertification();
+    
+  },
   methods: {
     newVertification() {
       let that = this;
       vertify()
-        .then((res:any) => {
-          console.log(res)
+        .then((res: any) => {
+          console.log(res);
           that.user.uuid = res.uuid;
-          that.codeUrl= "data:image/gif;base64," + res.img;
+          that.codeUrl = "data:image/gif;base64," + res.img;
         })
-        .catch((err:any) => {
+        .catch((err: any) => {
           console.log(err);
         });
     },
@@ -146,29 +148,28 @@ export default {
         this.inputMsg.passwordMsg = "";
       }
     },
-    
+
     //点击登录按钮
     submitForm() {
       //普通管理员登录系统
-      login(this.user) .then((res: any) => {
+      login(this.user)
+        .then((res: any) => {
           console.log("login success");
-          
-          this.$router.push('/authentication/main')
+          sessionStorage.setItem("user", JSON.stringify(res.data));
+          this.$router.push("/authentication/main");
         })
         .catch((err: any) => {
           console.log(err);
         });
       //调用登录接口
-
     },
     //点击系统管理员登录按钮
     superSubmitForm() {
       //系统管理员登录系统
-      this.$router.push('/authentication/main')
-
-    }
-  }
-}
+      this.$router.push("/authentication/main");
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">

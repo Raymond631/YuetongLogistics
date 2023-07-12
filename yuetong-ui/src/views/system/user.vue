@@ -37,7 +37,7 @@
       <div class="user-main">
         <div class="user-block" v-for="user in userList" :key="user.account">
           <div class="basic-info">
-            <el-avatar type="image" :src="user.image" class="image"></el-avatar>
+            <el-avatar type="image" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="image"></el-avatar>
             <div class="right-info">
               <label v-text="user.username" class="username"></label>
               <label v-text="'#' + user.role" class="role"></label>
@@ -119,7 +119,6 @@
           layout="total, prev, pager, next"
           :page-size="paginationConfig.pageSize"
           :total="paginationConfig.total"
-          :page-count="paginationConfig.pageCount"
           @current-change="handlePageChange"
         />
       </div>
@@ -221,11 +220,19 @@ export default defineComponent({
         },
         {
           value: 2,
-          label: "普通用户",
+          label: "运输管理员",
         },
         {
           value: 3,
-          label: "游客",
+          label: "承运业务员",
+        },
+        {
+          value: 4,
+          label: "调度员",
+        },
+        {
+          value: 5,
+          label: "财务人员",
         },
       ],
     };
