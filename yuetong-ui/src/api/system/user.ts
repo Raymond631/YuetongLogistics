@@ -1,7 +1,7 @@
 import { request } from '@/utils/request';
 
 //导出login方法，供其它地方使用
-export function searchUsers(pageSize:number,pageNum:number) {
+export function searchUsers(pageNum:number,pageSize:number) {
     return request({
         url: `/system/user?pageNum=${pageNum}&pageSize=${pageSize}`,
         method: 'get',

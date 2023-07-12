@@ -72,6 +72,11 @@
           border: 2px solid $theme_color;
           background-color: #eff4f4;
           @include action;
+          &:hover {
+            color: #ffffff;
+            background-color: $theme_color;
+            transition: 0.5s;
+          }
         }
 
       }

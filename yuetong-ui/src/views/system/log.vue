@@ -14,24 +14,26 @@
               target="_blank"
               ><el-icon><Download /></el-icon>导出操作日志</el-link
             > -->
-              <el-button type="primary" @click="getOperationData">导出操作日志</el-button>
+            <el-button type="primary" @click="getOperationData"
+              >导出操作日志</el-button
+            >
           </div>
           <ytTable
             class="table"
             :tableInfo="operateLog"
             :tableContent="operateLog_data"
-            :paginationConfig="paginationConfig"
-            :handlePageChange="handlePageChange"
-            :tableHeight="700"
+            :paginationConfig="paginationConfig_operate"
+            :handlePageChange="handlePageChange_operate"
+            :tableHeight="670"
           />
           <!-- 分页 -->
           <div class="page">
             <el-pagination
-              v-model:currentPage="paginationConfig.currentPage"
+              v-model:currentPage="paginationConfig_operate.currentPage"
               layout="total, prev, pager, next"
-              :page-size="paginationConfig.pageSize"
-              :total="paginationConfig.total"
-              @current-change="handlePageChange"
+              :page-size="paginationConfig_operate.pageSize"
+              :total="paginationConfig_operate.total"
+              @current-change="handlePageChange_operate"
             />
           </div>
         </el-tab-pane>
@@ -45,23 +47,24 @@
               target="_blank"
               ><el-icon><Download /></el-icon>导出登录日志</el-link
             > -->
-            <el-button type="primary" @click="getLoginData">导出登录日志</el-button>
+            <el-button type="primary" @click="getLoginData"
+              >导出登录日志</el-button
+            >
           </div>
           <ytTable
             class="table"
             :tableInfo="loginLog"
             :tableContent="loginLog_data"
-            :tableHeight="700"
+            :tableHeight="678"
           />
           <!-- 分页 -->
           <div class="page">
             <el-pagination
-              v-model:currentPage="paginationConfig.currentPage"
+              v-model:currentPage="paginationConfig_login.currentPage"
               layout="total, prev, pager, next"
-              :page-size="paginationConfig.pageSize"
-              :total="paginationConfig.total"
-              :page-count="paginationConfig.pageCount"
-              @current-change="handlePageChange"
+              :page-size="paginationConfig_login.pageSize"
+              :total="paginationConfig_login.total"
+              @current-change="handlePageChange_login"
             />
           </div>
         </el-tab-pane>
@@ -81,16 +84,22 @@ import {
   loginLogExport,
   operateLogExport,
 } from "../../api/system/log";
-import { saveAs } from "file-saver";
+// import { saveAs } from "file-saver";
 
 export default defineComponent({
   name: "log",
   data() {
     return {
       data: "",
-      paginationConfig: {
+      paginationConfig_operate: {
         currentPage: 1, // 当前页码
         pageSize: 10, // 每页显示的条数
+        pageCount: 1, //总共有多少页
+        total: 0, // 总条数
+      },
+      paginationConfig_login:{
+        currentPage: 1, // 当前页码
+        pageSize: 15, // 每页显示的条数
         pageCount: 1, //总共有多少页
         total: 0, // 总条数
       },
@@ -146,43 +155,61 @@ export default defineComponent({
   },
   methods: {
     ready() {
+      this.getOperateLog();
+      this.getLoginLog();
+    },
+    getOperateLog(){
       operateLog(
-        this.paginationConfig.currentPage,
-        this.paginationConfig.pageSize
+        this.paginationConfig_operate.currentPage,
+        this.paginationConfig_operate.pageSize
       )
         .then((res: any) => {
           this.operateLog_data = res.data.list;
           // this.paginationConfig.pageSize = res.data.pageSize;
-          this.paginationConfig.pageCount = res.data.pages;
+          this.paginationConfig_operate.pageCount = res.data.pages;
           // this.paginationConfig.total = res.data.size;
-          this.paginationConfig.total = res.data.list.length;
+          this.paginationConfig_operate.total = res.data.total;
         })
         .catch((err: any) => {
           console.log(err);
         });
+    },
+    getLoginLog(){
       loginLog(
-        this.paginationConfig.pageSize,
-        this.paginationConfig.currentPage
+      this.paginationConfig_login.currentPage,
+        this.paginationConfig_login.pageSize
       )
         .then((res: any) => {
+          console.log(res)
           this.loginLog_data = res.data.list;
+          this.paginationConfig_login.pageCount = res.data.pages;
+          // this.paginationConfig.total = res.data.size;
+          this.paginationConfig_login.total = res.data.total;
         })
         .catch((err: any) => {
           console.log(err);
         });
     },
-    handlePageChange(val: number) {
-      this.paginationConfig.currentPage = val;
+    handlePageChange_operate(val: number) {
+      this.paginationConfig_operate.currentPage = val;
       console.log("当前页面数为：" + val);
-      this.ready();
+      this.getOperateLog();
     },
 
+    handlePageChange_login(val: number) {
+      this.paginationConfig_login.currentPage = val;
+      console.log("当前页面数为：" + val);
+      this.getLoginLog();
+    },
     getOperationData() {
       operateLogExport()
         .then((res: any) => {
           console.log(res);
           const filename = "operationLog.xlsx"; // 设置文件名
-          saveAs(new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }), filename); // 使用 FileSaver.js 下载文件
+          let blob = new Blob([res], { type: "application/vnd.ms-excel;charset=UTF-8" });
+          // saveAs(new Blob([res], { type: 'application/vnd.ms-excel' }), filename);
+          let objectUrl = URL.createObjectURL(blob);
+          window.location.href = objectUrl;
         })
         .catch((err: any) => {
           console.log(err);
@@ -194,7 +221,11 @@ export default defineComponent({
         .then((res: any) => {
           console.log(res);
           const filename = "loginLog.xlsx"; // 设置文件名
-          saveAs(res, filename); // 使用 FileSaver.js 下载文件
+          // saveAs(res, filename); 
+          let blob = new Blob([res], { type: "application/vnd.ms-excel;charset=UTF-8" });
+          // saveAs(new Blob([res], { type: 'application/vnd.ms-excel' }), filename);
+          let objectUrl = URL.createObjectURL(blob);
+          window.location.href = objectUrl;
         })
         .catch((err: any) => {
           console.log(err);

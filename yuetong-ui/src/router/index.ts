@@ -19,6 +19,15 @@ const router = createRouter({
       path: "/authentication/selfCenter",
       name: "selfCenter",
       component: () => import("../views/authentication/selfCenter.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          next(); //放行
+        } else {
+          alert("抱歉，您还没有登录！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/authentication/login",
@@ -29,73 +38,225 @@ const router = createRouter({
       path: "/authentication/main",
       name: "main",
       component: () => import("../views/authentication/main.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          next(); //放行
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/carrier/bill/issue",
       name: "issue",
       component: () => import("../views/carrier/bill/issue.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          if (user.roleId == 3) {
+            next(); //放行
+          } else {
+            alert("抱歉，您无权限查看！");
+            next({ name: "main" });
+          }
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/carrier/bill/reception",
       name: "reception",
       component: () => import("../views/carrier/bill/reception.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          if (user.roleId == 3) {
+            next(); //放行
+          } else {
+            alert("抱歉，您无权限查看！");
+            next({ name: "main" });
+          }
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/carrier/task/dispatch",
       name: "dispatch",
       component: () => import("../views/carrier/task/dispatch.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          if (user.roleId == 4) {
+            next(); //放行
+          } else {
+            alert("抱歉，您无权限查看！");
+            next({ name: "main" });
+          }
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/cost/accounting",
       name: "accounting",
       component: () => import("../views/cost/accounting.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          if (user.roleId == 5) {
+            next(); //放行
+          } else {
+            alert("抱歉，您无权限查看！");
+            next({ name: "main" });
+          }
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/cost/maintenance",
       name: "maintenance",
       component: () => import("../views/cost/maintenance.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          if (user.roleId == 5) {
+            next(); //放行
+          } else {
+            alert("抱歉，您无权限查看！");
+            next({ name: "main" });
+          }
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/fleet/truck",
       name: "truck",
-      component: () => import("../views/fleet/truck.vue")
+      component: () => import("../views/fleet/truck.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          if (user.roleId == 2) {
+            next(); //放行
+          } else {
+            alert("抱歉，您无权限查看！");
+            next({ name: "main" });
+          }
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/fleet/driver",
       name: "driver",
-      component: () => import("../views/fleet/driver.vue")
+      component: () => import("../views/fleet/driver.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          if (user.roleId == 2) {
+            next(); //放行
+          } else {
+            alert("抱歉，您无权限查看！");
+            next({ name: "main" });
+          }
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/fleet/team",
       name: "team",
-      component: () => import("../views/fleet/team.vue")
-    },
-
-    {
-      path: "/search/capacity",
-      name: "capacity",
-      component: () => import("../views/search/capacity.vue"),
+      component: () => import("../views/fleet/team.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          if (user.roleId == 2) {
+            next(); //放行
+          } else {
+            alert("抱歉，您无权限查看！");
+            next({ name: "main" });
+          }
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/search/history",
       name: "history",
       component: () => import("../views/search/history.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          if (user.roleId == 4 || user.roleId == 5) {
+            next(); //放行
+          } else {
+            alert("抱歉，您无权限查看！");
+            next({ name: "main" });
+          }
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/system/log",
       name: "log",
       component: () => import("../views/system/log.vue"),
-    },
-    {
-      path: "/system/system",
-      name: "system",
-      component: () => import("../views/system/system.vue"),
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          if (user.roleId == 1) {
+            next(); //放行
+          } else {
+            alert("抱歉，您无权限查看！");
+            next({ name: "main" });
+          }
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/system/user",
       name: "user",
       component: () => import("../views/system/user.vue"),
-    }
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          if (user.roleId == 1) {
+            next(); //放行
+          } else {
+            alert("抱歉，您无权限查看！");
+            next({ name: "main" });
+          }
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
+    },
   ],
 });
 

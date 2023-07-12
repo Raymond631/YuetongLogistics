@@ -4,77 +4,73 @@
     <div class="content">
       <welcomeHeader />
       <div class="block-list">
-        <div class="block1"></div>
-        <div class="block2"></div>
-        <div class="block3"></div>
-      </div>
-      <!-- <el-table
-          :data="teamList"
-          class="table"
-          tooltip-effect="dark"
-          highlight-current-row
-          @row-click="clickRow"
-          :cell-style="{ 'background-color': 'transparent' }"
-          :row-style="rowStyle"
-          :pagination="paginationConfig"
-      >
-        <el-table-column type="selection" width="50"></el-table-column>
-        <el-table-column label="车队编号" width="100" prop="carriersID">
-        </el-table-column>
-        <el-table-column label="车队名" width="180" prop="sendCompany">
-        </el-table-column>
-        <el-table-column label="队长" width="180" prop="sendLinkman">
-        </el-table-column>
-        <el-table-column label="标记" width="180" prop="sendPhone">
-        </el-table-column>
-        <el-table-column label="登记日期" width="180" prop="checkInTime">
-        </el-table-column>
-        <el-table-column label="操作">
-          <el-button size="default" @click="editRow">编辑</el-button>
-          <el-button size="default" type="danger" @click="deleteRow"
-          >删除
-          </el-button
+        <div class="search">
+          <el-input
+            type="text"
+            class="search-input"
+            v-model="search"
+            placeholder="请搜索用户"
+          ></el-input>
+        </div>
+        <div class="actions">
+          <div class="action1">
+            <label>查看所有</label>
+          </div>
+          <el-popconfirm
+            title="选择筛选项"
+            confirm-button-text="空闲"
+            cancel-button-text="运输中"
           >
-        </el-table-column>
-      </el-table> -->
-      <el-row style="margin-left: 20px;">
-        <el-col
-          class="card"
-          v-for="(team, index) in teamList"
-          :key="index"
-          :span="3"
-        >
-          <el-card :body-style="{ padding: '10px', height:'250px',}">
-            <span style="font-size: 24px;">{{ team.teamName }}</span>
-            <br />
-            <span style="font-size: 15px; margin-left: 45%;">队伍序号：{{ team.teamId }}</span>
-            <br />
-            <span>队长： {{ team.leader }}</span>
-            <br />
-            <span> 备注：{{ team.remark }}</span>
-            <div style="padding: 14px">
-              <div class="bottom">
-                <time class="time">登记日期：{{ team.checkInTime }}</time>
-                <el-button text class="button">Operating</el-button>
-                
+            <template #reference>
+              <div class="action2">
+                <label>筛选</label>
               </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-      <!-- 分页 -->
-      <div class="page">
-        <el-pagination
-          v-model:currentPage="paginationConfig.currentPage"
-          layout="total, prev, pager, next"
-          small
-          :page-size="paginationConfig.pageSize"
-          :total="paginationConfig.total"
-          @current-change="handleCurrentChange"
-        />
+            </template>
+          </el-popconfirm>
+        </div>
       </div>
+      <div class="card" v-for="(team, index) in teamList" :key="index">
+        <div class="car_id">
+          {{ team.teamName }}
+          <span style="margin-left: 20px">
+            <el-tag size="small">{{ team.teamId }}</el-tag></span
+          >
+        </div>
+        <el-popconfirm
+          title="这是一段内容确定删除吗？"
+          @confirm="handleDelete(team.teamId)"
+        >
+          <template #reference>
+            <el-button type="danger" class="car_delete">删除</el-button>
+          </template>
+        </el-popconfirm>
+        <div class="car_number">队长： {{ team.leader }}</div>
+        <div class="car_remark">备注：{{ team.remark }}</div>
+        <!-- 下面可以直接写成table -->
+        <!-- <div class="car_time_buy">
+          购车时间：<span style="margin-left: 30px">{{ truck.buyDate }}</span>
+        </div>
+        <div class="car_time_check">
+          登入时间：<span style="margin-left: 30px">{{
+            truck.checkInTime
+          }}</span>
+        </div>
+        <div class="car_time_update">
+          更新时间：<span style="margin-left: 30px">{{ truck.alterTime }}</span>
+        </div> -->
+      </div>
+      <!-- 分页 -->
     </div>
-
+    <div class="page">
+      <el-pagination
+        v-model:currentPage="paginationConfig.currentPage"
+        layout="total, prev, pager, next"
+        small
+        :page-size="paginationConfig.pageSize"
+        :total="paginationConfig.total"
+        @current-change="handleCurrentChange"
+      />
+    </div>
     <div v-if="showMask" class="mask"></div>
     <div class="editForm" v-if="showEditForm">
       <label class="form-title">编辑车队信息</label>
@@ -131,13 +127,14 @@
 import navigationBar from "../../components/navigationBar.vue";
 import welcomeHeader from "../../components/header.vue";
 import { defineComponent } from "vue";
-import { teamInfo } from "../../api/fleet/team";
+import { teamInfo, teamDelete } from "../../api/fleet/team";
 
 export default defineComponent({
   name: "team",
   components: { welcomeHeader, navigationBar },
   data() {
     return {
+      search: "",
       paginationConfig: {
         currentPage: 1, // 当前页码
         pageSize: 10, // 每页显示的条数
@@ -145,11 +142,24 @@ export default defineComponent({
         total: 1, // 总条数
       },
       teamList: [
-       
         {
           teamId: 1,
           teamName: "hhh",
           leader: "清",
+          remark: "无",
+          checkInTime: "2023-07-11 07:27:34",
+          alterTime: "2023-07-11 07:27:37",
+        },
+      ],
+      truckList: [
+        {
+          truckId: 1,
+          number: "湘A12345",
+          buyDate: "2022-10-01",
+          truckType: "大货车",
+          tonnage: 20,
+          fkTeamId: 1,
+          state: "Working",
           remark: "无",
           checkInTime: "2023-07-11 07:27:34",
           alterTime: "2023-07-11 07:27:37",
@@ -179,10 +189,17 @@ export default defineComponent({
   },
   methods: {
     ready() {
-      teamInfo( this.paginationConfig.currentPage,
-        this.paginationConfig.pageSize).then((res: any) => {
+      let that = this;
+      teamInfo(
+        this.paginationConfig.currentPage,
+        this.paginationConfig.pageSize
+      ).then((res: any) => {
         console.log(res);
-        this.teamList = res.data.list;
+        res.data.list.forEach(function (item: any) {
+          that.teamList.push(item.truckTeam);
+          that.truckList.push(item.truckList) ;
+        });
+
         this.paginationConfig.total = Number(res.data.total);
         this.paginationConfig.pageCount = Number(res.data.pageNum);
       });
@@ -209,7 +226,19 @@ export default defineComponent({
       }
       return "";
     },
-
+    handleDelete(teamId: number) {
+      let that = this;
+      teamDelete(teamId)
+        .then((res: any) => {
+          console.log("delete success");
+          //重新请求该页面数据
+          that.ready();
+          console.log(res);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    },
     //编辑
     editRow() {
       console.log("点击编辑......");

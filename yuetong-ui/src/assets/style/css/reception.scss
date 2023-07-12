@@ -33,6 +33,11 @@
   height: 60px;
   border-radius: 15px;
   margin-left: 60px;
+  &:hover {
+    color: #ffffff;
+    background-color: $theme_color;
+    transition: 0.5s;
+  }
 }
 
 .container {

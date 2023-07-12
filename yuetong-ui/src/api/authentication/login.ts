@@ -15,3 +15,10 @@ export function vertify() {
         method: 'get',
     })  
 }
+
+export function logout() {
+    return request({
+        url: '/auth/logout',
+        method: 'delete',
+    })  
+}
