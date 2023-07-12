@@ -78,21 +78,25 @@
     }
 
     .main-form {
-      margin-left: 50px;
+      margin-left: 40px;
       width: 1530px;
       height: 850px;
       display: flex;
-      flex-direction: row;
       flex-wrap: wrap;
       overflow: auto;
+      flex-direction: column;
 
       .bill-block {
-        margin-bottom: 50px;
+        margin: 10px 10px 10px;
         background-color: #ffffff;
         border-radius: 10px;
-        width: 100%;
+        width: 1510px;
         height: 140px;
         display: flex;
+
+        &:hover {
+          box-shadow: 0 0 10px rgba(93, 93, 93, 0.5);
+        }
 
         .main-font {
           @include main-font;
@@ -124,9 +128,10 @@
 
         .driver {
           display: grid;
+          width: 155px;
 
           label {
-            margin-top:20px;
+            margin-top: 20px;
             margin-left: 50px;
           }
 
@@ -137,18 +142,20 @@
             height: 70px;
           }
 
-          .choDriBtn{
-            margin-left:20px;
+          .choDriBtn {
+            margin-left: 30px;
+            font-size: 15px;
           }
         }
 
         .carrier-info {
           display: flex;
           height: $info_height;
+          width: 850px;
 
           .send-info {
             margin-top: 10px;
-            margin-left: 60px;
+            margin-left: 40px;
             width: 300px;
             display: grid;
             height: $info_height;
@@ -169,12 +176,13 @@
           }
         }
 
-
         .manager-info {
           display: grid;
-          .manager-id{
+
+          .manager-id {
             margin-top: 20px;
           }
+
           .actions {
             width: 200px;
             margin-left: 10px;
@@ -182,28 +190,33 @@
           }
         }
 
-        .checkInTime {
-          font-family: 'Open Sans', sans-serif;
+        .state {
+          display: grid;
+          align-content: center;
           font-size: 20px;
-          color: #a1a1a1;
+          label {
+            font-family: 'Open Sans', sans-serif;
+            color: #a1a1a1;
+          }
           margin: 0 auto;
-          line-height: $info_height;
         }
-
 
 
       }
     }
 
-    .mask{
+    .mask {
       @include mask;
     }
 
-    .chooseDriverForm{
-      @include mask-form(1000px,1000px,70px,450px);
-      .form-title{
-        padding-left:400px;
-        .closeBtn{
+    .chooseDriverForm {
+      //width,height,top,left
+      @include mask-form(1000px, 1000px, 70px, 450px);
+
+      .form-title {
+        padding-left: 400px;
+
+        .closeBtn {
           width: 80px;
           margin-left: 300px;
         }
@@ -213,35 +226,77 @@
         background-color: #ffffff;
         border-radius: 15px;
         width: 900px;
-        height: 350px;
+        height: 400px;
         padding-bottom: 20px;
-        margin:40px auto 0;
+        margin: 40px auto 0;
+
         .flex-item {
           display: flex;
           flex-wrap: wrap;
-          .form-item{
-            label{
-              margin-left:10px;
-              font-size:15px;
+
+          .form-item {
+            label {
+              margin-left: 10px;
+              font-size: 16px;
             }
           }
         }
-        .alreadyChosenForm{
-          width:900px;
+
+        .alreadyChosenForm {
+          width: 900px;
           margin: 0 auto;
           padding-top: 20px;
           padding-left: 40px;
-          .descriptions{
+
+          .descriptions {
             width: 800px;
+          }
+        }
+
+        .actions {
+          width: 600px;
+          display: flex;
+          margin-top: 20px;
+          margin-left: 240px;
+
+          .el-button {
+            margin-left: 70px;
+            width: 100px;
+            height: 40px;
+            font-size: large;
           }
         }
       }
 
-      .el-table{
-        margin:50px auto;
-        width:900px;
-        height:400px;
-        overflow:auto;
+      .el-table {
+        margin: 50px auto;
+        width: 900px;
+        height: 400px;
+        overflow: auto;
+      }
+    }
+
+    .details {
+      //width,height,top,left
+      @include mask-form(1000px, 600px, 200px, 450px);
+
+      .form-title {
+        padding-left: 400px;
+
+        .closeBtn {
+          width: 80px;
+          margin-left: 300px;
+        }
+      }
+
+      .form-info {
+        margin-left: 50px;
+        display: block;
+        width: 900px;
+
+        .el-descriptions {
+          margin-bottom: 50px;
+        }
       }
     }
   }

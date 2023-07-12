@@ -17,12 +17,11 @@
         <div class="bill-block" v-for="(history,index) in historyList">
           <label class="carrierId" v-text="history.carrier.carriersID"></label>
           <div class="user">
-            <label class="main-font">驾驶员</label>
             <el-avatar type="image" class="image"
                        src="https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg"></el-avatar>
             <div class="driver-info">
-              <el-tag class="main-font manager-tag"
-                      v-text="'#'+history.driver[0].driverID +' '+history.driver[0].name"></el-tag>
+              <el-tag class="main-font driver-tag"
+                      v-text="'驾驶员#'+history.driver[0].driverID +' '+history.driver[0].name"></el-tag>
               <label class="third-font" v-text="history.driver[0].phone"></label>
             </div>
           </div>
@@ -52,7 +51,10 @@
               <el-button type="danger" class="infoBtn">删除</el-button>
             </div>
           </div>
-          <label class="checkInTime" v-text="history.carrier.checkInTime"></label>
+          <div class="state">
+            <el-tag size="large">已结算</el-tag>
+            <label v-text="history.carrier.checkInTime"></label>
+          </div>
         </div>
       </div>
 
@@ -62,51 +64,53 @@
           <label>承运任务详情</label>
           <el-button type="danger" class="closeBtn" @click="closeForm">关闭</el-button>
         </div>
-
         <template class="form-info">
-          <el-descriptions :title="'承运单列表 编号：#'+currentItem.carrier.carriersID" direction="vertical" size="large" :column="5" border>
-            <el-descriptions-item label="发货单位" >{{currentItem.carrier.sendCompany}}</el-descriptions-item>
-            <el-descriptions-item label="发货地址">{{currentItem.carrier.sendAddress}}</el-descriptions-item>
-            <el-descriptions-item label="发货人">{{currentItem.carrier.sendLinkman}}</el-descriptions-item>
-            <el-descriptions-item label="联系电话">{{currentItem.carrier.sendPhone}}</el-descriptions-item>
-            <el-descriptions-item label="收货单位">{{currentItem.carrier.receiveCompany}}</el-descriptions-item>
-            <el-descriptions-item label="收获地址">{{currentItem.carrier.receiveAddress}}</el-descriptions-item>
-            <el-descriptions-item label="收货人">{{currentItem.carrier.receiveLinkman}}</el-descriptions-item>
-            <el-descriptions-item label="联系方式">{{currentItem.carrier.receivePhone}}</el-descriptions-item>
-            <el-descriptions-item label="出发时间">{{currentItem.carrier.leaverDate}}</el-descriptions-item>
-            <el-descriptions-item label="送达时间">{{currentItem.carrier.receiveDate}}</el-descriptions-item>
-            <el-descriptions-item label="保险费用">{{currentItem.carrier.insuranceCost}}</el-descriptions-item>
-            <el-descriptions-item label="运输费用">{{currentItem.carrier.transportCost}}</el-descriptions-item>
-            <el-descriptions-item label="总费用">{{currentItem.carrier.totalCost}}</el-descriptions-item>
+          <el-descriptions :title="'承运单列表 编号：#'+currentItem.carrier.carriersID" direction="vertical" size="large"
+                           :column="5" border>
+            <el-descriptions-item label="发货单位">{{ currentItem.carrier.sendCompany }}</el-descriptions-item>
+            <el-descriptions-item label="发货地址">{{ currentItem.carrier.sendAddress }}</el-descriptions-item>
+            <el-descriptions-item label="发货人">{{ currentItem.carrier.sendLinkman }}</el-descriptions-item>
+            <el-descriptions-item label="联系电话">{{ currentItem.carrier.sendPhone }}</el-descriptions-item>
+            <el-descriptions-item label="收货单位">{{ currentItem.carrier.receiveCompany }}</el-descriptions-item>
+            <el-descriptions-item label="收获地址">{{ currentItem.carrier.receiveAddress }}</el-descriptions-item>
+            <el-descriptions-item label="收货人">{{ currentItem.carrier.receiveLinkman }}</el-descriptions-item>
+            <el-descriptions-item label="联系方式">{{ currentItem.carrier.receivePhone }}</el-descriptions-item>
+            <el-descriptions-item label="出发时间">{{ currentItem.carrier.leaverDate }}</el-descriptions-item>
+            <el-descriptions-item label="送达时间">{{ currentItem.carrier.receiveDate }}</el-descriptions-item>
+            <el-descriptions-item label="保险费用">{{ currentItem.carrier.insuranceCost }}</el-descriptions-item>
+            <el-descriptions-item label="运输费用">{{ currentItem.carrier.transportCost }}</el-descriptions-item>
+            <el-descriptions-item label="总费用">{{ currentItem.carrier.totalCost }}</el-descriptions-item>
             <el-descriptions-item label="备注">
-              <el-tag size="small">{{currentItem.carrier.remark}}</el-tag>
+              <el-tag size="small">{{ currentItem.carrier.remark }}</el-tag>
             </el-descriptions-item>
           </el-descriptions>
-          <el-descriptions :title="'驾驶员信息 编号：#'+currentItem.driver[0].driverID" direction="vertical" size="large" :column="5" border>
-            <el-descriptions-item label="姓名" >{{currentItem.driver[0].name}}</el-descriptions-item>
-            <el-descriptions-item label="性别" >{{currentItem.driver[0].sex}}</el-descriptions-item>
-            <el-descriptions-item label="生日" >{{currentItem.driver[0].birth}}</el-descriptions-item>
-            <el-descriptions-item label="联系方式" >{{currentItem.driver[0].phone}}</el-descriptions-item>
-            <el-descriptions-item label="身份证号" >{{currentItem.driver[0].idCard}}</el-descriptions-item>
-            <el-descriptions-item label="所属车队编号" >{{currentItem.driver[0].fkTeamID}}</el-descriptions-item>
-            <el-descriptions-item label="状态" >{{currentItem.driver[0].state}}</el-descriptions-item>
-            <el-descriptions-item label="登记时间" >{{currentItem.driver[0].checkInTime}}</el-descriptions-item>
-            <el-descriptions-item label="是否删除" >{{currentItem.driver[0].isDelete}}</el-descriptions-item>
+          <el-descriptions :title="'驾驶员信息 编号：#'+currentItem.driver[0].driverID" direction="vertical" size="large"
+                           :column="5" border>
+            <el-descriptions-item label="姓名">{{ currentItem.driver[0].name }}</el-descriptions-item>
+            <el-descriptions-item label="性别">{{ currentItem.driver[0].sex }}</el-descriptions-item>
+            <el-descriptions-item label="生日">{{ currentItem.driver[0].birth }}</el-descriptions-item>
+            <el-descriptions-item label="联系方式">{{ currentItem.driver[0].phone }}</el-descriptions-item>
+            <el-descriptions-item label="身份证号">{{ currentItem.driver[0].idCard }}</el-descriptions-item>
+            <el-descriptions-item label="所属车队编号">{{ currentItem.driver[0].fkTeamID }}</el-descriptions-item>
+            <el-descriptions-item label="状态">{{ currentItem.driver[0].state }}</el-descriptions-item>
+            <el-descriptions-item label="登记时间">{{ currentItem.driver[0].checkInTime }}</el-descriptions-item>
+            <el-descriptions-item label="是否删除">{{ currentItem.driver[0].isDelete }}</el-descriptions-item>
             <el-descriptions-item label="备注">
-              <el-tag size="small">{{currentItem.driver[0].remark}}</el-tag>
+              <el-tag size="small">{{ currentItem.driver[0].remark }}</el-tag>
             </el-descriptions-item>
           </el-descriptions>
-          <el-descriptions :title="'承运任务信息 编号：#'+currentItem.scheduling[0].schedulingID" direction="vertical" size="large" :column="5" border>
-            <el-descriptions-item label="出发时间" >{{currentItem.scheduling[0].startTime}}</el-descriptions-item>
-            <el-descriptions-item label="油费" >{{currentItem.scheduling[0].oilCost}}</el-descriptions-item>
-            <el-descriptions-item label="过路费" >{{currentItem.scheduling[0].toll}}</el-descriptions-item>
-            <el-descriptions-item label="罚款" >{{currentItem.scheduling[0].fine}}</el-descriptions-item>
-            <el-descriptions-item label="其他费用" >{{currentItem.scheduling[0].otherCost}}</el-descriptions-item>
-            <el-descriptions-item label="总费用" >{{currentItem.scheduling[0].totalCost}}</el-descriptions-item>
-            <el-descriptions-item label="登记时间" >{{currentItem.scheduling[0].checkInTime}}</el-descriptions-item>
-            <el-descriptions-item label="是否删除" >{{currentItem.scheduling[0].isDelete}}</el-descriptions-item>
+          <el-descriptions :title="'承运任务信息 编号：#'+currentItem.scheduling[0].schedulingID" direction="vertical"
+                           size="large" :column="5" border>
+            <el-descriptions-item label="出发时间">{{ currentItem.scheduling[0].startTime }}</el-descriptions-item>
+            <el-descriptions-item label="油费">{{ currentItem.scheduling[0].oilCost }}</el-descriptions-item>
+            <el-descriptions-item label="过路费">{{ currentItem.scheduling[0].toll }}</el-descriptions-item>
+            <el-descriptions-item label="罚款">{{ currentItem.scheduling[0].fine }}</el-descriptions-item>
+            <el-descriptions-item label="其他费用">{{ currentItem.scheduling[0].otherCost }}</el-descriptions-item>
+            <el-descriptions-item label="总费用">{{ currentItem.scheduling[0].totalCost }}</el-descriptions-item>
+            <el-descriptions-item label="登记时间">{{ currentItem.scheduling[0].checkInTime }}</el-descriptions-item>
+            <el-descriptions-item label="是否删除">{{ currentItem.scheduling[0].isDelete }}</el-descriptions-item>
             <el-descriptions-item label="备注">
-              <el-tag size="small">{{currentItem.driver[0].remark}}</el-tag>
+              <el-tag size="small">{{ currentItem.driver[0].remark }}</el-tag>
             </el-descriptions-item>
           </el-descriptions>
         </template>
@@ -189,8 +193,8 @@ export default defineComponent({
           ]
         },
       ],
-      currentItemIndex:0,
-      currentItem:{},
+      currentItemIndex: 0,
+      currentItem: {},
       showMask: false,
       showDetailsForm: false,
       search: '',

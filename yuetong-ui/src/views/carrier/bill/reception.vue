@@ -14,15 +14,14 @@
         </div>
       </div>
       <div class="main-form">
-        <div class="bill-block" v-for="reception in receptionList">
+        <div class="bill-block" v-for="(reception,index) in receptionList">
           <label class="carrierId" v-text="reception.carrier.carriersID"></label>
           <div class="driver">
-            <label class="main-font">驾驶员</label>
             <el-avatar type="image" class="image"
                        src="https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg"></el-avatar>
             <div class="driver-info">
-              <el-tag class="main-font manager-tag"
-                      v-text="'#'+reception.driver[0].driverID +' '+reception.driver[0].name"></el-tag>
+              <el-tag class="main-font driver-tag"
+                      v-text="'驾驶员#'+reception.driver[0].driverID +' '+reception.driver[0].name"></el-tag>
               <label class="third-font" v-text="reception.driver[0].phone"></label>
             </div>
           </div>
@@ -48,14 +47,37 @@
           <div class="manager-info">
             <label class="main-font manager-id" v-text="'处理管理员编号: #'+reception.carrier.fkUserID"></label>
             <div class="actions">
-              <el-button type="primary" class="infoBtn">接收</el-button>
+              <el-button type="primary" class="infoBtn" @click="receptCarrierBtnClick(index)">接收</el-button>
               <el-button type="danger" class="infoBtn">删除</el-button>
             </div>
           </div>
-          <label class="checkInTime" v-text="reception.carrier.checkInTime"></label>
+          <div class="state">
+            <el-tag size="large">未接收</el-tag>
+            <label v-text="reception.carrier.checkInTime"></label>
+          </div>
         </div>
       </div>
-
+      <div class="mask" v-if="showMask"></div>
+      <div class="receptDialog" v-if="showReceptDialog">
+        <div class="form-title">
+          <label>接收承运单</label>
+          <el-button class="closeBtn" type="danger" @click="closeForm">关闭</el-button>
+        </div>
+        <div class="form">
+          <el-descriptions title="承运单信息" size="large" column="3" border>
+            <el-descriptions-item label="承运单编号">{{ receptCarrier.carriersID }}</el-descriptions-item>
+            <el-descriptions-item label="登记时间">{{ receptCarrier.checkInTime }}</el-descriptions-item>
+            <el-descriptions-item label="发货公司">{{ receptCarrier.sendCompany }}</el-descriptions-item>
+            <el-descriptions-item label="发货地址">{{ receptCarrier.sendAddress }}</el-descriptions-item>
+            <el-descriptions-item label="收货公司">{{ receptCarrier.receiveCompany }}</el-descriptions-item>
+            <el-descriptions-item label="收货地址">{{ receptCarrier.receiveAddress }}</el-descriptions-item>
+          </el-descriptions>
+        </div>
+        <div class="actions">
+          <el-button type="primary" size="large">接收</el-button>
+          <el-button type="info" size="large">取消</el-button>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -131,7 +153,10 @@ export default defineComponent({
             "alterTime": ""
           }
         ]
-      }]
+      }],
+      showMask: false,
+      showReceptDialog: false,
+      receptCarrier: {},
     };
   },
   components: {welcomeHeader, navigationBar, ytTable},
@@ -143,6 +168,17 @@ export default defineComponent({
       allReceptionCarriers(1).then((res: any) => {
         this.receptionList = res.data;
       })
+    },
+    //点击接受按钮
+    receptCarrierBtnClick(index: number) {
+      this.receptCarrier = this.receptionList[index].carrier;
+      this.showMask = true;
+      this.showReceptDialog = true;
+    },
+    //关闭接收对话框的遮罩层
+    closeForm(){
+      this.showMask = false;
+      this.showReceptDialog = false;
     },
     goBack() {
     },

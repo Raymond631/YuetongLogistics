@@ -53,7 +53,7 @@ $Mleft: 330px;
       text-align: right;
     }
 
-    .form-input {
+    .form-input,.el-date-editor.el-input {
       width: 250px;
     }
   }
@@ -84,8 +84,8 @@ $Mleft: 330px;
       family: coca_cola;
       size: 30px;
     }
-    height:50px;
-    margin:20px auto 0;
+    height: 50px;
+    margin: 20px auto 0;
   }
   .item {
     display: flex;
@@ -99,7 +99,7 @@ $Mleft: 330px;
     }
 
     .el-input {
-      margin-left:10px;
+      margin-left: 10px;
       width: $width - 200px;
       height: 40px;
     }
