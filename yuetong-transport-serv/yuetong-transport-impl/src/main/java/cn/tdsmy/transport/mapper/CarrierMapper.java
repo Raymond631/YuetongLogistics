@@ -17,5 +17,7 @@ public interface CarrierMapper {
 
     void updateCarrier(@Param("carrierId") int carrierId, @Param("receiveDate") Date receiveDate, @Param("finishedState") int finishedState);
 
-    List<CarrierAndDriver> searchCarriers(@Param("account") String account);
+    List<CarrierAndDriver> searchScheduledCarriers(@Param("account") String account);
+
+    List<CarrierAndDriver> searchInitCarriers(@Param("account") String account);
 }

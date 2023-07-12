@@ -47,10 +47,10 @@ public class CarrierController {
     }
 
     @GetMapping
-    @Log(title = "查询本人提交的承运单（运输中）", businessType = BusinessType.SELECT)
-    public AjaxResult searchCarriers(@RequestHeader("account") String account, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+    @Log(title = "查询本人提交的承运单", businessType = BusinessType.SELECT)
+    public AjaxResult searchCarriers(@RequestParam("queryType") int queryType, @RequestHeader("account") String account, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
         PageInfo<CarrierAndDriver> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
-            carrierService.getCarriers(account);
+            carrierService.getCarriers(queryType, account);
         });
         return AjaxResult.success(pageInfo);
     }
