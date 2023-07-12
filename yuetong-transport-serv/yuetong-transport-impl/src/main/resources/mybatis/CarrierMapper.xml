@@ -28,10 +28,50 @@
         where carriers_id = #{carrierId};
     </update>
 
-    <select id="searchCarriers" resultType="cn.tdsmy.transport.beans.Carrier">
-        select *
-        from carriers
-        where account = #{account}
-          and finished_state = 1
+    <select id="searchCarriers" resultMap="query">
+        select c.*, d.*
+        from (((carriers as c
+            inner join scheduling as s on c.carriers_id = s.fk_carriers_id)
+            inner join contact as con on s.fk_truck_id = con.fk_truck_id)
+            inner join driver as d on con.fk_driver_id = d.driver_id)
+        where c.account = #{account}
+          and c.finished_state = 1
     </select>
+    <resultMap id="query" type="cn.tdsmy.transport.beans.vo.CarrierAndDriver">
+        <association property="carrier">
+            <id property="carriersId" column="carriers_id"/>
+            <result property="sendCompany" column="send_company"/>
+            <result property="sendAddress" column="send_address"/>
+            <result property="sendLinkman" column="send_linkman"/>
+            <result property="sendPhone" column="send_phone"/>
+            <result property="receiveCompany" column="receive_company"/>
+            <result property="receiveAddress" column="receive_address"/>
+            <result property="receiveLinkman" column="receive_linkman"/>
+            <result property="receivePhone" column="receive_phone"/>
+            <result property="leaverDate" column="leaver_date"/>
+            <result property="receiveDate" column="receive_date"/>
+            <result property="finishedState" column="finished_state"/>
+            <result property="insuranceCost" column="insurance_cost"/>
+            <result property="transportCost" column="transport_cost"/>
+            <result property="otherCost" column="other_cost"/>
+            <result property="totalCost" column="total_cost"/>
+            <result property="remark" column="remark"/>
+            <result property="account" column="account"/>
+            <result property="checkInTime" column="check_in_time"/>
+            <result property="alterTime" column="alter_time"/>
+        </association>
+        <association property="driver">
+            <id property="driverId" column="driver_id"/>
+            <result property="name" column="name"/>
+            <result property="sex" column="sex"/>
+            <result property="birth" column="birth"/>
+            <result property="phone" column="phone"/>
+            <result property="idCard" column="id_card"/>
+            <result property="fkTeamId" column="fk_team_id"/>
+            <result property="state" column="state"/>
+            <result property="remark" column="remark"/>
+            <result property="checkInTime" column="check_in_time"/>
+            <result property="alterTime" column="alter_time"/>
+        </association>
+    </resultMap>
 </mapper>

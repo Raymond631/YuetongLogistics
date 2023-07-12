@@ -28,6 +28,7 @@ YuetongLogistics
 │       └── yuetong-common-core                  // 公共类
 │       └── yuetong-common-gateway               // 网关
 │       └── yuetong-common-auth                  // 认证中心
+│       └── yuetong-common-log                   // 日志切面
 ├── yuetong-fleet-serv       // 业务模块
 ├── yuetong-system-serv      // 业务模块
 ├── yuetong-transport-serv   // 业务模块
