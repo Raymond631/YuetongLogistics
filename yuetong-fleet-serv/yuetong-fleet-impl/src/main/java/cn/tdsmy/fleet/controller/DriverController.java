@@ -38,9 +38,9 @@ public class DriverController {
 
     @GetMapping
     @Log(title = "查询司机列表", businessType = BusinessType.SELECT)
-    public AjaxResult getDriverList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+    public AjaxResult getDriverList(@RequestParam("queryType") int queryType, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
         PageInfo<Driver> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
-            driverService.getDriverList();
+            driverService.getDriverList(queryType);
         });
         return AjaxResult.success(pageInfo);
     }

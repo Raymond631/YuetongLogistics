@@ -15,4 +15,15 @@
         select *
         from driver
     </select>
+    <select id="selectBindDriverList" resultType="cn.tdsmy.fleet.beans.Driver">
+        select d.*
+        from driver as d
+                 inner join contact as c on d.driver_id = c.fk_driver_id
+    </select>
+    <select id="selectUnbindDriverList" resultType="cn.tdsmy.fleet.beans.Driver">
+        select d.*
+        from driver as d
+                 left join contact as c on d.driver_id = c.fk_driver_id
+        where c.contact_id is null
+    </select>
 </mapper>

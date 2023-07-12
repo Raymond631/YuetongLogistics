@@ -38,9 +38,9 @@ public class TruckController {
 
     @GetMapping
     @Log(title = "查询车辆列表", businessType = BusinessType.SELECT)
-    public AjaxResult getTruckList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+    public AjaxResult getTruckList(@RequestParam("queryType") int queryType, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
         PageInfo<Truck> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
-            truckService.getTruckList();
+            truckService.getTruckList(queryType);
         });
         return AjaxResult.success(pageInfo);
     }

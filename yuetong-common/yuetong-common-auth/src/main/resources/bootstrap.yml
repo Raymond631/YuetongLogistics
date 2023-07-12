@@ -29,6 +29,8 @@ spring:
 logging:
   file:
     path: log/auth-log
+  level:
+    cn.tdsmy.auth: debug
 
 sa-token:
   # token 名称（同时也是 cookie 名称）

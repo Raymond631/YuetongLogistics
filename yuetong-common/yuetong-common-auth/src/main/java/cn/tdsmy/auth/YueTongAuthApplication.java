@@ -14,5 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class YueTongAuthApplication {
     public static void main(String[] args) {
         SpringApplication.run(YueTongAuthApplication.class, args);
+        System.out.println("\n--------------------认证中心 启动成功--------------------\n");
     }
 }

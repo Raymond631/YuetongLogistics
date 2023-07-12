@@ -13,5 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class YueTongFleetApplication {
     public static void main(String[] args) {
         SpringApplication.run(YueTongFleetApplication.class, args);
+        System.out.println("\n--------------------车队管理模块 启动成功--------------------\n");
     }
 }

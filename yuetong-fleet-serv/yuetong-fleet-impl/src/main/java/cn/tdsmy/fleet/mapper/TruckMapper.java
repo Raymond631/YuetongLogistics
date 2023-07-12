@@ -13,4 +13,8 @@ public interface TruckMapper {
     void deleteTruck(@Param("truckId") int truckId);
 
     List<Truck> selectTruckList();
+
+    List<Truck> selectBindTruckList();
+
+    List<Truck> selectUnbindTruckList();
 }

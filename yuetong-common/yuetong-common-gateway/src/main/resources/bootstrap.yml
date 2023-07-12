@@ -29,6 +29,8 @@ spring:
 logging:
   file:
     path: log/gateway-log
+  level:
+    cn.tdsmy.gateway: debug
 
 #logging:
 #  level:

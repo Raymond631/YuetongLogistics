@@ -32,3 +32,5 @@ mybatis:
 logging:
   file:
     path: log/system-log
+  level:
+    cn.tdsmy.system: debug

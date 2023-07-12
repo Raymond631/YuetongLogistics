@@ -15,4 +15,15 @@
         select *
         from truck
     </select>
+    <select id="selectBindTruckList" resultType="cn.tdsmy.fleet.beans.Truck">
+        select t.*
+        from truck as t
+                 inner join contact as c on t.truck_id = c.fk_truck_id
+    </select>
+    <select id="selectUnbindTruckList" resultType="cn.tdsmy.fleet.beans.Truck">
+        select t.*
+        from truck as t
+                 left join contact as c on t.truck_id = c.fk_truck_id
+        where c.contact_id is null
+    </select>
 </mapper>

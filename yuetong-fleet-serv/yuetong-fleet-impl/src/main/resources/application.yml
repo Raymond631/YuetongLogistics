@@ -32,3 +32,5 @@ mybatis:
 logging:
   file:
     path: log/fleet-log
+  level:
+    cn.tdsmy.fleet: debug

@@ -14,5 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class YueTongSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(YueTongSystemApplication.class, args);
+        System.out.println("\n--------------------系统管理模块 启动成功--------------------\n");
     }
 }

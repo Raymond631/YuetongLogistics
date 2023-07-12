@@ -1,6 +1,7 @@
 package cn.tdsmy.fleet.service;
 
 import cn.tdsmy.core.constant.DriveStatus;
+import cn.tdsmy.core.constant.QueryType;
 import cn.tdsmy.core.exception.ServiceException;
 import cn.tdsmy.core.utils.StringUtils;
 import cn.tdsmy.fleet.beans.Driver;
@@ -62,7 +63,20 @@ public class DriverService {
         driverMapper.deleteDriver(driverId);
     }
 
-    public List<Driver> getDriverList() {
-        return driverMapper.selectDriverList();
+    public List<Driver> getDriverList(int queryType) {
+        switch (queryType) {
+            case QueryType.ALL: {
+                return driverMapper.selectDriverList();
+            }
+            case QueryType.BIND: {
+                return driverMapper.selectBindDriverList();
+            }
+            case QueryType.UNBIND: {
+                return driverMapper.selectUnbindDriverList();
+            }
+            default: {
+                throw new ServiceException("查询类型参数错误");
+            }
+        }
     }
 }

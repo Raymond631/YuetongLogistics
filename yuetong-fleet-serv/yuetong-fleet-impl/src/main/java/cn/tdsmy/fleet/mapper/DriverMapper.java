@@ -13,4 +13,8 @@ public interface DriverMapper {
     void deleteDriver(@Param("driverId") int driverId);
 
     List<Driver> selectDriverList();
+
+    List<Driver> selectBindDriverList();
+
+    List<Driver> selectUnbindDriverList();
 }

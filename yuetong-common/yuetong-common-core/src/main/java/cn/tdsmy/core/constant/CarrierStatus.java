@@ -14,5 +14,10 @@ public enum CarrierStatus {
     /**
      * 已完成
      */
-    COMPLETED
+    COMPLETED,
+
+    /**
+     * 成本已录入
+     */
+    COST_ADDED
 }

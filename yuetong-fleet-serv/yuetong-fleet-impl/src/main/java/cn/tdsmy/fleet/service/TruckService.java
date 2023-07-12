@@ -1,6 +1,7 @@
 package cn.tdsmy.fleet.service;
 
 import cn.tdsmy.core.constant.DriveStatus;
+import cn.tdsmy.core.constant.QueryType;
 import cn.tdsmy.core.exception.ServiceException;
 import cn.tdsmy.core.utils.StringUtils;
 import cn.tdsmy.fleet.beans.Truck;
@@ -62,7 +63,21 @@ public class TruckService {
         truckMapper.deleteTruck(truckId);
     }
 
-    public List<Truck> getTruckList() {
-        return truckMapper.selectTruckList();
+    public List<Truck> getTruckList(int queryType) {
+        switch (queryType) {
+            case QueryType.ALL: {
+                return truckMapper.selectTruckList();
+            }
+            case QueryType.BIND: {
+                return truckMapper.selectBindTruckList();
+            }
+            case QueryType.UNBIND: {
+                return truckMapper.selectUnbindTruckList();
+            }
+            default: {
+                throw new ServiceException("查询类型参数错误");
+            }
+        }
+
     }
 }

@@ -32,3 +32,5 @@ mybatis:
 logging:
   file:
     path: log/auth-log
+  level:
+    cn.tdsmy.transport: debug

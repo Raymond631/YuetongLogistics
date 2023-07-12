@@ -14,5 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class YueTongGatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(YueTongGatewayApplication.class, args);
+        System.out.println("\n--------------------网关 启动成功--------------------\n");
     }
 }

@@ -11,7 +11,7 @@
  Target Server Version : 80033
  File Encoding         : 65001
 
- Date: 12/07/2023 15:59:45
+ Date: 12/07/2023 17:05:34
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,7 @@ CREATE TABLE `carriers`  (
   `receive_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货人电话',
   `leaver_date` date NOT NULL COMMENT '承运日期',
   `receive_date` datetime NULL DEFAULT NULL COMMENT '收货时间',
-  `finished_state` int NOT NULL COMMENT '完成情况（0:待调度 1:运输中 2:已完成）',
+  `finished_state` int NOT NULL COMMENT '完成情况（0:待调度 1:运输中 2:已完成 3:成本已录入）',
   `insurance_cost` double NOT NULL COMMENT '保险费',
   `transport_cost` double NOT NULL COMMENT '运费',
   `other_cost` double NOT NULL COMMENT '其他费用',
@@ -49,7 +49,7 @@ CREATE TABLE `carriers`  (
 -- ----------------------------
 -- Records of carriers
 -- ----------------------------
-INSERT INTO `carriers` VALUES (3, 'qui', '云南省佳木斯市雁江区', 'elit ut sunt', '19840510269', 'ad Ut', '四川省三沙市景谷傣族彝族自治县', 'ut', '13138768380', '1988-01-07', '2023-07-12 15:03:38', 2, 9, 81, 23, 113, 'labore tempor exercitation pariatur deserunt', 'abc', '2023-07-12 14:11:28', '2023-07-12 14:11:28');
+INSERT INTO `carriers` VALUES (3, 'qui', '云南省佳木斯市雁江区', 'elit ut sunt', '19840510269', 'ad Ut', '四川省三沙市景谷傣族彝族自治县', 'ut', '13138768380', '1988-01-07', '2023-07-12 15:03:38', 1, 9, 81, 23, 113, 'labore tempor exercitation pariatur deserunt', 'abc', '2023-07-12 14:11:28', '2023-07-12 14:11:28');
 INSERT INTO `carriers` VALUES (4, 'qui', '云南省佳木斯市雁江区', 'elit ut sunt', '19840510269', 'ad Ut', '四川省三沙市景谷傣族彝族自治县', 'ut', '13138768380', '1988-01-07', NULL, 1, 9, 81, 23, 113, 'labore tempor exercitation pariatur deserunt', 'abc', '2023-07-12 14:59:26', '2023-07-12 14:59:26');
 
 -- ----------------------------
@@ -58,8 +58,8 @@ INSERT INTO `carriers` VALUES (4, 'qui', '云南省佳木斯市雁江区', 'elit
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact`  (
   `contact_id` int NOT NULL AUTO_INCREMENT COMMENT '联系编号（字段自动编号）',
-  `fk_truck_id` int NULL DEFAULT NULL COMMENT '车辆编号',
-  `fk_driver_id` int NULL DEFAULT NULL COMMENT '司机编号',
+  `fk_truck_id` int NOT NULL COMMENT '车辆编号',
+  `fk_driver_id` int NOT NULL COMMENT '司机编号',
   PRIMARY KEY (`contact_id`) USING BTREE,
   INDEX `FK_Contact_Driver`(`fk_driver_id` ASC) USING BTREE,
   INDEX `FK_Contact_Truck`(`fk_truck_id` ASC) USING BTREE
@@ -93,9 +93,9 @@ CREATE TABLE `driver`  (
 -- ----------------------------
 -- Records of driver
 -- ----------------------------
-INSERT INTO `driver` VALUES (1, '张三', '男', '1988-10-01', '12345678900', '123456789123456789', 1, '空闲', '无', '2023-07-21 15:58:15', '2023-07-11 15:58:15');
-INSERT INTO `driver` VALUES (2, '李四', '男', '1975-01-21', '98765432100', '123456789123456780', 1, '空闲', '无', '2023-07-21 15:58:15', '2023-07-11 15:58:15');
-INSERT INTO `driver` VALUES (3, '张三', '男', '1988-10-01', '12345678900', '123456789123456789', 1, '空闲', '无', '2023-07-25 16:00:40', '2023-07-11 16:00:40');
+INSERT INTO `driver` VALUES (1, '张三', '男', '1988-10-01', '12345678900', '123456789123456789', 1, 'Working', '无', '2023-07-21 15:58:15', '2023-07-11 15:58:15');
+INSERT INTO `driver` VALUES (2, '李四', '男', '1975-01-21', '98765432100', '123456789123456780', 1, 'Free', '无', '2023-07-21 15:58:15', '2023-07-11 15:58:15');
+INSERT INTO `driver` VALUES (3, '张三', '男', '1988-10-01', '12345678900', '123456789123456789', 1, 'Free', '无', '2023-07-25 16:00:40', '2023-07-11 16:00:40');
 
 -- ----------------------------
 -- Table structure for goods
@@ -222,6 +222,11 @@ INSERT INTO `log_operate` VALUES (45, '2023-07-12 15:02:28', 'abc', '127.0.0.1',
 INSERT INTO `log_operate` VALUES (46, '2023-07-12 15:02:34', 'abc', '127.0.0.1', '查询承运单', 'SELECT', 'GET', '/transport/carrier', 'success', 7, NULL);
 INSERT INTO `log_operate` VALUES (47, '2023-07-12 15:03:04', 'abc', '127.0.0.1', '查询承运单', 'SELECT', 'GET', '/transport/carrier', 'success', 5, NULL);
 INSERT INTO `log_operate` VALUES (48, '2023-07-12 15:03:38', 'abc', '127.0.0.1', '标记承运单为已完成', 'UPDATE', 'PUT', '/transport/carrier', 'success', 4, NULL);
+INSERT INTO `log_operate` VALUES (49, '2023-07-12 16:11:58', 'abc', '127.0.0.1', '查询承运单（待调度）', 'SELECT', 'GET', '/transport/scheduling/getCarriers', 'success', 807, NULL);
+INSERT INTO `log_operate` VALUES (50, '2023-07-12 16:13:14', 'abc', '127.0.0.1', '查询空闲车辆', 'SELECT', 'GET', '/transport/scheduling/freeTruck', 'success', 12, NULL);
+INSERT INTO `log_operate` VALUES (51, '2023-07-12 16:13:28', 'abc', '127.0.0.1', '查询空闲车辆', 'SELECT', 'GET', '/transport/scheduling/freeTruck', 'success', 3, NULL);
+INSERT INTO `log_operate` VALUES (52, '2023-07-12 16:14:29', 'abc', '127.0.0.1', '查询空闲车辆', 'SELECT', 'GET', '/transport/scheduling/freeTruck', 'success', 9, NULL);
+INSERT INTO `log_operate` VALUES (53, '2023-07-12 16:19:22', 'abc', '127.0.0.1', '调度承运任务', 'INSERT', 'POST', '/transport/scheduling', 'success', 743, NULL);
 
 -- ----------------------------
 -- Table structure for role
@@ -266,6 +271,7 @@ CREATE TABLE `scheduling`  (
 -- ----------------------------
 -- Records of scheduling
 -- ----------------------------
+INSERT INTO `scheduling` VALUES (1, '2023-07-12 16:19:21', 3, 1, NULL, NULL, NULL, NULL, NULL, 'abc', '2023-07-12 16:19:21', '2023-07-12 16:19:21');
 
 -- ----------------------------
 -- Table structure for truck
@@ -289,7 +295,7 @@ CREATE TABLE `truck`  (
 -- ----------------------------
 -- Records of truck
 -- ----------------------------
-INSERT INTO `truck` VALUES (1, '湘A12345', '2022-10-01', '大货车', 20, 3, '空闲', '无', '2023-07-11 17:17:32', '2023-07-11 17:17:32');
+INSERT INTO `truck` VALUES (1, '湘A12345', '2022-10-01', '大货车', 20, 3, 'Working', '无', '2023-07-11 17:17:32', '2023-07-11 17:17:32');
 
 -- ----------------------------
 -- Table structure for truck_team

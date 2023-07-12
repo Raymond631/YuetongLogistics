@@ -77,7 +77,7 @@ public class LogAspect {
             // 10.异常信息
             if (e != null) {
                 operateLog.setStatus("failed");
-                operateLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
+                operateLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 100));
             }
 
             log.info(operateLog.toString());
