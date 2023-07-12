@@ -1,8 +1,8 @@
 package cn.tdsmy.transport.mapper;
 
-import cn.tdsmy.fleet.beans.Truck;
 import cn.tdsmy.transport.beans.Carrier;
 import cn.tdsmy.transport.beans.Scheduling;
+import cn.tdsmy.transport.beans.vo.TruckAndDriver;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public interface ScheduleMapper {
     List<Carrier> selectCarriers();
 
-    List<Truck> selectFreeTruck();
+    List<TruckAndDriver> selectFreeTruck();
 
     void insertSchedule(Scheduling scheduling);
 

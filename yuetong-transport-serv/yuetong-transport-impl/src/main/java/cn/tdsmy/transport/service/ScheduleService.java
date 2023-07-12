@@ -1,8 +1,8 @@
 package cn.tdsmy.transport.service;
 
-import cn.tdsmy.fleet.beans.Truck;
 import cn.tdsmy.transport.beans.Carrier;
 import cn.tdsmy.transport.beans.Scheduling;
+import cn.tdsmy.transport.beans.vo.TruckAndDriver;
 import cn.tdsmy.transport.mapper.ScheduleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class ScheduleService {
         return scheduleMapper.selectCarriers();
     }
 
-    public List<Truck> getFreeTruck() {
+    public List<TruckAndDriver> getFreeTruck() {
         return scheduleMapper.selectFreeTruck();
     }
 

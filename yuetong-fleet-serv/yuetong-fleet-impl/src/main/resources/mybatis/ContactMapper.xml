@@ -21,8 +21,7 @@
         <id property="contactId" column="contact_id"/>
         <result property="truckId" column="fk_truck_id"/>
         <result property="driverId" column="fk_driver_id"/>
-        <collection property="truck" column="fk_truck_id"
-                    ofType="cn.tdsmy.fleet.beans.Truck">
+        <association property="truck">
             <id property="truckId" column="truck_id"/>
             <result property="number" column="number"/>
             <result property="buyDate" column="buy_date"/>
@@ -33,9 +32,8 @@
             <result property="remark" column="remark"/>
             <result property="checkInTime" column="check_in_time"/>
             <result property="alterTime" column="alter_time"/>
-        </collection>
-        <collection property="driver" column="fk_driver_id"
-                    ofType="cn.tdsmy.fleet.beans.Driver">
+        </association>
+        <association property="driver">
             <id property="driverId" column="driver_id"/>
             <result property="name" column="name"/>
             <result property="sex" column="sex"/>
@@ -47,6 +45,6 @@
             <result property="remark" column="remark"/>
             <result property="checkInTime" column="check_in_time"/>
             <result property="alterTime" column="alter_time"/>
-        </collection>
+        </association>
     </resultMap>
 </mapper>

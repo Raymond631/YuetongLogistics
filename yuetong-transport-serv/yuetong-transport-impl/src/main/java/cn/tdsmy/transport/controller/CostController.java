@@ -3,8 +3,8 @@ package cn.tdsmy.transport.controller;
 import cn.tdsmy.core.response.AjaxResult;
 import cn.tdsmy.log.annotation.Log;
 import cn.tdsmy.log.enums.BusinessType;
-import cn.tdsmy.transport.beans.Carrier;
 import cn.tdsmy.transport.beans.Cost;
+import cn.tdsmy.transport.beans.vo.CostQueryVO;
 import cn.tdsmy.transport.beans.vo.CostVO;
 import cn.tdsmy.transport.service.CostService;
 import com.github.pagehelper.PageHelper;
@@ -21,7 +21,7 @@ public class CostController {
     @GetMapping("/getCarriers")
     @Log(title = "查询承运单（已完成）", businessType = BusinessType.SELECT)
     public AjaxResult getCarriers(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        PageInfo<Carrier> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
+        PageInfo<CostQueryVO> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
             costService.getCarriers();
         });
         return AjaxResult.success(pageInfo);

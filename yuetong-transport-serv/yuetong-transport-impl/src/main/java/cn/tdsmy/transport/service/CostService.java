@@ -1,7 +1,7 @@
 package cn.tdsmy.transport.service;
 
-import cn.tdsmy.transport.beans.Carrier;
 import cn.tdsmy.transport.beans.Cost;
+import cn.tdsmy.transport.beans.vo.CostQueryVO;
 import cn.tdsmy.transport.beans.vo.CostVO;
 import cn.tdsmy.transport.mapper.CostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class CostService {
     @Autowired
     private CostMapper costMapper;
 
-    public List<Carrier> getCarriers() {
+    public List<CostQueryVO> getCarriers() {
         return costMapper.selectCarriers();
     }
 

@@ -1,11 +1,11 @@
 package cn.tdsmy.transport.controller;
 
 import cn.tdsmy.core.response.AjaxResult;
-import cn.tdsmy.fleet.beans.Truck;
 import cn.tdsmy.log.annotation.Log;
 import cn.tdsmy.log.enums.BusinessType;
 import cn.tdsmy.transport.beans.Carrier;
 import cn.tdsmy.transport.beans.Scheduling;
+import cn.tdsmy.transport.beans.vo.TruckAndDriver;
 import cn.tdsmy.transport.service.ScheduleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,7 +32,7 @@ public class ScheduleController {
     @GetMapping("/freeTruck")
     @Log(title = "查询空闲车辆", businessType = BusinessType.SELECT)
     public AjaxResult getFreeTruck(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        PageInfo<Truck> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
+        PageInfo<TruckAndDriver> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
             scheduleService.getFreeTruck();
         });
         return AjaxResult.success(pageInfo);

@@ -3,6 +3,7 @@ package cn.tdsmy.fleet.service;
 import cn.tdsmy.core.exception.ServiceException;
 import cn.tdsmy.core.utils.StringUtils;
 import cn.tdsmy.fleet.beans.TruckTeam;
+import cn.tdsmy.fleet.beans.vo.TruckTeamVO;
 import cn.tdsmy.fleet.mapper.TeamMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class TeamService {
         teamMapper.deleteTeam(teamId);
     }
 
-    public List<TruckTeam> getTeamList() {
+    public List<TruckTeamVO> getTeamList() {
         return teamMapper.selectTeamList();
     }
 }

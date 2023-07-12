@@ -3,6 +3,7 @@ package cn.tdsmy.fleet.controller;
 import cn.tdsmy.core.response.AjaxResult;
 import cn.tdsmy.core.utils.excel.ExcelUtil;
 import cn.tdsmy.fleet.beans.TruckTeam;
+import cn.tdsmy.fleet.beans.vo.TruckTeamVO;
 import cn.tdsmy.fleet.service.TeamService;
 import cn.tdsmy.log.annotation.Log;
 import cn.tdsmy.log.enums.BusinessType;
@@ -39,7 +40,7 @@ public class TeamController {
     @GetMapping
     @Log(title = "查询车队列表", businessType = BusinessType.SELECT)
     public AjaxResult getTeamList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        PageInfo<TruckTeam> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
+        PageInfo<TruckTeamVO> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
             teamService.getTeamList();
         });
         return AjaxResult.success(pageInfo);
