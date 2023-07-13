@@ -236,6 +236,7 @@ import {
   updateUser,
   uploadUser,
 } from "../../api/system/user";
+import axios from "axios";
 
 export default defineComponent({
   name: "user",
@@ -368,17 +369,25 @@ export default defineComponent({
       let user = JSON.parse(sessionStorage.getItem("user") || "{}");
       const formData = new FormData();
       formData.append("file", item.file);
-      uploadUser(
-        formData,
-        user.tokenInfo.tokenValue
-      )
-        .then((res: any) => {
-          console.log(res);
-          alert('上传成功')
-        })
-        .catch((err: any) => {
-          console.log(err);
-        });
+      let config = {
+        method: 'post',
+        url: '/api/system/user/importUser',
+        headers: {
+          'satoken': user.tokenInfo.tokenValue,
+          'Accept': '*/*',
+          'Connection': 'keep-alive',
+          'Content-Type': 'multipart/form-data; boundary=--------------------------725311584525032455700542',
+        },
+        data : formData
+      };
+      axios(config)
+          .then(function (response) {
+            alert('上传成功')
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     },
 
     //点击block查看用户详情信息

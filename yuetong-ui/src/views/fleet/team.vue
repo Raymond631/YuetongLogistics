@@ -1,25 +1,37 @@
 <template>
   <div class="container">
-    <navigationBar/>
+    <navigationBar />
     <div class="content">
-      <welcomeHeader/>
+      <welcomeHeader />
       <div class="block-list">
         <div class="search">
           <el-input
-              type="text"
-              class="search-input"
-              v-model="search"
-              placeholder="请搜索用户"
+            type="text"
+            class="search-input"
+            v-model="search"
+            placeholder="请搜索用户"
           ></el-input>
         </div>
         <div class="actions">
+          <el-upload
+            ref="uploadForm"
+            :http-request="uploadFile"
+            :limit="1"
+            accept="*.xlsx"
+            action="string"
+            multiple
+          >
+            <el-button size="small" class="action2" type="primary">
+              <span class="iconfont icon-shangchuan" />上传文件
+            </el-button>
+          </el-upload>
           <div class="action1">
             <label>查看所有</label>
           </div>
           <el-popconfirm
-              title="选择筛选项"
-              confirm-button-text="空闲"
-              cancel-button-text="运输中"
+            title="选择筛选项"
+            confirm-button-text="空闲"
+            cancel-button-text="运输中"
           >
             <template #reference>
               <div class="action2">
@@ -29,7 +41,12 @@
           </el-popconfirm>
         </div>
       </div>
-      <div class="card" v-for="(team, index) in teamList" :key="index" @click="forDetails(index)">
+      <div
+        class="card"
+        v-for="(team, index) in teamList"
+        :key="index"
+        @click="forDetails(index)"
+      >
         <div class="car_id">
           {{ team.truckTeam.teamName }}
           <span style="margin-left: 20px">
@@ -37,8 +54,8 @@
           >
         </div>
         <el-popconfirm
-            title="这是一段内容确定删除吗？"
-            @confirm="handleDelete(team.teamId)"
+          title="这是一段内容确定删除吗？"
+          @confirm="handleDelete(team.teamId)"
         >
           <template #reference>
             <el-button type="danger" class="car_delete">删除</el-button>
@@ -47,8 +64,16 @@
         <div class="car_number">队长： {{ team.truckTeam.leader }}</div>
         <div class="car_remark">备注：{{ team.truckTeam.remark }}</div>
         <!-- 下面可以直接写成table -->
-        <el-table :data="team.truckList" class="truckList" style="font-size:16px;">
-          <el-table-column prop="number" label="车牌" width="80px"></el-table-column>
+        <el-table
+          :data="team.truckList"
+          class="truckList"
+          style="font-size: 16px"
+        >
+          <el-table-column
+            prop="number"
+            label="车牌"
+            width="80px"
+          ></el-table-column>
           <el-table-column prop="truckType" label="车型"></el-table-column>
           <el-table-column prop="tonnage" label="吨位"></el-table-column>
         </el-table>
@@ -57,12 +82,12 @@
     </div>
     <div class="page">
       <el-pagination
-          v-model:currentPage="paginationConfig.currentPage"
-          layout="total, prev, pager, next"
-          small
-          :page-size="paginationConfig.pageSize"
-          :total="paginationConfig.total"
-          @current-change="handleCurrentChange"
+        v-model:currentPage="paginationConfig.currentPage"
+        layout="total, prev, pager, next"
+        small
+        :page-size="paginationConfig.pageSize"
+        :total="paginationConfig.total"
+        @current-change="handleCurrentChange"
       />
     </div>
     <div v-if="showMask" class="mask"></div>
@@ -71,43 +96,43 @@
       <div>
         <div class="form-item">
           <label>车队编号</label>
-          <el-input type="text" class="form-input" v-model="edit_team.teamId"/>
+          <el-input type="text" class="form-input" v-model="edit_team.teamId" />
         </div>
         <div class="form-item">
           <label>车队名</label>
           <el-input
-              type="text"
-              class="form-input"
-              v-model="edit_team.teamName"
+            type="text"
+            class="form-input"
+            v-model="edit_team.teamName"
           />
         </div>
         <div class="form-item">
           <label>队长</label>
-          <el-input type="text" class="form-input" v-model="edit_team.leader"/>
+          <el-input type="text" class="form-input" v-model="edit_team.leader" />
         </div>
         <div class="form-item">
           <label>标记</label>
-          <el-input type="text" class="form-input" v-model="edit_team.remark"/>
+          <el-input type="text" class="form-input" v-model="edit_team.remark" />
         </div>
         <div class="form-item">
           <label>登记日期</label>
           <el-input
-              type="text"
-              class="form-input"
-              v-model="edit_team.checkInTime"
+            type="text"
+            class="form-input"
+            v-model="edit_team.checkInTime"
           />
         </div>
       </div>
       <div class="actionBtns">
         <el-button
-            size="default"
-            type="primary"
-            @click="confirmEdit"
-            class="actionBtn btn1"
-        >提交
+          size="default"
+          type="primary"
+          @click="confirmEdit"
+          class="actionBtn btn1"
+          >提交
         </el-button>
         <el-button size="default" @click="cancelEdit" class="actionBtn btn2"
-        >取消
+          >取消
         </el-button>
       </div>
     </div>
@@ -117,19 +142,38 @@
     <div class="detailsForm" v-if="showDetailsForm">
       <div class="form-title">
         <label>车队详情</label>
-        <el-button type="danger" class="closeBtn" @click="cancelEdit">关闭</el-button>
+        <el-button type="danger" class="closeBtn" @click="cancelEdit"
+          >关闭</el-button
+        >
       </div>
       <template class="form-info">
-        <el-descriptions :title="'车队信息 编号：#'+currentTeam.truckTeam.teamId" direction="vertical" size="large"
-                         :column="4" border>
-          <el-descriptions-item label="车队名">{{ currentTeam.truckTeam.teamName }}</el-descriptions-item>
-          <el-descriptions-item label="队长">{{ currentTeam.truckTeam.leader }}</el-descriptions-item>
-          <el-descriptions-item label="备注">{{ currentTeam.truckTeam.remark }}</el-descriptions-item>
-          <el-descriptions-item label="登记时间">{{ currentTeam.truckTeam.checkInTime }}</el-descriptions-item>
+        <el-descriptions
+          :title="'车队信息 编号：#' + currentTeam.truckTeam.teamId"
+          direction="vertical"
+          size="large"
+          :column="4"
+          border
+        >
+          <el-descriptions-item label="车队名">{{
+            currentTeam.truckTeam.teamName
+          }}</el-descriptions-item>
+          <el-descriptions-item label="队长">{{
+            currentTeam.truckTeam.leader
+          }}</el-descriptions-item>
+          <el-descriptions-item label="备注">{{
+            currentTeam.truckTeam.remark
+          }}</el-descriptions-item>
+          <el-descriptions-item label="登记时间">{{
+            currentTeam.truckTeam.checkInTime
+          }}</el-descriptions-item>
         </el-descriptions>
         <label class="goods-title">车辆信息</label>
-        <el-table :data="currentTeam.truckList" style="font-size:16px;">
-          <el-table-column prop="number" label="车牌" width="80px"></el-table-column>
+        <el-table :data="currentTeam.truckList" style="font-size: 16px">
+          <el-table-column
+            prop="number"
+            label="车牌"
+            width="80px"
+          ></el-table-column>
           <el-table-column prop="truckType" label="车型"></el-table-column>
           <el-table-column prop="tonnage" label="吨位"></el-table-column>
           <el-table-column prop="tonnage" label="空闲状态"></el-table-column>
@@ -144,12 +188,13 @@
 <script lang="ts">
 import navigationBar from "../../components/navigationBar.vue";
 import welcomeHeader from "../../components/header.vue";
-import {defineComponent} from "vue";
-import {teamInfo, teamDelete} from "../../api/fleet/team";
+import { defineComponent } from "vue";
+import { teamInfo, teamDelete } from "../../api/fleet/team";
+import axios from "axios";
 
 export default defineComponent({
   name: "team",
-  components: {welcomeHeader, navigationBar},
+  components: { welcomeHeader, navigationBar },
   data() {
     return {
       search: "",
@@ -183,7 +228,7 @@ export default defineComponent({
               checkInTime: "2023-07-11 07:27:34",
               alterTime: "2023-07-11 07:27:37",
             },
-          ]
+          ],
         },
       ],
       currentTeam: {
@@ -207,7 +252,8 @@ export default defineComponent({
             remark: "无",
             checkInTime: "2023-07-11 07:27:34",
             alterTime: "2023-07-11 07:27:37",
-          }]
+          },
+        ],
       },
       edit_team: {
         teamId: "",
@@ -233,8 +279,8 @@ export default defineComponent({
   methods: {
     ready() {
       teamInfo(
-          this.paginationConfig.currentPage,
-          this.paginationConfig.pageSize
+        this.paginationConfig.currentPage,
+        this.paginationConfig.pageSize
       ).then((res: any) => {
         console.log(res);
         this.teamList = res.data.list;
@@ -254,7 +300,7 @@ export default defineComponent({
       this.selectedRow = row;
     },
 
-    rowStyle({row}: any) {
+    rowStyle({ row }: any) {
       if (row === this.selectedRow) {
         console.log("添加样式......" + row.teamId);
         return {
@@ -267,15 +313,15 @@ export default defineComponent({
     handleDelete(teamId: number) {
       let that = this;
       teamDelete(teamId)
-          .then((res: any) => {
-            console.log("delete success");
-            //重新请求该页面数据
-            that.ready();
-            console.log(res);
-          })
-          .catch((err: any) => {
-            console.log(err);
-          });
+        .then((res: any) => {
+          console.log("delete success");
+          //重新请求该页面数据
+          that.ready();
+          console.log(res);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
     },
     //编辑
     editRow() {
@@ -284,9 +330,32 @@ export default defineComponent({
       this.showEditForm = true;
     },
     //删除
-    deleteRow() {
+    deleteRow() {},
+    uploadFile(item: any) {
+      let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+      const formData = new FormData();
+      formData.append("file", item.file);
+      let config = {
+        method: "post",
+        url: "/api/fleet/team/importTeam",
+        headers: {
+          satoken: user.tokenInfo.tokenValue,
+          Accept: "*/*",
+          Connection: "keep-alive",
+          "Content-Type":
+            "multipart/form-data; boundary=--------------------------725311584525032455700542",
+        },
+        data: formData,
+      };
+      axios(config)
+        .then(function (response) {
+          alert('上传成功')
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
-
     //编辑表单的确认和取消按钮
     confirmEdit() {
       window.confirm("编辑成功");
@@ -303,7 +372,7 @@ export default defineComponent({
       this.currentTeam = this.teamList[index];
       this.showMask = true;
       this.showDetailsForm = true;
-    }
+    },
   },
 });
 </script>

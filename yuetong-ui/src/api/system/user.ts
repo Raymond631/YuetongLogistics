@@ -26,16 +26,12 @@ export function uploadUser(data: any, token: any) {
   return request({
     url: "/system/user/importUser",
     method: "post",
-    data: {
-      file: data,
-    },
+    data: data,
     headers: {
-      satoken: token,
-      Accept: "*/*",
-      Host: "localhost:10000",
-      Connection: "keep-alive",
-      "Content-Type":
-        "multipart/form-data; boundary=--------------------------725311584525032455700542",
+      'satoken': token,
+      'Accept': '*/*',
+      'Connection': 'keep-alive',
+      'Content-Type': 'multipart/form-data; boundary=--------------------------725311584525032455700542',
     },
   });
 }
