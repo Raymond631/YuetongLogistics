@@ -84,13 +84,13 @@
               <el-tag size="small">{{ currentItem.carrier.remark }}</el-tag>
             </el-descriptions-item>
           </el-descriptions>
-          <label class="goods-title">货物信息</label>
-          <el-table :data="currentItem.carrier.goodsList" style="font-size:16px;">
-            <el-table-column prop="goodsName" label="货物名称" width="180px"></el-table-column>
-            <el-table-column prop="amount" label="货物数量" width="100px"></el-table-column>
-            <el-table-column prop="weight" label="货物重量"></el-table-column>
-            <el-table-column prop="volume" label="货物体积"></el-table-column>
-          </el-table>
+<!--          <label class="goods-title">货物信息</label>-->
+<!--          <el-table :data="currentItem.carrier.goodsList" style="font-size:16px;">-->
+<!--            <el-table-column prop="goodsName" label="货物名称" width="180px"></el-table-column>-->
+<!--            <el-table-column prop="amount" label="货物数量" width="100px"></el-table-column>-->
+<!--            <el-table-column prop="weight" label="货物重量"></el-table-column>-->
+<!--            <el-table-column prop="volume" label="货物体积"></el-table-column>-->
+<!--          </el-table>-->
           <el-descriptions :title="'驾驶员信息 编号：#'+currentItem.driver.driverId" direction="vertical" size="large"
                            :column="5" border>
             <el-descriptions-item label="姓名">{{ currentItem.driver.name }}</el-descriptions-item>

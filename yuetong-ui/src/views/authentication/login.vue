@@ -80,9 +80,9 @@
             <el-button type="primary" @click="submitForm()" class="loginBtn"
               >登录</el-button
             >
-            <el-button @click="superSubmitForm()" class="registerBtn"
-              >系统管理员登录</el-button
-            >
+<!--            <el-button @click="superSubmitForm()" class="registerBtn"-->
+<!--              >系统管理员登录</el-button-->
+<!--            >-->
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@
 
 <script lang="ts">
 import "font-awesome/css/font-awesome.min.css";
-import { login, vertify } from "../../api/authentication/login";
+import { login, vertify } from "@/api/authentication/login";
 
 export default {
   name: "login",
@@ -115,7 +115,7 @@ export default {
   },
   mounted() {
     this.newVertification();
-    
+
   },
   methods: {
     newVertification() {
@@ -304,12 +304,14 @@ export default {
         display: flex;
 
         .checkCodeInput {
-          width: 158px;
+          width: 100px;
           margin-right: 20px;
+        }
+        .code_img{
         }
 
         .checkCodeBtn {
-          background-color: $theme_color;
+          //background-color: $theme_color;
         }
       }
 

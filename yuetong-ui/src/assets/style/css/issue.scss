@@ -3,7 +3,7 @@
     margin-left: $Mleft;
     height: $max_height;
     background-color: $back_color;
-    overflow: hidden; 
+    overflow: hidden;
   }
   .page {
     position: relative;
@@ -20,7 +20,6 @@
   height: 800px;
   display: flex;
   flex-wrap: wrap;
-  overflow: auto;
   flex-direction: column;
 
   .bill-block {
@@ -272,6 +271,7 @@
   @include mask-form(1000px, 750px, 150px, 480px);
   display: flex;
   flex-direction: column;
+  height: 600px;
 
   .form-title {
     padding-left: 400px;

@@ -9,7 +9,7 @@
             type="text"
             class="search-input"
             v-model="search"
-            placeholder="请搜索用户"
+            placeholder="请搜索车队"
           ></el-input>
         </div>
         <div class="actions">
@@ -33,11 +33,11 @@
             confirm-button-text="空闲"
             cancel-button-text="运输中"
           >
-            <template #reference>
-              <div class="action2">
-                <label>筛选</label>
-              </div>
-            </template>
+<!--            <template #reference>-->
+<!--              <div class="action2">-->
+<!--                <label>筛选</label>-->
+<!--              </div>-->
+<!--            </template>-->
           </el-popconfirm>
         </div>
       </div>
@@ -201,7 +201,7 @@ export default defineComponent({
       data: "",
       paginationConfig: {
         currentPage: 1, // 当前页码
-        pageSize: 10, // 每页显示的条数
+        pageSize: 8, // 每页显示的条数
         pageCount: 1, //总共有多少页
         total: 1, // 总条数
       },
@@ -285,7 +285,6 @@ export default defineComponent({
         console.log(res);
         this.teamList = res.data.list;
         this.paginationConfig.total = Number(res.data.total);
-        this.paginationConfig.pageCount = Number(res.data.pageNum);
       });
     },
 

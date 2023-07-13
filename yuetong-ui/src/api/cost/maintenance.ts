@@ -7,3 +7,12 @@ export function allMaintainCarriers(pageNum: number, pageSize: number) {
     })
 }
 
+export function confirmPutCarrier(data) {
+    return request({
+        url: `/transport/cost`,
+        method: 'put',
+        headers: {"Content-Type":"application/json"},
+        data,
+    })
+}
+

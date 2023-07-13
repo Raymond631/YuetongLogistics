@@ -8,9 +8,9 @@ export function searchDrivers(pageNum:number,pageSize:number,queryType:number) {
     })
 }
 
-export function deleteDrivers(userId:number) {
+export function deleteDrivers(driverId:number) {
     return request({
-        url: `/fleet/driver?userId=${userId}`,
+        url: `/fleet/driver?driverId=${driverId}`,
         method: 'delete',
-    })  
+    })
 }

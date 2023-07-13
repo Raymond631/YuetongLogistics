@@ -55,8 +55,8 @@ export function request(config: any) {
           alterMessage = "无权限";
           break;
         case 404:
-          alterMessage = "请求错误,未找到该资源";
-          // window.location.href = "/NotFound";
+          // alterMessage = "请求错误,未找到该资源";
+          window.location.href = "/error";
           break;
         case 405:
           alterMessage = "请求方法未允许";
@@ -83,34 +83,11 @@ export function request(config: any) {
       if (err && err.response) {
         // 1.公共错误处理
         // 2.根据响应码具体处理
-
-        switch (err.response.status) {
-          case 400:
-            err.message = "错误请求";
-            break;
-          case 401:
-            err.message = "未登录";
-            break;
-          case 403:
-            err.message = "无权限";
-            break;
-          case 404:
-            err.message = "请求错误,未找到该资源";
-            // window.location.href = "/NotFound";
-            break;
-          case 405:
-            err.message = "请求方法未允许";
-            break;
-          case 500:
-            err.message = "系统内部错误";
-            break;
-          default:
-            err.message = `连接错误${err.response.status}`;
-        }
       } else {
         // 超时处理
         if (JSON.stringify(err).includes("timeout")) {
-          Message.error("服务器响应超时，请刷新当前页");
+          // alert("服务器响应超时，请刷新当前页");
+          window.location.href = "/error";
         }
         err.message = "连接服务器失败";
       }

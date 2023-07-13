@@ -257,6 +257,11 @@ const router = createRouter({
         }
       },
     },
+    {
+      path: "/error",
+      name: "notFound",
+      component: () => import("../views/NotFound.vue"),
+    },
   ],
 });
 

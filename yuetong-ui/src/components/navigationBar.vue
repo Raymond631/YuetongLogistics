@@ -87,16 +87,16 @@
       </el-icon>
       <span class="menu_item_content">成本维护</span>
     </el-menu-item>
-    <el-menu-item
-      index="8"
-      class="menu_item"
-      v-if="userType === 5 || userType === 0"
-    >
-      <el-icon class="menu_item_icon">
-        <Reading />
-      </el-icon>
-      <span class="menu_item_content">成本核算</span>
-    </el-menu-item>
+<!--    <el-menu-item-->
+<!--      index="8"-->
+<!--      class="menu_item"-->
+<!--      v-if="userType === 5 || userType === 0"-->
+<!--    >-->
+<!--      <el-icon class="menu_item_icon">-->
+<!--        <Reading />-->
+<!--      </el-icon>-->
+<!--      <span class="menu_item_content">成本核算</span>-->
+<!--    </el-menu-item>-->
     <el-menu-item
       index="10"
       class="menu_item"
@@ -128,7 +128,16 @@
       </el-icon>
       <span class="menu_item_content">日志维护</span>
     </el-menu-item>
-    <div class="bottom" v-if="userType !== 0"></div>
+    <el-menu-item
+        index="14"
+        class="menu_item"
+    >
+      <el-icon class="menu_item_icon">
+        <Reading />
+      </el-icon>
+      <span class="menu_item_content">个人中心</span>
+    </el-menu-item>
+<!--    <div class="bottom" v-if="userType !== 0"></div>-->
   </el-menu>
 </template>
 
@@ -205,6 +214,9 @@ export default defineComponent({
         case "/system/log":
           this.activeIndex = "13";
           break;
+        case "/authentication/selfCenter":
+          this.activeIndex = "14";
+          break;
         default:
           this.activeIndex = "0";
           break;
@@ -268,6 +280,10 @@ export default defineComponent({
         case "13":
           this.$router.push("/system/log");
           this.activeIndex = "13";
+          break;
+        case "14":
+          this.$router.push("/authentication/selfCenter");
+          this.activeIndex = "14";
           break;
         default:
           this.$router.push("/authentication/main");

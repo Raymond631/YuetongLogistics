@@ -166,17 +166,26 @@
               <el-tag size="small">{{ currentItem.carrier.remark }}</el-tag>
             </el-descriptions-item>
           </el-descriptions>
-          <label class="goods-title">货物信息</label>
-          <el-table :data="currentItem.carrier.goodsList" style="font-size:16px;">
-            <el-table-column prop="goodsName" label="货物名称" width="180px"></el-table-column>
-            <el-table-column prop="amount" label="货物数量" width="180px"></el-table-column>
-            <el-table-column prop="weight" label="货物重量" width="180px"></el-table-column>
-            <el-table-column prop="volume" label="货物体积"></el-table-column>
-          </el-table>
+<!--          <label class="goods-title">货物信息</label>-->
+<!--          <el-table :data="currentItem.carrier.goodsList" style="font-size:16px;">-->
+<!--            <el-table-column prop="goodsName" label="货物名称" width="180px"></el-table-column>-->
+<!--            <el-table-column prop="amount" label="货物数量" width="180px"></el-table-column>-->
+<!--            <el-table-column prop="weight" label="货物重量" width="180px"></el-table-column>-->
+<!--            <el-table-column prop="volume" label="货物体积"></el-table-column>-->
+<!--          </el-table>-->
         </template>
       </div>
     </div>
-
+    <div class="page">
+      <el-pagination
+          v-model:currentPage="paginationConfig.currentPage"
+          layout="total, prev, pager, next"
+          small
+          :page-size="paginationConfig.pageSize"
+          :total="paginationConfig.total"
+          @current-change="handleCurrentChange"
+      />
+    </div>
   </div>
 
 </template>
@@ -191,6 +200,12 @@ export default defineComponent({
   name: "issue",
   data() {
     return {
+      paginationConfig: {
+        currentPage: 1, // 当前页码
+        pageSize: 4, // 每页显示的条数
+        pageCount: 1, //总共有多少页
+        total: 1, // 总条数
+      },
       myCarrierList: [{
         "carrier": {
           "carriersId": 3,
@@ -274,7 +289,7 @@ export default defineComponent({
       },
       //分页参数
       pageNum: 1,//当前页面number
-      pageSize: 5,//一页能显示的最多数据的数量
+      pageSize: 4,//一页能显示的最多数据的数量
       showMask: false,
       showDetailsForm: false,
       showIssueCarrierForm: false,
@@ -287,10 +302,16 @@ export default defineComponent({
   methods: {
     ready() {
       //获取未调度的本人的承运单
-      allMyCarrierList(1, 10, 0).then((res: any) => {
-        console.log(res.data.list);
+      allMyCarrierList(this.paginationConfig.currentPage,
+          this.paginationConfig.pageSize, 0).then((res: any) => {
+        console.log("未调度的本人承运单",res.data.list);
+        this.paginationConfig.total = Number(res.data.total);
         this.myCarrierList = res.data.list;
       })
+    },
+    handleCurrentChange(val: number) {
+      this.paginationConfig.currentPage = val;
+      this.ready();
     },
     //点击开出承运单
     issueBtnClick() {
@@ -326,6 +347,8 @@ export default defineComponent({
       console.log(this.issueCarrier)
       confirmIssueCarrier(this.issueCarrier).then((res)=>{
         console.log("上传成功",res)
+        alert("上传成功")
+        this.closeForm();
       })
     },
     goBack() {

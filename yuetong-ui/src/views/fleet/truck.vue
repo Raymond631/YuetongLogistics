@@ -9,7 +9,7 @@
             type="text"
             class="search-input"
             v-model="search"
-            placeholder="请搜索用户"
+            placeholder="请搜索车辆"
           ></el-input>
         </div>
         <div class="actions">
@@ -234,7 +234,7 @@ export default defineComponent({
       selectType: 0,
       paginationConfig: {
         currentPage: 1, // 当前页码
-        pageSize: 10, // 每页显示的条数
+        pageSize: 8, // 每页显示的条数
         pageCount: 1, //总共有多少页
         total: 1, // 总条数
       },
@@ -422,6 +422,9 @@ export default defineComponent({
     confirmBtnClick() {
       contact(this.chosenTruck.truckId, this.chosenDriver.driverId).then((res) => {
         console.log("绑定成功", res);
+        alert("绑定成功")
+        this.closeForm()
+        this.ready();
       })
     },
     uploadFile(item:any){

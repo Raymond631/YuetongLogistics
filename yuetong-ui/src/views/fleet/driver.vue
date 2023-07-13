@@ -9,7 +9,7 @@
               type="text"
               class="search-input"
               v-model="search"
-              placeholder="请搜索用户"
+              placeholder="请搜索驾驶员"
           ></el-input>
         </div>
         <div class="actions">
@@ -25,7 +25,7 @@
               <span class="iconfont icon-shangchuan" />上传文件
             </el-button>
           </el-upload>
-          
+
           <div class="action1">
             <label @click="contactTruck">绑定车辆</label>
           </div>
@@ -50,7 +50,7 @@
       <div class="user-main">
         <div class="user-block" v-for="driver in driverList" :key="driver.driverId">
           <div class="basic-info">
-            <el-avatar type="image" :src="driver.image" class="image"></el-avatar>
+            <el-avatar type="image" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="image"></el-avatar>
             <div class="right-info">
               <label v-text="driver.name" class="username"></label>
               <label v-text="'#' + driver.state" class="role"></label>

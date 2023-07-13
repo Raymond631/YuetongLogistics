@@ -49,7 +49,17 @@
                   />
                   <el-image
                     class="company_manange_image"
-                    :src="url1"
+                    :src="url2"
+                    fit="fill"
+                  />
+                  <el-image
+                    class="company_manange_image"
+                    :src="url3"
+                    fit="fill"
+                  />
+                  <el-image
+                    class="company_manange_image"
+                    :src="url4"
                     fit="fill"
                   />
                   <el-image
@@ -59,17 +69,7 @@
                   />
                   <el-image
                     class="company_manange_image"
-                    :src="url1"
-                    fit="fill"
-                  />
-                  <el-image
-                    class="company_manange_image"
-                    :src="url1"
-                    fit="fill"
-                  />
-                  <el-image
-                    class="company_manange_image"
-                    :src="url1"
+                    :src="url5"
                     fit="fill"
                   />
                   <el-image
@@ -93,6 +93,10 @@ import navigationBar from "../../components/navigationBar.vue";
 import welcomeHeader from "../../components/header.vue";
 import ytTable from "../../components/yt-table.vue";
 import image1 from "../../assets/images/mainBgi.jpg";
+import image2 from "../../assets/images/item1.jpg";
+import image3 from "../../assets/images/item2.jpg";
+import image4 from "../../assets/images/item3.jpg";
+import image5 from "../../assets/images/item4.jpg";
 
 export default defineComponent({
   name: "main",
@@ -100,6 +104,10 @@ export default defineComponent({
     return {
       data: "",
       url1: image1,
+      url2: image2,
+      url3: image3,
+      url4: image4,
+      url5: image5,
       components: { welcomeHeader, navigationBar, ytTable },
     };
   },

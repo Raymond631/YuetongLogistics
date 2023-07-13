@@ -48,7 +48,7 @@
 
             <div class="right-info">
               <label v-text="user.username" class="username"></label>
-              <label v-text="'#' + user.role" class="role"></label>
+              <label v-text="'#' + user.roleId" class="role"></label>
               <div class="icons">
                 <el-popover
                   placement="top-start"
@@ -127,7 +127,6 @@
           layout="total, prev, pager, next"
           :page-size="paginationConfig.pageSize"
           :total="paginationConfig.total"
-          :page-count="paginationConfig.pageCount"
           @current-change="handlePageChange"
         />
       </div>
@@ -300,11 +299,19 @@ export default defineComponent({
         },
         {
           value: 2,
-          label: "普通用户",
+          label: "运输管理员",
         },
         {
           value: 3,
-          label: "游客",
+          label: "承运业务员",
+        },
+        {
+          value: 4,
+          label: "调度员",
+        },
+        {
+          value: 5,
+          label: "财务人员",
         },
       ],
     };
@@ -322,6 +329,9 @@ export default defineComponent({
         .then((res: any) => {
           console.log(res);
           this.userList = res.data.list;
+          let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+          this.authority.value = user.roleId;
+          this.authority.label = user.roleName;
           this.paginationConfig.total = Number(res.data.total);
           this.paginationConfig.pageCount = Number(res.data.pageNum);
         })

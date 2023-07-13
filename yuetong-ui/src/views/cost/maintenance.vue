@@ -72,21 +72,21 @@
           <div class="flex-item">
             <div class="form-item">
               <label>油费</label>
-              <el-input class="form-input"></el-input>
+              <el-input type="text" class="form-input" v-model="putItem.oilCost"></el-input>
             </div>
             <div class="form-item">
               <label>通行费</label>
-              <el-input class="form-input"></el-input>
+              <el-input type="text" class="form-input" v-model="putItem.toll"></el-input>
             </div>
           </div>
           <div class="flex-item">
             <div class="form-item">
               <label>罚款</label>
-              <el-input class="form-input"></el-input>
+              <el-input type="text" class="form-input" v-model="putItem.fine"></el-input>
             </div>
             <div class="form-item">
               <label>其他支出</label>
-              <el-input class="form-input"></el-input>
+              <el-input type="text" class="form-input" v-model="putItem.otherCost"></el-input>
             </div>
           </div>
         </div>
@@ -120,13 +120,13 @@
               <el-tag size="small">{{ currentItem.carrier.remark }}</el-tag>
             </el-descriptions-item>
           </el-descriptions>
-          <label class="goods-title">货物信息</label>
-          <el-table :data="currentItem.carrier.goodsList" style="font-size:16px;">
-            <el-table-column prop="goodsName" label="编号" width="60px"></el-table-column>
-            <el-table-column prop="amount" label="车牌" width="150px"></el-table-column>
-            <el-table-column prop="weight" label="车型"></el-table-column>
-            <el-table-column prop="volume" label="吨位"></el-table-column>
-          </el-table>
+<!--          <label class="goods-title">货物信息</label>-->
+<!--          <el-table :data="currentItem.carrier.goodsList" style="font-size:16px;">-->
+<!--            <el-table-column prop="goodsName" label="编号" width="60px"></el-table-column>-->
+<!--            <el-table-column prop="amount" label="车牌" width="150px"></el-table-column>-->
+<!--            <el-table-column prop="weight" label="车型"></el-table-column>-->
+<!--            <el-table-column prop="volume" label="吨位"></el-table-column>-->
+<!--          </el-table>-->
           <el-descriptions :title="'驾驶员信息 编号：#'+currentItem.driver.driverId" direction="vertical" size="large"
                            :column="5" border>
             <el-descriptions-item label="姓名">{{ currentItem.driver.name }}</el-descriptions-item>
@@ -153,7 +153,7 @@ import {defineComponent} from "vue";
 import navigationBar from "../../components/navigationBar.vue";
 import welcomeHeader from "../../components/header.vue";
 import ytTable from "../../components/yt-table.vue";
-import {allMaintainCarriers} from "@/api/cost/maintenance";
+import {allMaintainCarriers, confirmPutCarrier} from "@/api/cost/maintenance";
 
 export default defineComponent({
   name: "maintenance",
@@ -335,7 +335,12 @@ export default defineComponent({
     },
     //点击form表单中的录入按钮
     confirmBtnClick() {
-
+      confirmPutCarrier(this.putItem).then((res)=>{
+        console.log("录入成功",res)
+        alert("录入成功")
+        this.closeForm();
+        this.ready();
+      })
 
       this.closeForm();
     },

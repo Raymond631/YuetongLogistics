@@ -66,7 +66,7 @@
           <div class="manager-info">
             <label
               class="main-font manager-id"
-              v-text="'承运业务员编号: #' + carrier.fkUserID"
+              v-text="'承运业务员账号: #' + carrier.account"
             ></label>
             <div class="actions">
               <el-button
@@ -137,7 +137,7 @@
                   >{{ chosenDriverTruck.driver.birth }}
                 </el-descriptions-item>
                 <el-descriptions-item label="车型">{{
-                  chosenDriverTruck.truck.type
+                  chosenDriverTruck.truck.truckType
                 }}</el-descriptions-item>
                 <el-descriptions-item label="车牌号">
                   <el-tag size="small">{{
@@ -173,11 +173,11 @@
               label="车牌号"
             ></el-table-column>
             <el-table-column
-              prop="truck.type"
+              prop="truck.truckType"
               label="车辆类型"
             ></el-table-column>
             <el-table-column
-              prop="truck.teamID"
+              prop="truck.fkTeamId"
               label="所属车队"
             ></el-table-column>
             <el-table-column
@@ -294,7 +294,7 @@ export default defineComponent({
         otherCost: 0,
         totalCost: 0,
         remark: "",
-        fkUserID: 0,
+        account: 0,
         checkInTime: "",
         isDelete: 0,
         alterTime: "",
@@ -308,7 +308,7 @@ export default defineComponent({
             birth: null,
             phone: "",
             idCard: "",
-            fkTeamID: null,
+            fkTeamId: null,
             state: 0,
             remark: null,
             checkInTime: "",
@@ -349,7 +349,7 @@ export default defineComponent({
           otherCost: 0,
           totalCost: 0,
           remark: "",
-          fkUserID: 0,
+          account: 0,
           checkInTime: "",
           isDelete: 0,
           alterTime: "",
@@ -364,7 +364,7 @@ export default defineComponent({
               birth: null,
               phone: "",
               idCard: "",
-              fkTeamID: 0,
+              fkTeamId: 0,
               state: 0,
               remark: null,
               checkInTime: "",
@@ -377,7 +377,7 @@ export default defineComponent({
             buyDate: null,
             type: null,
             tonnage: 0,
-            teamID: 0,
+            fkTeamId: 0,
             state: 2,
             remark: null,
             checkInTime: null,
@@ -398,7 +398,7 @@ export default defineComponent({
         fine: 0,
         otherCost: 0,
         totalCost: 0,
-        fkUserID: 0,
+        account: 0,
         remark: "",
       },
     };
@@ -456,6 +456,9 @@ export default defineComponent({
     confirmScheBtnClick(){
       confirmScheCarriers(this.currentCarrier.carriersId,this.chosenDriverTruck.truck.truckId).then((res:any) => {
         console.log("调度成功",res);
+        alert("调度成功")
+        this.closeForm();
+        this.ready();
       })
     },
     //关闭调度页面表单

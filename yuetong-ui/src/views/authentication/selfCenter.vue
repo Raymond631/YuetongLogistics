@@ -79,4 +79,45 @@ export default defineComponent({
 
 <style lang="scss" scoped="scoped">
 @import "../../assets/style/css/selfcenter.scss";
+.el-carousel {
+  --el-carousel-arrow-background: black;
+  --el-carousel-arrow-hover-background: black;
+}
+
+.el-carousel__item:nth-child(3) {
+  border-radius: 20px;
+  background-image: url("../../assets/images/item1.jpg");
+  background-size: 100% 100%;
+}
+
+.el-carousel__item:nth-child(4) {
+  border-radius: 20px;
+  background-image: url("../../assets/images/item2.jpg");
+  background-size: 100% 100%;
+}
+
+.el-carousel__item:nth-child(5) {
+  border-radius: 20px;
+  background-image: url("../../assets/images/item3.jpg");
+  background-size: 100% 100%;
+}
+
+.el-carousel__item:nth-child(6) {
+  border-radius: 20px;
+  background-image: url("../../assets/images/truck.jpg");
+  background-size: 100% 100%;
+}
+
+.el-carousel__item:nth-child(7) {
+  border-radius: 20px;
+  background-image: url("../../assets/images/item4.jpg");
+  background-size: 100% 100%;
+}
+
+.el-carousel__item:nth-child(8) {
+  border-radius: 20px;
+  background-image: url("../../assets/images/item5.jpg");
+  background-size: 100% 100%;
+}
+
 </style>

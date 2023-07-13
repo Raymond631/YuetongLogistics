@@ -4,11 +4,14 @@
       {{ page_name }}
     </div>
     <div class="header_content">欢迎您，{{ user.username }}</div>
-    <el-avatar
-      :size="80"
-      class="header_photo"
-      src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-    />
+    <Router-link to="/authentication/selfCenter">
+      <el-avatar
+          :size="80"
+          class="header_photo"
+          src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+      />
+    </Router-link>
+
     <el-tag size="large" class="header_profile">{{ user.roleName }}</el-tag>
     <el-button type="danger" plain class="header_log" @click="userLogout"
       >退出登录</el-button
@@ -99,6 +102,9 @@ export default defineComponent({
           break;
         case "/system/log":
           this.page_name = "日志维护";
+          break;
+        case "/authentication/selfCenter":
+          this.page_name = "个人中心";
           break;
         default:
           this.page_name = "0";
