@@ -58,6 +58,12 @@
         width: 60px;
         height: 30px;
       }
+      .truckList{
+        margin-left: 15px;
+        width:280px;
+        max-height: 110px;
+        overflow: auto;
+      }
     }
   }
   .page {
@@ -127,7 +133,7 @@
           background-color: #eff4f4;
           border: 2px solid $theme_color;
           transition: 0.5s;
-        
+
       }
     }
   }

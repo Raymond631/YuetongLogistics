@@ -9,7 +9,7 @@
 .main-form {
   margin-left: 40px;
   width: 1530px;
-  height: 850px;
+  height: 800px;
   display: flex;
   flex-wrap: wrap;
   overflow: auto;
@@ -137,7 +137,7 @@
 
 .issueCarrierForm {
   //width,height,top,left
-  @include mask-form(1000px, 1000px, 70px, 450px);
+  @include mask-form(1000px, 980px, 70px, 450px);
 
   .form-title {
     padding-left: 400px;
@@ -152,8 +152,7 @@
     background-color: #ffffff;
     border-radius: 15px;
     width: 900px;
-    height: 800px;
-    padding-bottom: 20px;
+    height: 760px;
     margin: 40px auto 0;
 
     .flex-item-title {

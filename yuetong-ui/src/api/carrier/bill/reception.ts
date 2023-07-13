@@ -1,8 +1,8 @@
 import { request } from '@/utils/request';
 
-export function allReceptionCarriers(fkUserID:number) {
+export function allReceptionCarriers(pageNum,pageSize) {
     return request({
-        url: `/transport/carrier/toBeAccepted/${fkUserID}`,
+        url: `/transport/carrier?page=${pageNum}&pageSize=${pageSize}`,
         method: 'get',
     })
 }

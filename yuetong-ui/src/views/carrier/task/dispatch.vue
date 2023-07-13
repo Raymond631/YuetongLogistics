@@ -18,7 +18,8 @@
           <div class="driver">
             <label class="main-font">驾驶员</label>
             <div class="driver-info">
-              <el-button type="primary" size="large" class="choDriBtn" @click="schedulingCarrier(index)">调度任务</el-button>
+              <el-button type="primary" size="large" class="choDriBtn" @click="schedulingCarrier(index)">调度任务
+              </el-button>
             </div>
           </div>
           <div class="carrier-info">
@@ -51,7 +52,6 @@
             <el-tag size="large" type="warning">未调度</el-tag>
             <label v-text="carrier.checkInTime"></label>
           </div>
-
         </div>
       </div>
       <div class="mask" v-if="showMask"></div>
@@ -62,64 +62,46 @@
             <el-button type="danger" class="closeBtn" @click="closeForm">关闭</el-button>
           </div>
           <div class="form-info">
-            <div class="flex-item">
-              <div class="form-item">
-                <label>出发时间</label>
-                <el-date-picker v-model="insertItem.startTime" type="date" style="width: 250px;" placeholder="选择日期" class="form-input">
-                </el-date-picker>
-              </div>
-              <div class="form-item">
-                <label>油费</label>
-                <el-input class="form-input"></el-input>
-              </div>
-            </div>
-            <div class="flex-item">
-              <div class="form-item">
-                <label>罚款</label>
-                <el-input class="form-input"></el-input>
-              </div>
-              <div class="form-item">
-                <label>其他消费</label>
-                <el-input class="form-input"></el-input>
-              </div>
-            </div>
-            <div class="flex-item">
-              <div class="form-item">
-                <label>总费用</label>
-                <el-input class="form-input"></el-input>
-              </div>
-              <div class="form-item">
-                <label>备注</label>
-                <el-input class="form-input"></el-input>
-              </div>
-            </div>
             <div class="alreadyChosenForm">
+              <el-descriptions title="承运单信息" size="large" column="3" border>
+                <el-descriptions-item label="承运单编号">{{ currentCarrier.carriersId }}</el-descriptions-item>
+                <el-descriptions-item label="登记时间">{{ currentCarrier.checkInTime }}</el-descriptions-item>
+                <el-descriptions-item label="发货公司">{{ currentCarrier.sendCompany }}</el-descriptions-item>
+                <el-descriptions-item label="发货地址">{{ currentCarrier.sendAddress }}</el-descriptions-item>
+                <el-descriptions-item label="收货公司">{{ currentCarrier.receiveCompany }}</el-descriptions-item>
+                <el-descriptions-item label="收货地址">{{ currentCarrier.receiveAddress }}</el-descriptions-item>
+              </el-descriptions>
               <el-descriptions class="descriptions" title="已选驾驶员&车辆" :column="3" size="large" border>
-                <el-descriptions-item label="驾驶员" width="100px">{{ chosenDriverTruck.driver[0].name }}</el-descriptions-item>
-                <el-descriptions-item label="联系方式" width="100px">{{ chosenDriverTruck.driver[0].phone }}</el-descriptions-item>
-                <el-descriptions-item label="生日" width="100px">{{ chosenDriverTruck.driver[0].birth }}</el-descriptions-item>
+                <el-descriptions-item label="驾驶员" width="100px">{{ chosenDriverTruck.driver.name }}
+                </el-descriptions-item>
+                <el-descriptions-item label="联系方式" width="100px">{{ chosenDriverTruck.driver.phone }}
+                </el-descriptions-item>
+                <el-descriptions-item label="生日" width="100px">{{ chosenDriverTruck.driver.birth }}
+                </el-descriptions-item>
                 <el-descriptions-item label="车型">{{ chosenDriverTruck.truck.type }}</el-descriptions-item>
-                <el-descriptions-item label="车牌号"><el-tag size="small">{{ chosenDriverTruck.truck.number }}</el-tag></el-descriptions-item>
+                <el-descriptions-item label="车牌号">
+                  <el-tag size="small">{{ chosenDriverTruck.truck.number }}</el-tag>
+                </el-descriptions-item>
                 <el-descriptions-item label="登记时间">{{ chosenDriverTruck.truck.checkInTime }}</el-descriptions-item>
               </el-descriptions>
             </div>
             <div class="actions">
-              <el-button type="primary">提交</el-button>
+              <el-button type="primary">调度</el-button>
               <el-button type="info">重置</el-button>
             </div>
           </div>
           <el-table :data="freeTrucksDriverList" :style="'font-size: '+font_size">
-            <el-table-column prop="driver[0].name" label="驾驶员姓名"></el-table-column>
-            <el-table-column prop="driver[0].phone" label="驾驶员联系方式" width="150px"></el-table-column>
+            <el-table-column prop="driver.name" label="驾驶员姓名"></el-table-column>
+            <el-table-column prop="driver.phone" label="驾驶员联系方式" width="150px"></el-table-column>
             <el-table-column prop="truck.number" label="车牌号"></el-table-column>
             <el-table-column prop="truck.type" label="车辆类型"></el-table-column>
             <el-table-column prop="truck.teamID" label="所属车队"></el-table-column>
             <el-table-column prop="truck.checkInTime" label="登记时间"></el-table-column>
-              <el-table-column label="操作">
-                <template v-slot:default="scope">
+            <el-table-column label="操作">
+              <template v-slot:default="scope">
                 <el-button type="primary" @click="chooseDriver(scope.row)">选择</el-button>
-                </template>
-              </el-table-column>
+              </template>
+            </el-table-column>
           </el-table>
 
         </div>
@@ -130,22 +112,23 @@
           <el-button type="danger" class="closeBtn" @click="closeForm">关闭</el-button>
         </div>
         <template class="form-info">
-          <el-descriptions :title="'承运单列表 编号：#'+currentItem.carriersID" direction="vertical" size="large" :column="5" border>
-            <el-descriptions-item label="发货单位" >{{currentItem.sendCompany}}</el-descriptions-item>
-            <el-descriptions-item label="发货地址">{{currentItem.sendAddress}}</el-descriptions-item>
-            <el-descriptions-item label="发货人">{{currentItem.sendLinkman}}</el-descriptions-item>
-            <el-descriptions-item label="联系电话">{{currentItem.sendPhone}}</el-descriptions-item>
-            <el-descriptions-item label="收货单位">{{currentItem.receiveCompany}}</el-descriptions-item>
-            <el-descriptions-item label="收获地址">{{currentItem.receiveAddress}}</el-descriptions-item>
-            <el-descriptions-item label="收货人">{{currentItem.receiveLinkman}}</el-descriptions-item>
-            <el-descriptions-item label="联系方式">{{currentItem.receivePhone}}</el-descriptions-item>
-            <el-descriptions-item label="出发时间">{{currentItem.leaverDate}}</el-descriptions-item>
-            <el-descriptions-item label="送达时间">{{currentItem.receiveDate}}</el-descriptions-item>
-            <el-descriptions-item label="保险费用">{{currentItem.insuranceCost}}</el-descriptions-item>
-            <el-descriptions-item label="运输费用">{{currentItem.transportCost}}</el-descriptions-item>
-            <el-descriptions-item label="总费用">{{currentItem.totalCost}}</el-descriptions-item>
+          <el-descriptions :title="'承运单列表 编号：#'+currentItem.carriersID" direction="vertical" size="large" :column="5"
+                           border>
+            <el-descriptions-item label="发货单位">{{ currentItem.sendCompany }}</el-descriptions-item>
+            <el-descriptions-item label="发货地址">{{ currentItem.sendAddress }}</el-descriptions-item>
+            <el-descriptions-item label="发货人">{{ currentItem.sendLinkman }}</el-descriptions-item>
+            <el-descriptions-item label="联系电话">{{ currentItem.sendPhone }}</el-descriptions-item>
+            <el-descriptions-item label="收货单位">{{ currentItem.receiveCompany }}</el-descriptions-item>
+            <el-descriptions-item label="收获地址">{{ currentItem.receiveAddress }}</el-descriptions-item>
+            <el-descriptions-item label="收货人">{{ currentItem.receiveLinkman }}</el-descriptions-item>
+            <el-descriptions-item label="联系方式">{{ currentItem.receivePhone }}</el-descriptions-item>
+            <el-descriptions-item label="出发时间">{{ currentItem.leaverDate }}</el-descriptions-item>
+            <el-descriptions-item label="送达时间">{{ currentItem.receiveDate }}</el-descriptions-item>
+            <el-descriptions-item label="保险费用">{{ currentItem.insuranceCost }}</el-descriptions-item>
+            <el-descriptions-item label="运输费用">{{ currentItem.transportCost }}</el-descriptions-item>
+            <el-descriptions-item label="总费用">{{ currentItem.totalCost }}</el-descriptions-item>
             <el-descriptions-item label="备注">
-              <el-tag size="small">{{currentItem.remark}}</el-tag>
+              <el-tag size="small">{{ currentItem.remark }}</el-tag>
             </el-descriptions-item>
           </el-descriptions>
         </template>
@@ -166,11 +149,34 @@ export default defineComponent({
   data() {
     return {
       data: "",
-      font_size:"16px",
+      font_size: "16px",
       search: '',
-      currentItem: {},
+      currentCarrier: {
+        "carriersId": 0,
+        "sendCompany": "",
+        "sendAddress": "",
+        "sendLinkman": "",
+        "sendPhone": "",
+        "receiveCompany": "",
+        "receiveAddress": null,
+        "receiveLinkman": "",
+        "receivePhone": "",
+        "leaverDate": "",
+        "receiveDate": "",
+        "finishedState": 0,
+        "insuranceCost": 0,
+        "transportCost": 0,
+        "otherCost": 0,
+        "totalCost": 0,
+        "remark": "",
+        "fkUserID": 0,
+        "checkInTime": "",
+        "isDelete": 0,
+        "alterTime": ""
+      },
       chosenDriverTruck: {
-        driver:[{"driverID": 1,
+        driver: [{
+          "driverId": 1,
           "name": "",
           "sex": 0,
           "birth": null,
@@ -181,9 +187,10 @@ export default defineComponent({
           "remark": null,
           "checkInTime": "",
           "isDelete": 0,
-          "alterTime": ""}],
-        truck:{
-          "truckID": 0,
+          "alterTime": ""
+        }],
+        truck: {
+          "truckId": 0,
           "number": "车牌号",
           "buyDate": null,
           "type": null,
@@ -193,11 +200,12 @@ export default defineComponent({
           "remark": null,
           "checkInTime": null,
           "isDelete": 0,
-          "alterTime": ""},
+          "alterTime": ""
+        },
       },
       schedulingCarriersList: [
         {
-          "carriersID": 0,
+          "carriersId": 0,
           "sendCompany": "",
           "sendAddress": "",
           "sendLinkman": "",
@@ -223,7 +231,7 @@ export default defineComponent({
       freeTrucksDriverList: [{
         "driver": [
           {
-            "driverID": 0,
+            "driverId": 0,
             "name": "",
             "sex": 0,
             "birth": null,
@@ -238,7 +246,7 @@ export default defineComponent({
           }
         ],
         "truck": {
-          "truckID": 1,
+          "truckId": 1,
           "number": "湘A·12345",
           "buyDate": null,
           "type": null,
@@ -253,11 +261,11 @@ export default defineComponent({
       }],
       showMask: false,
       showScheForm: false,
-      showDetailsForm:false,
+      showDetailsForm: false,
       insertItem: {
         "startTime": "2007-02-09",
-        "fkCarriersID": 0,
-        "fkTruckID": 0,
+        "fkCarriersId": 0,
+        "fkTruckId": 0,
         "oilCost": 0,
         "toll": 0,
         "fine": 0,
@@ -282,7 +290,7 @@ export default defineComponent({
     },
     //点击调度承运任务按钮
     schedulingCarrier(index: number) {
-      this.currentItem = this.schedulingCarriersList[index];
+      this.currentCarrier = this.schedulingCarriersList[index];
       allFreeTruckAndDriver().then((res: any) => {
         console.log(res.data.list);
         this.freeTrucksDriverList = res.data.list;
@@ -292,13 +300,13 @@ export default defineComponent({
     },
     //点击承运任务详情按钮
     forDetails(index: number) {
-      this.currentItem = this.schedulingCarriersList[index];
-      console.log(this.currentItem)
+      this.currentCarrier = this.schedulingCarriersList[index];
+      console.log(this.currentCarrier)
       this.showMask = true;
       this.showDetailsForm = true;
     },
     //点击调度表单中的选择按钮
-    chooseDriver(row:any){
+    chooseDriver(row: any) {
       console.log(row);
       this.chosenDriverTruck = row;
     },

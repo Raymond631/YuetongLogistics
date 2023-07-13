@@ -1,35 +1,38 @@
 <template>
   <div class="container">
-    <navigationBar />
+    <navigationBar/>
     <div class="content">
-      <welcomeHeader />
+      <welcomeHeader/>
       <div class="block-list">
         <div class="search">
           <el-input
-            type="text"
-            class="search-input"
-            v-model="search"
-            placeholder="请搜索用户"
+              type="text"
+              class="search-input"
+              v-model="search"
+              placeholder="请搜索用户"
           ></el-input>
         </div>
-      <div class="actions">
-        <div class="action1">
-          <label @click="handleAll()">查看所有</label>
+        <div class="actions">
+          <div class="action1">
+            <label @click="contactTruck">绑定车辆</label>
+          </div>
+          <div class="action1">
+            <label @click="handleAll()">查看所有</label>
+          </div>
+          <el-popconfirm
+              title="选择筛选项"
+              confirm-button-text="空闲"
+              cancel-button-text="已绑定"
+              @confirm="handleFree()"
+              @cancel="handleWork()"
+          >
+            <template #reference>
+              <div class="action2">
+                <label>筛选</label>
+              </div>
+            </template>
+          </el-popconfirm>
         </div>
-        <el-popconfirm
-          title="选择筛选项"
-          confirm-button-text="空闲"
-          cancel-button-text="已绑定"
-          @confirm="handleFree()"
-          @cancel="handleWork()"
-        >
-          <template #reference>
-            <div class="action2">
-              <label>筛选</label>
-            </div>
-          </template>
-        </el-popconfirm>
-      </div>
       </div>
       <div class="user-main">
         <div class="user-block" v-for="driver in driverList" :key="driver.driverId">
@@ -40,42 +43,42 @@
               <label v-text="'#' + driver.state" class="role"></label>
               <div class="icons">
                 <el-popover
-                  placement="top-start"
-                  title="生日很重要啊！"
-                  :width="20"
-                  trigger="hover"
-                  :content="'生日:' + driver.birth"
+                    placement="top-start"
+                    title="生日很重要啊！"
+                    :width="20"
+                    trigger="hover"
+                    :content="'生日:' + driver.birth"
                 >
                   <template #reference>
                     <el-icon :size="30" :color="'#0e6f64'" class="icon">
-                      <Avatar />
+                      <Avatar/>
                     </el-icon>
                   </template>
                 </el-popover>
 
                 <el-popover
-                  placement="top-start"
-                  title="联系电话"
-                  :width="20"
-                  trigger="hover"
-                  :content="'移动电话：'+driver.phone"
+                    placement="top-start"
+                    title="联系电话"
+                    :width="20"
+                    trigger="hover"
+                    :content="'移动电话：'+driver.phone"
                 >
                   <template #reference>
                     <el-icon :size="30" :color="'#0e6f64'" class="icon">
-                      <PhoneFilled />
+                      <PhoneFilled/>
                     </el-icon>
                   </template>
                 </el-popover>
                 <el-popover
-                  placement="top-start"
-                  title="入厂时间"
-                  :width="20"
-                  trigger="hover"
-                  :content="driver.checkInTime"
+                    placement="top-start"
+                    title="入厂时间"
+                    :width="20"
+                    trigger="hover"
+                    :content="driver.checkInTime"
                 >
                   <template #reference>
                     <el-icon :size="30" :color="'#0e6f64'" class="icon">
-                      <ChatLineRound />
+                      <ChatLineRound/>
                     </el-icon>
                   </template>
                 </el-popover>
@@ -83,12 +86,14 @@
             </div>
 
             <el-popconfirm
-              title="这是一段内容确定删除吗？"
-              @confirm="handleDelete(driver.driverId)"
+                title="这是一段内容确定删除吗？"
+                @confirm="handleDelete(driver.driverId)"
             >
               <template #reference>
                 <el-button class="dot">
-                  <el-icon><CloseBold /></el-icon>
+                  <el-icon>
+                    <CloseBold/>
+                  </el-icon>
                 </el-button>
               </template>
             </el-popconfirm>
@@ -105,12 +110,70 @@
       </div>
       <div class="page">
         <el-pagination
-          v-model:currentPage="paginationConfig.currentPage"
-          layout="total, prev, pager, next"
-          :page-size="paginationConfig.pageSize"
-          :total="paginationConfig.total"
-          @current-change="handlePageChange"
+            v-model:currentPage="paginationConfig.currentPage"
+            layout="total, prev, pager, next"
+            :page-size="paginationConfig.pageSize"
+            :total="paginationConfig.total"
+            @current-change="handlePageChange"
         />
+      </div>
+
+      <div class="mask" v-if="showMask"></div>
+      <div class="contactForm" v-if="showContactForm">
+        <div class="form-title">
+          <label>绑定车辆</label>
+          <el-button type="danger" class="closeBtn" @click="closeForm">关闭</el-button>
+        </div>
+        <div class="alreadyChosenDriver">
+          <el-descriptions class="descriptions" title="已选驾驶员" :column="4" size="large" border>
+            <el-descriptions-item label="驾驶员" width="100px">{{ chosenDriver.name }}</el-descriptions-item>
+            <el-descriptions-item label="联系方式" width="140px">{{ chosenDriver.phone }}</el-descriptions-item>
+            <el-descriptions-item label="生日" width="140px">{{ chosenDriver.birth }}</el-descriptions-item>
+            <el-descriptions-item label="性别">{{ chosenDriver.sex }}</el-descriptions-item>
+          </el-descriptions>
+        </div>
+        <div class="alreadyChosenTruck">
+          <el-descriptions class="descriptions" title="已选车辆" :column="4" size="large" border>
+            <el-descriptions-item label="车牌" width="100px">
+              <el-tag size="small">{{ chosenTruck.number }}</el-tag>
+            </el-descriptions-item>
+            <el-descriptions-item label="车型" width="140px">{{ chosenTruck.truckType }}</el-descriptions-item>
+            <el-descriptions-item label="吨位" width="100px">{{ chosenTruck.tonnage }}</el-descriptions-item>
+            <el-descriptions-item label="所属车队">{{ chosenTruck.fkTeamId }}</el-descriptions-item>
+          </el-descriptions>
+        </div>
+        <label class="free-title">空闲驾驶员信息</label>
+        <el-table :data="freeDriverList" :style="'font-size: '+font_size">
+          <el-table-column prop="name" label="驾驶员"></el-table-column>
+          <el-table-column prop="phone" label="联系方式" width="150px"></el-table-column>
+          <el-table-column prop="birth" label="生日"></el-table-column>
+          <el-table-column prop="sex" label="性别"></el-table-column>
+          <el-table-column prop="idCard" label="身份证号"></el-table-column>
+          <el-table-column prop="remark" label="备注"></el-table-column>
+          <el-table-column label="操作">
+            <template v-slot:default="scope">
+              <el-button type="primary" @click="chooseDriver(scope.row)">选择</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="actions">
+          <el-button type="primary">绑定</el-button>
+          <el-button type="info" @click="resetForm">重置</el-button>
+        </div>
+        <label class="free-title">空闲车辆信息</label>
+        <el-table :data="freeTruckList" :style="'font-size: '+font_size">
+          <el-table-column prop="truckId" label="编号" width="60px"></el-table-column>
+          <el-table-column prop="number" label="车牌" width="150px"></el-table-column>
+          <el-table-column prop="truckType" label="车型"></el-table-column>
+          <el-table-column prop="tonnage" label="吨位"></el-table-column>
+          <el-table-column prop="checkInTime" label="登记时间"></el-table-column>
+          <el-table-column prop="fkTeamId" label="所属车队"></el-table-column>
+          <el-table-column label="操作">
+            <template v-slot:default="scope">
+              <el-button type="primary" @click="chooseTruck(scope.row)">选择</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
     </div>
   </div>
@@ -120,14 +183,15 @@
 import welcomeHeader from "../../components/header.vue";
 import navigationBar from "../../components/navigationBar.vue";
 import ytTable from "../../components/yt-table.vue";
-import { searchDrivers, deleteDrivers } from "../../api/fleet/driver";
+import {searchDrivers, deleteDrivers} from "../../api/fleet/driver";
 
 export default {
   name: "driver",
   data() {
     return {
       search: "",
-      selectType:0,
+      font_size:'16px',
+      selectType: 0,
       paginationConfig: {
         currentPage: 1, // 当前页码
         pageSize: 12, // 每页显示的条数
@@ -150,28 +214,83 @@ export default {
           alterTime: "2023-07-11 07:58:15",
         },
       ],
+      //绑定界面
+      showMask: false,
+      showContactForm: false,
+      chosenTruck: {
+        truckId: null,
+        number: "",
+        buyDate: "",
+        truckType: "",
+        tonnage: null,
+        fkTeamId: null,
+        state: "",
+        remark: "",
+        checkInTime: "",
+        alterTime: ""
+      },
+      chosenDriver: {
+        driverId: null,
+        image: "",
+        name: "",
+        sex: "",
+        birth: "",
+        phone: "",
+        idCard: "",
+        fkTeamId: null,
+        state: "",
+        remark: "",
+        checkInTime: "",
+        alterTime: "",
+      },
+      freeTruckList: [{
+        truckId: 1,
+        number: "湘A12345",
+        buyDate: "2022-10-01",
+        truckType: "大货车",
+        tonnage: 20,
+        fkTeamId: 1,
+        state: "空闲",
+        remark: "无",
+        checkInTime: "2023-07-11 09:17:32",
+        alterTime: "2023-07-11 09:17:32",
+      }],
+      freeDriverList: [{
+        driverId: 1,
+        image: "",
+        name: "张三",
+        sex: "男",
+        birth: "1988-10-01",
+        phone: "12345678900",
+        idCard: "123456789123456789",
+        fkTeamId: 1,
+        state: "空闲",
+        remark: "无",
+        checkInTime: "2023-07-21 07:58:15",
+        alterTime: "2023-07-11 07:58:15",
+      }]
     };
   },
-  components: { welcomeHeader, navigationBar, ytTable },
+  components: {welcomeHeader, navigationBar, ytTable},
   mounted() {
     this.ready();
   },
   methods: {
     ready() {
       searchDrivers(
-        this.paginationConfig.currentPage,
-        this.paginationConfig.pageSize,
-        this.selectType
+          this.paginationConfig.currentPage,
+          this.paginationConfig.pageSize,
+          this.selectType
       )
-        .then((res: any) => {
-          console.log(res);
-          this.driverList = res.data.list;
-          this.paginationConfig.total = Number(res.data.total);
-          this.paginationConfig.pageCount = Number(res.data.pageNum);
-        })
-        .catch((err: any) => {
-          console.log(err);
-        });
+          .then((res: any) => {
+            console.log(res);
+            this.driverList = res.data.list;
+            this.paginationConfig.total = Number(res.data.total);
+            this.paginationConfig.pageCount = Number(res.data.pageNum);
+          })
+          .catch((err: any) => {
+            console.log(err);
+          });
     },
     handlePageChange(val: number) {
       this.paginationConfig.currentPage = val;
@@ -182,15 +301,15 @@ export default {
     handleDelete(userId: number) {
       let that = this;
       deleteDrivers(userId)
-        .then((res: any) => {
-          console.log("delete success");
-          //重新请求该页面数据
-          that.ready();
-          console.log(res);
-        })
-        .catch((err: any) => {
-          console.log(err);
-        });
+          .then((res: any) => {
+            console.log("delete success");
+            //重新请求该页面数据
+            that.ready();
+            console.log(res);
+          })
+          .catch((err: any) => {
+            console.log(err);
+          });
     },
     handleFree() {
       this.selectType = 2;
@@ -204,7 +323,26 @@ export default {
       this.selectType = 0;
       this.ready()
     },
-}
+    closeForm(){
+      this.showMask = false;
+      this.showContactForm = false;
+    },
+    //绑定车辆
+    contactTruck() {
+      this.showMask = true;
+      this.showContactForm = true;
+    },
+    chooseTruck(row:any){
+      this.chosenTruck = row;
+    },
+    chooseDriver(row:any){
+      this.chosenDriver = row;
+    },
+    resetForm(){
+      this.chosenTruck ={};
+      this.chosenDriver ={};
+    }
+  }
 }
 </script>
 

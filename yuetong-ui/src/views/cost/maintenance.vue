@@ -131,7 +131,37 @@
               <el-tag size="small">{{ currentCarrier.remark }}</el-tag>
             </el-descriptions-item>
           </el-descriptions>
-
+          <!--            <div class="flex-item">-->
+          <!--              <div class="form-item">-->
+          <!--                <label>出发时间</label>-->
+          <!--                <el-date-picker v-model="insertItem.startTime" type="date" style="width: 250px;" placeholder="选择日期" class="form-input">-->
+          <!--                </el-date-picker>-->
+          <!--              </div>-->
+          <!--              <div class="form-item">-->
+          <!--                <label>油费</label>-->
+          <!--                <el-input class="form-input"></el-input>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--            <div class="flex-item">-->
+          <!--              <div class="form-item">-->
+          <!--                <label>罚款</label>-->
+          <!--                <el-input class="form-input"></el-input>-->
+          <!--              </div>-->
+          <!--              <div class="form-item">-->
+          <!--                <label>其他消费</label>-->
+          <!--                <el-input class="form-input"></el-input>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--            <div class="flex-item">-->
+          <!--              <div class="form-item">-->
+          <!--                <label>总费用</label>-->
+          <!--                <el-input class="form-input"></el-input>-->
+          <!--              </div>-->
+          <!--              <div class="form-item">-->
+          <!--                <label>备注</label>-->
+          <!--                <el-input class="form-input"></el-input>-->
+          <!--              </div>-->
+          <!--            </div>-->
         </template>
       </div>
     </div>

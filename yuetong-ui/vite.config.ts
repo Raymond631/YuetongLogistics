@@ -14,8 +14,8 @@ export default defineConfig({
     https: false,
     proxy: {
       "/api": {
-        // target: "http://127.0.0.1:4523/m1/2962122-0-default",
-        target: "http://192.168.3.107:10000",
+        target: "http://127.0.0.1:4523/m1/2962122-0-default",
+        // target: "http://192.168.3.107:10000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

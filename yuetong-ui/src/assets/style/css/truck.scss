@@ -26,25 +26,25 @@
       height: 160px;
       display: flex;
       justify-content: space-between;
-    
+
       .search {
         margin-top: 50px;
         margin-left: 50px;
         width: 30%;
-    
+
         .search-input {
           height: 60px;
           font-size: 20px;
         }
       }
-    
+
       .actions {
         margin-top: 50px;
         margin-right: 100px;
         width: 50%;
         display: flex;
         justify-content: right;
-    
+
         .action1 {
           color: $theme_color;
           border: 2px solid $theme_color;
@@ -67,12 +67,12 @@
               background-color: #eff4f4;
               border: 2px solid $theme_color;
               transition: 0.5s;
-            
+
           }
         }
       }
     }
-    
+
     .card {
       margin-top: 30px;
       margin-left: 50px;
@@ -132,5 +132,46 @@
   .page {
     margin-top: -60px;
     margin-left: 75%;
+  }
+  .mask{
+    @include mask;
+  }
+  .contactForm{
+    display: flex;
+    flex-direction: column;
+    //width,height,top,left
+    @include mask-form(1000px, 1000px, 70px, 450px);
+
+    .form-title {
+      padding-left: 425px;
+
+      .closeBtn {
+        width: 150px;
+        margin-left: 250px;
+      }
+    }
+
+    .alreadyChosenTruck,.alreadyChosenDriver{
+      width:900px;
+      margin: 10px auto;
+    }
+    .actions{
+      display: flex;
+      justify-content: space-evenly;
+      .el-button{
+        width: 100px;
+      }
+    }
+    .free-title{
+      font-family: coca_cola, serif;
+      font-size: 20px;
+      margin:0 auto;
+    }
+    .el-table {
+      margin: 20px auto;
+      width: 900px;
+      height: 200px;
+      overflow: auto;
+    }
   }
 }
