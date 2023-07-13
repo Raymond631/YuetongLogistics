@@ -15,14 +15,14 @@
       </div>
       <div class="main-form">
         <div class="bill-block" v-for="(reception,index) in receptionList">
-          <label class="carrierId" v-text="reception.carrier.carriersID"></label>
+          <label class="carrierId" v-text="reception.carrier.carriersId"></label>
           <div class="driver">
             <el-avatar type="image" class="image"
                        src="https://img02.sogoucdn.com/app/a/100520093/8379901cc65ba509-45c21ceb904429fc-e8e0ced72c7814e527ca276e0fe48673.jpg"></el-avatar>
             <div class="driver-info">
               <el-tag class="main-font driver-tag"
-                      v-text="'驾驶员#'+reception.driver[0].driverID +' '+reception.driver[0].name"></el-tag>
-              <label class="third-font" v-text="reception.driver[0].phone"></label>
+                      v-text="'驾驶员#'+reception.driver.driverId +' '+reception.driver.name"></el-tag>
+              <label class="third-font" v-text="reception.driver.phone"></label>
             </div>
           </div>
           <div class="carrier-info">
@@ -45,14 +45,14 @@
             </div>
           </div>
           <div class="manager-info">
-            <label class="main-font manager-id" v-text="'处理管理员编号: #'+reception.carrier.fkUserID"></label>
+            <label class="main-font manager-id" v-text="'处理管理员: #'+reception.carrier.account"></label>
             <div class="actions">
               <el-button type="primary" class="infoBtn" @click="receptCarrierBtnClick(index)">接收</el-button>
               <el-button type="danger" class="infoBtn">删除</el-button>
             </div>
           </div>
           <div class="state">
-            <el-tag size="large">未接收</el-tag>
+            <el-tag size="large" type="warning">未接收</el-tag>
             <label v-text="reception.carrier.checkInTime"></label>
           </div>
         </div>
@@ -65,7 +65,7 @@
         </div>
         <div class="form">
           <el-descriptions title="承运单信息" size="large" column="3" border>
-            <el-descriptions-item label="承运单编号">{{ receptCarrier.carriersID }}</el-descriptions-item>
+            <el-descriptions-item label="承运单编号">{{ receptCarrier.carriersId }}</el-descriptions-item>
             <el-descriptions-item label="登记时间">{{ receptCarrier.checkInTime }}</el-descriptions-item>
             <el-descriptions-item label="发货公司">{{ receptCarrier.sendCompany }}</el-descriptions-item>
             <el-descriptions-item label="发货地址">{{ receptCarrier.sendAddress }}</el-descriptions-item>
@@ -97,7 +97,7 @@ export default defineComponent({
       search: '',
       "receptionList": [{
         "carrier": {
-          "carriersID": 0,
+          "carriersId": 0,
           "sendCompany": "",
           "sendAddress": "",
           "sendLinkman": "",
@@ -114,45 +114,23 @@ export default defineComponent({
           "otherCost": 0,
           "totalCost": 0,
           "remark": "",
-          "fkUserID": 0,
+          "account": 0,
           "checkInTime": "",
-          "isDelete": 0,
           "alterTime": ""
         },
-        "driver": [
-          {
-            "driverID": 0,
-            "name": "",
-            "sex": 0,
-            "birth": null,
-            "phone": "",
-            "idCard": "",
-            "fkTeamID": 0,
-            "state": 0,
-            "remark": null,
-            "checkInTime": "",
-            "isDelete": 0,
-            "alterTime": ""
-          }
-        ],
-        "scheduling": [
-          {
-            "schedulingID": 0,
-            "startTime": null,
-            "fkCarriersID": 0,
-            "fkTruckID": 0,
-            "oilCost": 0.0,
-            "toll": 0.0,
-            "fine": 0.0,
-            "otherCost": 0.0,
-            "totalCost": 0.0,
-            "fkUserID": 2.0,
-            "remark": 0.0,
-            "checkInTime": null,
-            "isDelete": 0,
-            "alterTime": ""
-          }
-        ]
+        "driver": {
+          "driverId": 1,
+          "name": "张三",
+          "sex": "男",
+          "birth": "1988-10-01",
+          "phone": "12345678900",
+          "idCard": "123456789123456789",
+          "fkTeamId": 1,
+          "state": "Working",
+          "remark": "labore tempor exercitation pariatur deserunt",
+          "checkInTime": "2023-07-12 14:53:23",
+          "alterTime": "2023-07-12 14:53:23"
+        }
       }],
       showMask: false,
       showReceptDialog: false,
@@ -165,8 +143,9 @@ export default defineComponent({
   },
   methods: {
     ready() {
-      allReceptionCarriers(1).then((res: any) => {
-        this.receptionList = res.data;
+      allReceptionCarriers(1, 10).then((res: any) => {
+        this.receptionList = res.data.list;
+        console.log(this.receptionList)
       })
     },
     //点击接受按钮
@@ -176,7 +155,7 @@ export default defineComponent({
       this.showReceptDialog = true;
     },
     //关闭接收对话框的遮罩层
-    closeForm(){
+    closeForm() {
       this.showMask = false;
       this.showReceptDialog = false;
     },

@@ -16,7 +16,7 @@
           <div class="action1">
             <label>筛选</label>
           </div>
-          <input  
+          <input
             class="upload"
             type="file"
             accept=".xlsx"
@@ -41,7 +41,12 @@
       </div>
 
       <div class="user-main">
-        <div class="user-block" v-for="user in userList" :key="user.account">
+        <div
+          class="user-block"
+          v-for="(user, index) in userList"
+          :key="user.account"
+          @click="detailsClick(index)"
+        >
           <div class="basic-info">
             <el-avatar
               type="image"
@@ -64,9 +69,7 @@
                       :size="30"
                       :color="'#0e6f64'"
                       class="icon"
-                      @click="
-                        changeAuthority(user.userId, user.roleId, user.username)
-                      "
+                      @click="changeAuthority(index)"
                     >
                       <Avatar />
                     </el-icon>
@@ -75,10 +78,10 @@
 
                 <el-popover
                   placement="top-start"
-                  title="delete"
+                  title="联系方式"
                   :width="20"
                   trigger="hover"
-                  content="删除用户"
+                  :content="user.phone"
                 >
                   <template #reference>
                     <el-icon :size="30" :color="'#0e6f64'" class="icon">
@@ -88,10 +91,10 @@
                 </el-popover>
                 <el-popover
                   placement="top-start"
-                  title="delete"
+                  title="用户名"
                   :width="20"
                   trigger="hover"
-                  content="删除用户"
+                  :content="user.account"
                 >
                   <template #reference>
                     <el-icon :size="30" :color="'#0e6f64'" class="icon">
@@ -108,7 +111,9 @@
             >
               <template #reference>
                 <el-button class="dot">
-                  <el-icon><CloseBold /></el-icon>
+                  <el-icon>
+                    <CloseBold />
+                  </el-icon>
                 </el-button>
               </template>
             </el-popconfirm>
@@ -129,6 +134,7 @@
           layout="total, prev, pager, next"
           :page-size="paginationConfig.pageSize"
           :total="paginationConfig.total"
+          :page-count="paginationConfig.pageCount"
           @current-change="handlePageChange"
         />
       </div>
@@ -136,12 +142,12 @@
   </div>
   <el-dialog title="修改权限" v-model="dialogTableVisible">
     <div style="margin-top: -20px">
-      <span style="font-size: 20px">当前用户ID：{{ currentUser }}</span>
+      <span style="font-size: 20px">当前用户ID：{{ currentUser.userId }}</span>
       <span style="font-size: 20px; margin-left: 10%"
-        >当前用户：{{ currentUsername }}</span
+        >当前用户：{{ currentUser.username }}</span
       >
       <span style="font-size: 20px; margin-left: 10%"
-        >当前权限：{{ currentRole }}</span
+        >当前权限：{{ currentUser.roleId }}</span
       >
       <span style="font-size: 20px; margin-left: 10%; color: red"
         >修改权限：{{ authority.label }}</span
@@ -173,9 +179,58 @@
         height: 40px;
       "
       @click="updateAuthority"
-      >提交</el-button
-    >
+      >提交
+    </el-button>
   </el-dialog>
+  <div class="mask" v-if="showMask"></div>
+  <div class="details" v-if="showDetails">
+    <div class="form-title">
+      <label>用户信息详情</label>
+      <el-button type="danger" class="closeBtn" @click="closeForm"
+        >关闭</el-button
+      >
+    </div>
+    <template class="form-info">
+      <el-descriptions
+        :title="'用户信息 编号：#' + currentUser.userId"
+        direction="vertical"
+        size="large"
+        :column="3"
+        border
+      >
+        <el-descriptions-item label="姓名">{{
+          currentUser.username
+        }}</el-descriptions-item>
+        <el-descriptions-item label="性别">{{
+          currentUser.sex
+        }}</el-descriptions-item>
+        <el-descriptions-item label="权限角色">{{
+          currentUser.roleId
+        }}</el-descriptions-item>
+        <el-descriptions-item label="联系方式">{{
+          currentUser.phone
+        }}</el-descriptions-item>
+        <el-descriptions-item label="邮箱">{{
+          currentUser.email
+        }}</el-descriptions-item>
+        <el-descriptions-item label="登记时间">{{
+          currentUser.checkInTime
+        }}</el-descriptions-item>
+        <el-descriptions-item label="更新时间">{{
+          currentUser.alterTime
+        }}</el-descriptions-item>
+        <el-descriptions-item label="昵称">{{
+          currentUser.username
+        }}</el-descriptions-item>
+        <el-descriptions-item label="密码">{{
+          currentUser.password
+        }}</el-descriptions-item>
+        <el-descriptions-item label="备注">
+          <el-tag size="small">{{ currentUser.remark }}</el-tag>
+        </el-descriptions-item>
+      </el-descriptions>
+    </template>
+  </div>
 </template>
 
 <script lang="ts">
@@ -197,12 +252,26 @@ export default defineComponent({
       search: "",
       fileList: [],
       dialogTableVisible: false,
+      showMask: false,
+      showDetails: false,
       authority: {
         value: 1,
         label: "系统管理员",
       },
-      currentUser: 1,
-      currentRole: 1,
+      currentUser: {
+        role: "系统管理员",
+        image:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+        roleId: 1,
+        userId: 1,
+        account: "abc",
+        password: "123",
+        username: "hahah",
+        sex: "男",
+        phone: "123",
+        email: "123@qq.com",
+        checkInTime: "2023-07-06 03:13:01",
+        alterTime: "2023-07-06 03:13:11",
+      },
       currentUsername: "",
       currentRoleContent: "",
       paginationConfig: {
@@ -211,18 +280,25 @@ export default defineComponent({
         pageCount: 1, //总共有多少页
         total: 1, // 总条数
       },
+
       userList: [
         {
-          userId: 123,
-          roleId: 3,
-          account: "yueyue",
-          username: "yueyue",
           role: "系统管理员",
           image:
             "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-          email: "",
+          roleId: 1,
+          userId: 1,
+          account: "abc",
+          password: "123",
+          username: "hahah",
+          sex: "男",
+          phone: "123",
+          email: "123@qq.com",
+          checkInTime: "2023-07-06 03:13:01",
+          alterTime: "2023-07-06 03:13:11",
         },
       ],
+
       authorities: [
         {
           value: 1,
@@ -230,19 +306,11 @@ export default defineComponent({
         },
         {
           value: 2,
-          label: "运输管理员",
+          label: "普通用户",
         },
         {
           value: 3,
-          label: "承运业务员",
-        },
-        {
-          value: 4,
-          label: "调度员",
-        },
-        {
-          value: 5,
-          label: "财务人员",
+          label: "游客",
         },
       ],
     };
@@ -254,7 +322,7 @@ export default defineComponent({
   methods: {
     uploadFile(e: any) {
       let file = e.target.files[0];
-      console.log(e.target.files)
+      console.log(e.target.files);
       let formdata = new FormData();
       formdata.append("file", file);
       uploadUser(formdata)
@@ -299,16 +367,13 @@ export default defineComponent({
         });
     },
     //修改权限
-    changeAuthority(user: number, role: number, username: string) {
-      this.currentUser = user;
-      this.currentRole = role;
-      this.currentUsername = username;
-      this.currentRoleContent;
+    changeAuthority(index: number) {
+      this.currentUser = this.userList[index];
       this.dialogTableVisible = true;
     },
     //提交修改权限
     updateAuthority() {
-      updateUser(this.currentUser, this.authority.value)
+      updateUser(this.currentUser.userId, this.authority.value)
         .then((res: any) => {
           console.log("update success");
           this.dialogTableVisible = false;
@@ -326,15 +391,20 @@ export default defineComponent({
     handlePreview(file: any) {
       console.log(file);
     },
-    handleExceed(files: any, fileList: any) {
-      alert(
-        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
-          files.length + fileList.length
-        } 个文件`
-      );
-    },
+
     beforeRemove(file: any, fileList: any) {
       return alert(`确定移除 ${file.name}？`);
+    },
+
+    //点击block查看用户详情信息
+    detailsClick(index: number) {
+      this.currentUser = this.userList[index];
+      this.showMask = true;
+      this.showDetails = true;
+    },
+    closeForm() {
+      this.showMask = false;
+      this.showDetails = false;
     },
   },
 });

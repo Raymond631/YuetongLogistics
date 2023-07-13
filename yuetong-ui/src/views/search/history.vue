@@ -52,7 +52,7 @@
             </div>
           </div>
           <div class="state">
-            <el-tag size="large">已结算</el-tag>
+            <el-tag size="large" style="font-size: 18px;" type="success">已结算</el-tag>
             <label v-text="history.carrier.checkInTime"></label>
           </div>
         </div>

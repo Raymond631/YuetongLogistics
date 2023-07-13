@@ -6,7 +6,7 @@
       <div class="main">
         <div class="top_pic">
           <el-carousel trigger="click" height="450px">
-            <el-carousel-item v-for="item in 4" :key="item"> </el-carousel-item>
+            <el-carousel-item v-for="item in 6" :key="item"> </el-carousel-item>
           </el-carousel>
         </div>
         <div class="left_info">
@@ -120,25 +120,37 @@ export default defineComponent({
 
 .el-carousel__item:nth-child(3) {
   border-radius: 20px;
-  background-image: url("../../assets/images/mainBgi.jpg");
+  background-image: url("../../assets/images/item1.jpg");
   background-size: 100% 100%;
 }
 
 .el-carousel__item:nth-child(4) {
   border-radius: 20px;
-  background-image: url("../../assets/images/loginBgi.png");
+  background-image: url("../../assets/images/item2.jpg");
   background-size: 100% 100%;
 }
 
 .el-carousel__item:nth-child(5) {
   border-radius: 20px;
-  background-image: url("../../assets/images/indexBgi.jpg");
+  background-image: url("../../assets/images/item3.jpg");
   background-size: 100% 100%;
 }
 
 .el-carousel__item:nth-child(6) {
   border-radius: 20px;
   background-image: url("../../assets/images/truck.jpg");
+  background-size: 100% 100%;
+}
+
+.el-carousel__item:nth-child(7) {
+  border-radius: 20px;
+  background-image: url("../../assets/images/item4.jpg");
+  background-size: 100% 100%;
+}
+
+.el-carousel__item:nth-child(8) {
+  border-radius: 20px;
+  background-image: url("../../assets/images/item5.jpg");
   background-size: 100% 100%;
 }
 </style>

@@ -7,9 +7,10 @@
         tooltip-effect="dark"
         highlight-current-row
         @row-click="clickRow"
-        :cell-style="cellStyle"
-        :row-style="{ background: 'rgba(251,251,251)' }"
+        :cell-style="{ 'background-color':'transparent' }"
+        :row-style="rowStyle"
         :height="tableHeight"
+        style="font-size: 16px;"
       >
         <div v-for="column in tableInfo.columns" :key="column">
           {{ column.column }}
@@ -172,12 +173,12 @@ export default defineComponent({
       this.selectedRow = row;
     },
 
-    cellStyle({ row }: any) {
+    rowStyle({ row }: any) {
       if (row === this.selectedRow) {
         console.log("添加样式......" + row.id);
         return {
           background: "#ffffff",
-          "box-shadow": "13px 13px 15px  #cecece",
+          "box-shadow": "0 0 10px rgba(93, 93, 93, 0.5)",
         };
       }
       return "";

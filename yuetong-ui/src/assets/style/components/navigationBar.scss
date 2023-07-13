@@ -28,6 +28,7 @@
       width:60px;
       height:60px;
       background-color: $theme_color;
+      //background-color: #18478F;
       border-radius: 10px;
       color:white;
       float: left;
@@ -79,7 +80,7 @@
   .el-menu-item {
     color: $word_color;
   }
-  
+
   .is-active {
     background-color: $theme_color;
     color: white;
