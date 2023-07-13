@@ -1,0 +1,144 @@
+.container {
+  .content {
+    margin-left: $Mleft;
+    height: $max_height;
+    background-color: $back_color;
+
+    @mixin font_word($size: 17px, $family: KaiTi_GB2312, $weight: 400) {
+      font: {
+        family: $family;
+        size: $size;
+        weight: $weight;
+      }
+    }
+    .main {
+      margin-left: 2.5%;
+      width: 95%;
+      height: 80%;
+      margin-top: 50px;
+      background-color: white;
+      font-size: 17px;
+      overflow: hidden;
+      .top_pic {
+        margin-top: 20px;
+        width: 96%;
+        height: 60%;
+        margin-left: 2%;
+        border-radius: 40px;
+        position: relative;
+        z-index: 0;
+      }
+      .left_info {
+        margin-top: -120px;
+        height: 53%;
+        margin-left: 5%;
+        width: 15%;
+        position: relative;
+        z-index: 1;
+        float: left;
+        .boss_pic {
+          width: 100%;
+          height: 59%;
+          border-radius: 40px;
+          background-image: url("../../assets/images/boss.jpg");
+          background-size: 100%;
+        }
+        .boss_name {
+          margin-top: 20px;
+          text-align: center;
+          @include font_word(25px, coca_cola);
+        }
+        .boss_tag {
+          text-align: center;
+          color: $theme_color;
+          @include font_word(20px, coca_cola);
+        }
+        .boss_info {
+          width: 70%;
+          margin-left: 15%;
+          margin-top: 10px;
+          text-align: center;
+          color: $word_color;
+          @include font_word(10px, KaiTi_GB2312);
+        }
+      }
+      .right_info {
+        margin-top: -120px;
+        height: 53%;
+        // border: 2px solid black;
+        // border-radius: 20px;
+        position: relative;
+        z-index: 1;
+        margin-left: 23%;
+        width: 75%;
+        .company_title {
+          width: 90%;
+          height: 11%;
+          margin-left: 1%;
+          color: white;
+          @include font_word(30px, coca_cola);
+        }
+        .company_info {
+          width: 90%;
+          height: 10%;
+          margin-left: 1%;
+          margin-top: 1%;
+          // background-color: aqua;
+          color: white;
+          line-height: 40px;
+          @include font_word(18px, KaiTi_GB2312);
+          .company_info_word {
+            margin-left: 10px;
+            @include font_word(18px, KaiTi_GB2312);
+          }
+        }
+        .company_description {
+          width: 90%;
+          height: 20%;
+          margin-left: 1%;
+          margin-top: 3%;
+          overflow: hidden;
+          .company_description_title {
+            width: 90%;
+            height: 30%;
+            @include font_word(20px, KaiTi_GB2312, bold);
+          }
+          .company_description_content {
+            width: 90%;
+            height: 60%;
+            margin-top: 10px;
+            color: $word_color;
+            @include font_word(15px, KaiTi_GB2312, bold);
+          }
+        }
+        .company_manange {
+          .company_manange_title {
+            margin-left: 1%;
+            height: 10%;
+            width: 90%;
+            position: flex;
+            @include font_word(20px, KaiTi_GB2312, bold);
+          }
+          .company_manange_images {
+            margin-left: -3%;
+            height: 80%;
+            .scrollbar-flex-content {
+              display: flex;
+              .company_manange_image {
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                margin-left: 4%;
+                width: 240px;
+                height: 120px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

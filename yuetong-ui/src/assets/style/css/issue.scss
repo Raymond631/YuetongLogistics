@@ -1,0 +1,305 @@
+.container {
+  .content {
+    margin-left: $Mleft;
+    height: $max_height;
+    background-color: $back_color;
+    overflow: hidden;
+  }
+  .page {
+    position: relative;
+    margin-top:-50px;
+    margin-left: 70%;
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.main-form {
+  margin-left: 40px;
+  width: 1530px;
+  height: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  .bill-block {
+    margin: 10px 10px 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 1510px;
+    height: 140px;
+    display: flex;
+
+    &:hover {
+      box-shadow: 0 0 10px rgba(93, 93, 93, 0.5);
+    }
+
+    .main-font {
+      @include main-font;
+    }
+
+    .second-font {
+      @include second-font;
+    }
+
+    .third-font {
+      @include third-font;
+    }
+
+    .fourth-font {
+      @include fourth-font;
+    }
+
+    .title-font {
+      @include title-font;
+    }
+
+    .carrierId {
+      margin-left: 20px;
+      margin-top: 50px;
+      @include main-font;
+    }
+
+    $info_height: 130px;
+
+    .driver {
+      display: grid;
+      width: 155px;
+
+      label {
+        margin-top: 20px;
+        margin-left: 50px;
+      }
+
+      .image {
+        margin-left: 45px;
+        margin-top: 5px;
+        width: 70px;
+        height: 70px;
+      }
+
+      .choDriBtn {
+        margin-left: 30px;
+        font-size: 15px;
+      }
+    }
+
+    .carrier-info {
+      display: flex;
+      height: $info_height;
+      width: 850px;
+
+      .send-info {
+        margin-top: 10px;
+        margin-left: 40px;
+        width: 300px;
+        display: grid;
+        height: $info_height;
+      }
+
+      .time {
+        width: 100px;
+        margin-top: 20px;
+        display: grid;
+      }
+
+      .receive-info {
+        margin-top: 10px;
+        margin-left: 80px;
+        width: 300px;
+        display: grid;
+        height: $info_height;
+      }
+    }
+
+    .manager-info {
+      display: grid;
+
+      .manager-id {
+        margin-top: 20px;
+      }
+
+      .actions {
+        width: 200px;
+        margin-left: 10px;
+
+      }
+    }
+
+    .state {
+      display: grid;
+      align-content: center;
+      font-size: 20px;
+
+      label {
+        font-family: 'Open Sans', sans-serif;
+        color: #a1a1a1;
+      }
+
+      margin: 0 auto;
+    }
+
+  }
+}
+
+.issueCarrierForm {
+  //width,height,top,left
+  @include mask-form(1000px, 980px, 70px, 450px);
+
+  .form-title {
+    padding-left: 400px;
+
+    .closeBtn {
+      width: 80px;
+      margin-left: 300px;
+    }
+  }
+
+  .form-info {
+    background-color: #ffffff;
+    border-radius: 15px;
+    width: 900px;
+    height: 760px;
+    margin: 40px auto 0;
+
+    .flex-item-title {
+      margin-left: 385px;
+      font-family: coca_cola, sans-serif;
+      font-size: 20px;
+    }
+
+    .flex-item {
+      margin-left: 70px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-wrap: wrap;
+
+      .form-item {
+        label {
+          margin-left: 30px;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .flex-item.goods {
+      max-height: 215px;
+      overflow: auto;
+      margin-left: 30px;
+
+      label {
+        width: 50px;
+      }
+
+      .el-input {
+        width: 80px;
+        height: 30px;
+      }
+
+      .deleteGoodsBtn {
+        margin-left: 10px;
+        margin-bottom: 5px;
+        height: 28px;
+      }
+
+    }
+  }
+
+  .addGoodsBtn {
+    margin-left: 10px;
+    margin-bottom: 5px;
+    width: 30px;
+    height: 25px;
+    font-size: 20px;
+  }
+
+  .actions {
+    width: 600px;
+    display: flex;
+    margin-top: 20px;
+    margin-left: 250px;
+
+    .el-button {
+      margin-left: 70px;
+      width: 100px;
+      height: 35px;
+      font-size: 15px;
+    }
+  }
+}
+
+.issueBtn {
+  margin: 20px 45px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 1510px;
+  height: 100px;
+  background-color: $theme_color;
+  border-radius: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: #a1a1a1;
+    color: $theme_color;
+  }
+
+  label {
+    margin: 0 auto;
+    font-size: 30px;
+    color: #ffffff;
+    font-weight: bold;
+    line-height: 100px;
+  }
+}
+
+.myCarriersLabel {
+  font-family: coca_cola, serif;
+  margin-left: 80px;
+  font-size: 20px;
+}
+
+.mask {
+  @include mask;
+}
+
+.detailsForm {
+  //width,height,top,left
+  @include mask-form(1000px, 750px, 150px, 480px);
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+
+  .form-title {
+    padding-left: 400px;
+
+    .closeBtn {
+      width: 80px;
+      margin-left: 300px;
+    }
+  }
+
+  .form-info {
+    margin-left: 50px;
+    display: block;
+    width: 900px;
+
+    .goods-title{
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size:16px;
+    }
+    .el-table{
+      margin-top: 10px;
+      max-height: 200px;
+      overflow: auto;
+    }
+
+    .el-descriptions {
+      margin-bottom: 10px;
+    }
+  }
+}

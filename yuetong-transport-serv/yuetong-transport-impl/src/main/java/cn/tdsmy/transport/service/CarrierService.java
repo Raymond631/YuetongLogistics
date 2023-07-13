@@ -1,7 +1,9 @@
 package cn.tdsmy.transport.service;
 
+import cn.tdsmy.core.exception.ServiceException;
 import cn.tdsmy.transport.beans.Carrier;
 import cn.tdsmy.transport.beans.Goods;
+import cn.tdsmy.transport.beans.vo.CarrierAndDriver;
 import cn.tdsmy.transport.mapper.CarrierMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,20 @@ public class CarrierService {
         carrierMapper.updateCarrier(carrierId, receiveDate, finishedState);
     }
 
-    public List<Carrier> getCarriers(String account) {
-        return carrierMapper.searchCarriers(account);
+    public List<CarrierAndDriver> getCarriers(int queryType, String account) {
+        switch (queryType) {
+            // 待调度
+            case 0: {
+                return carrierMapper.searchInitCarriers(account);
+            }
+            // 运输中
+            case 1: {
+                return carrierMapper.searchScheduledCarriers(account);
+            }
+            default: {
+                throw new ServiceException("查询类型参数异常");
+            }
+        }
+
     }
 }

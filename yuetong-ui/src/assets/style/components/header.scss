@@ -1,0 +1,48 @@
+.header {
+  $height: 100px;
+  @mixin position(
+    $header_left: 100px,
+    $header_lineHeight: $height,
+    $header_position: fixed
+  ) {
+    margin-left: $header_left;
+    line-height: $header_lineHeight;
+    position: $header_position;
+  }
+  height: $height;
+  background-color: white;
+  border-bottom: rgb(220, 223, 230);
+
+  .header_name {
+    @include position(5%);
+    font: {
+      family: coca_cola;
+      size: 45px;
+    }
+  }
+  .header_content {
+    @include position(47%);
+    font: {
+      family: coca_cola;
+      size: 30px;
+    }
+  }
+  .header_photo {
+    margin-top: 10px;
+    @include position(59%);
+  }
+  .header_profile {
+    margin-top: 37px;
+    @include position(64%);
+    font: {
+        size:15px
+    }
+  }
+  .header_log {
+    @include position(73%);
+    margin-top: 1.9%;
+    font: {
+        size:17px
+    }
+  }
+}

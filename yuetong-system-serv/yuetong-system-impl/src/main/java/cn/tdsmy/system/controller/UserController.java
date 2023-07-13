@@ -24,7 +24,7 @@ public class UserController {
 
     @PostMapping("/importUser")
     @Log(title = "批量导入用户", businessType = BusinessType.IMPORT)
-    public AjaxResult importUser(@RequestParam("file") MultipartFile file) throws Exception {
+    public AjaxResult importUser(MultipartFile file) throws Exception {
         ExcelUtil<User> util = new ExcelUtil<>(User.class);
         List<User> userList = util.importExcel(file.getInputStream());
         String message = userService.importUser(userList);

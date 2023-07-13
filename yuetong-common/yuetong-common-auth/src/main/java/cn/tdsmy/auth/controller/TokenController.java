@@ -1,5 +1,6 @@
 package cn.tdsmy.auth.controller;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.tdsmy.auth.service.CaptchaService;
 import cn.tdsmy.auth.service.LoginLogService;
@@ -32,7 +33,8 @@ public class TokenController {
         UserInfoVO userInfo = iSystemService.checkPwd(loginBody);
         if (userInfo != null) {
             StpUtil.login(loginBody.getAccount());
-            UserInfoVO userInfoVO = new UserInfoVO(userInfo.getUsername(), userInfo.getRoleId(), userInfo.getRoleName());
+            SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+            UserInfoVO userInfoVO = new UserInfoVO(userInfo.getUsername(), userInfo.getRoleId(), userInfo.getRoleName(), tokenInfo);
             loginLogService.recordLoginLog(loginBody.getAccount(), "success", "登录成功");
             return AjaxResult.success("登录成功", userInfoVO);
         } else {

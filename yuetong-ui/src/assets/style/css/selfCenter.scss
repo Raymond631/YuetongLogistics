@@ -1,0 +1,65 @@
+.container {
+  .content {
+    margin-left: $Mleft;
+    height: $max_height;
+    background-color: $back_color;
+  }
+}
+
+//走马灯
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 200px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n+1) {
+  background-color: #d3dce6;
+}
+
+.self-info{
+  .basic-info{
+    .head{
+      width:1650px;
+      display: flex;
+      justify-content: center;
+      .image{
+        margin:0 auto;
+        width:100px;
+        height:100px;
+      }
+    }
+    .info{
+      .el-descriptions{
+        width:1500px;
+        margin:0 auto;
+      }
+    }
+
+  }
+
+  .actionBtns{
+    margin-top: 50px;
+    width:1650px;
+    display:flex;
+    justify-content: space-evenly;
+    .actionBtn{
+      width:200px;
+      height: 50px;
+      font-size: 18px;
+    }
+  }
+}
+
+
+
+
+
+
+

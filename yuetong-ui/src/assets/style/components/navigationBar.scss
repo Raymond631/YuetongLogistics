@@ -1,0 +1,97 @@
+.menu {
+  width: 300px;
+  height: $max_height;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 30px;
+  //定义局部变量
+  @mixin font_word($weight: 400, $size: 17px, $family: KaiTi_GB2312) {
+    font: {
+      family: $family;
+      size: $size;
+      weight: $weight;
+    }
+  }
+
+  .title {
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    overflow: hidden;
+    @include font_word(400, 25px);
+    .title_icon{
+      margin-left: 50px;
+      padding-top: 5px;
+      width:60px;
+      height:60px;
+      background-color: $theme_color;
+      //background-color: #18478F;
+      border-radius: 10px;
+      color:white;
+      float: left;
+      font: {
+        size:50px;
+      }
+    }
+    .title_name{
+      margin-left: 110px;
+      margin-top: -10px;
+      height:20px;
+      width:120px;
+      @include font_word(600, 22px, coca_cola);
+    }
+    .title_groupName{
+      height:20px;
+      width:120px;
+      margin-left: 115px;
+      margin-top: 10px;
+      color: $word_color;
+      @include font_word(100, 20px, coca_cola);
+    }
+  }
+
+  .menu_title {
+    margin-left: 53px;
+    padding-bottom: 10px;
+    color: rgba(113, 117, 151);
+    @include font_word(600, 17px, Futura);
+  }
+
+  .menu_item {
+    margin-left: 10px;
+    width: 255px;
+    border-radius: 18px;
+    margin: 10px;
+    .menu_item_icon {
+      margin-left: 10%;
+      margin-top: 5px;
+      font: {
+        size: 40px;
+      }
+    }
+    .menu_item_content {
+      margin-left: 5%;
+      @include font_word();
+    }
+  }
+  .el-menu-item {
+    color: $word_color;
+  }
+
+  .is-active {
+    background-color: $theme_color;
+    color: white;
+  }
+
+  .bottom {
+    height:250px;
+    background-color: $theme_color;
+    width:200px;
+    position: fixed;
+    left:65px;
+    top:70%;
+  }
+}

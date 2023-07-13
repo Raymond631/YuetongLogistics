@@ -54,8 +54,7 @@ public class SaTokenConfigure {
                             .setHeader("Access-Control-Allow-Headers", "*")
                             // 有效时间
                             .setHeader("Access-Control-Max-Age", "3600")
-                            // TODO 允许跨域cookie,可行性待验证
-                            .setHeader("Access-Control-Allow-Credentials", "true")
+//                            .setHeader("Access-Control-Allow-Credentials", "true")
                     ;
                     // 如果是预检请求，则立即返回到前端
                     SaRouter.match(SaHttpMethod.OPTIONS)

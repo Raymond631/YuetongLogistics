@@ -1,0 +1,30 @@
+.container {
+  .content {
+    margin-left: $Mleft;
+    height: $max_height;
+    background-color: $back_color;
+    .logTabs {
+      margin-left: 7%;
+      width: 86%;
+      margin-top: 2px;
+      font-size: 17px;
+      overflow: hidden;
+      .upload {
+        height: 30px;
+        width: 120px;
+        margin-left: 90%;
+        .link {
+          margin-top: -10px;
+          font-size: 15px;
+        }
+      }
+      .table {
+        margin-top: -15px;
+      }
+      .page {
+        margin-top: 10px;
+        margin-left: 70%;
+      }
+    }
+  }
+}
