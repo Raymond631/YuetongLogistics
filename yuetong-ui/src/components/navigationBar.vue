@@ -142,7 +142,7 @@ export default defineComponent({
       activeIndex: "",
       user: {
         username: "yueyue",
-        roleId: 2,
+        roleId: 3,
         roleName: "系统管理员",
       },
       userType: 1,
