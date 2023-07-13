@@ -60,49 +60,45 @@
             <div class="flex-item sender">
               <div class="form-item">
                 <label>发货单位</label>
-                <el-input type="text"></el-input>
+                <el-input type="text" v-model="issueCarrier.sendCompany"></el-input>
               </div>
               <div class="form-item">
                 <label>发货地址</label>
-                <el-input type="text"></el-input>
+                <el-input type="text" v-model="issueCarrier.sendAddress"></el-input>
               </div>
               <div class="form-item">
                 <label>联系人</label>
-                <el-input type="text"></el-input>
+                <el-input type="text" v-model="issueCarrier.sendLinkman"></el-input>
               </div>
               <div class="form-item">
                 <label>联系电话</label>
-                <el-input type="text"></el-input>
+                <el-input type="text" v-model="issueCarrier.sendPhone"></el-input>
               </div>
             </div>
             <label class="flex-item-title">收货信息</label>
             <div class="flex-item receiver">
               <div class="form-item">
                 <label>收货单位</label>
-                <el-input type="text"></el-input>
+                <el-input type="text" v-model="issueCarrier.receiveCompany"></el-input>
               </div>
               <div class="form-item">
                 <label>收货地址</label>
-                <el-input type="text"></el-input>
+                <el-input type="text" v-model="issueCarrier.receiveAddress"></el-input>
               </div>
               <div class="form-item">
                 <label>收货人</label>
-                <el-input type="text"></el-input>
+                <el-input type="text" v-model="issueCarrier.receiveLinkman"></el-input>
               </div>
               <div class="form-item">
                 <label>联系电话</label>
-                <el-input type="text"></el-input>
+                <el-input type="text"  v-model="issueCarrier.receivePhone"></el-input>
               </div>
             </div>
             <label class="flex-item-title">承运单信息</label>
             <div class="flex-item details">
               <div class="form-item">
                 <label>发货时间</label>
-                <el-input type="text"></el-input>
-              </div>
-              <div class="form-item">
-                <label>收货时间</label>
-                <el-input type="text"></el-input>
+                <el-input type="text" v-model="issueCarrier.leaverDate"></el-input>
               </div>
               <div class="form-item">
                 <label>备注</label>
@@ -211,9 +207,9 @@ export default defineComponent({
           "alterTime": "2023-07-12 06:11:28",
           "goodsList": null
         },
-        "driver":{}
+        "driver": {}
       }],
-      currentItem:{
+      currentItem: {
         "carrier": {
           "carriersId": 3,
           "sendCompany": "qui",
@@ -237,7 +233,7 @@ export default defineComponent({
           "alterTime": "2023-07-12 06:11:28",
           "goodsList": null
         },
-        "driver":{}
+        "driver": {}
       },
       issueCarrier: {
         "sendCompany": "mollit amet minim",
@@ -314,7 +310,7 @@ export default defineComponent({
         "volume": 0
       });
     },
-    forDetails(index:number) {
+    forDetails(index: number) {
       this.currentItem = this.myCarrierList[index];
       this.showMask = true;
       this.showDetailsForm = true;
