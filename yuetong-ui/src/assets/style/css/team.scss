@@ -61,7 +61,7 @@
       .truckList{
         margin-left: 15px;
         width:280px;
-        max-height: 110px;
+        max-height: 150px;
         overflow: auto;
       }
     }
@@ -154,4 +154,41 @@
 .editForm {
   //width,height,top,left
   @include mask-form(650px, 500px, 300px, 630px);
+}
+
+.detailsForm {
+  //width,height,top,left
+  @include mask-form(1000px, 680px, 120px, 480px);
+  display:flex;
+  flex-direction: column;
+  .form-title {
+    height:50px;
+    padding-left: 430px;
+
+    .closeBtn {
+      width: 80px;
+      margin-left: 300px;
+    }
+  }
+
+  .form-info {
+    margin-left: 50px;
+    display: block;
+    width: 900px;
+
+    .goods-title{
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size:16px;
+    }
+    .el-table{
+      margin-top: 20px;
+      max-height: 300px;
+      overflow: auto;
+    }
+
+    .el-descriptions {
+      margin-bottom: 50px;
+    }
+  }
 }

@@ -16,27 +16,18 @@
           <div class="action1">
             <label>筛选</label>
           </div>
-          <input
-            class="upload"
-            type="file"
-            accept=".xlsx"
-            @change="uploadFile($event)"
-          />
-          <!-- <el-upload
-            class="action2"
-            action="http://192.168.3.107:10000/system/user/importUser"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            :before-remove="beforeRemove"
-            multiple
-            :limit="1"
-            :on-exceed="handleExceed"
-            :file-list="fileList"
-            name="file"
+          <el-upload
+              ref="uploadForm"
+              :http-request="uploadFile"
+              :limit="1"
+              accept="*.xlsx"
+              action="string"
+              multiple
           >
-            <el-button size="small" class="action2_upload" type="primary">点击上传</el-button>
-            
-          </el-upload> -->
+            <el-button size="small" class="action2" type="primary">
+              <span class="iconfont icon-shangchuan" />上传文件
+            </el-button>
+          </el-upload>
         </div>
       </div>
 
@@ -53,6 +44,7 @@
               src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
               class="image"
             ></el-avatar>
+
             <div class="right-info">
               <label v-text="user.username" class="username"></label>
               <label v-text="'#' + user.role" class="role"></label>
@@ -320,19 +312,6 @@ export default defineComponent({
     this.ready();
   },
   methods: {
-    uploadFile(e: any) {
-      let file = e.target.files[0];
-      console.log(e.target.files);
-      let formdata = new FormData();
-      formdata.append("file", file);
-      uploadUser(formdata)
-        .then((res: any) => {
-          console.log(res);
-        })
-        .catch((err: any) => {
-          console.log(err);
-        });
-    },
     ready() {
       searchUsers(
         this.paginationConfig.currentPage,
@@ -384,16 +363,22 @@ export default defineComponent({
           console.log(err);
         });
     },
-    //上传文件
-    handleRemove(file: any, fileList: any) {
-      console.log(file, fileList);
-    },
-    handlePreview(file: any) {
-      console.log(file);
-    },
 
-    beforeRemove(file: any, fileList: any) {
-      return alert(`确定移除 ${file.name}？`);
+    uploadFile(item:any){
+      let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+      const formData = new FormData();
+      formData.append("file", item.file);
+      uploadUser(
+        formData,
+        user.tokenInfo.tokenValue
+      )
+        .then((res: any) => {
+          console.log(res);
+          alert('上传成功')
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
     },
 
     //点击block查看用户详情信息

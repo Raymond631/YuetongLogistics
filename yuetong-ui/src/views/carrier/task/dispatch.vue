@@ -212,6 +212,7 @@
           >
         </div>
         <template class="form-info">
+<<<<<<< HEAD
           <el-descriptions
             :title="'承运单列表 编号：#' + currentItem.carriersID"
             direction="vertical"
@@ -258,8 +259,25 @@
             <el-descriptions-item label="总费用">{{
               currentItem.totalCost
             }}</el-descriptions-item>
+=======
+          <el-descriptions :title="'承运单列表 编号：#'+currentCarrier.carriersId" direction="vertical" size="large" :column="5"
+                           border>
+            <el-descriptions-item label="发货单位">{{ currentCarrier.sendCompany }}</el-descriptions-item>
+            <el-descriptions-item label="发货地址">{{ currentCarrier.sendAddress }}</el-descriptions-item>
+            <el-descriptions-item label="发货人">{{ currentCarrier.sendLinkman }}</el-descriptions-item>
+            <el-descriptions-item label="联系电话">{{ currentCarrier.sendPhone }}</el-descriptions-item>
+            <el-descriptions-item label="收货单位">{{ currentCarrier.receiveCompany }}</el-descriptions-item>
+            <el-descriptions-item label="收获地址">{{ currentCarrier.receiveAddress }}</el-descriptions-item>
+            <el-descriptions-item label="收货人">{{ currentCarrier.receiveLinkman }}</el-descriptions-item>
+            <el-descriptions-item label="联系方式">{{ currentCarrier.receivePhone }}</el-descriptions-item>
+            <el-descriptions-item label="出发时间">{{ currentCarrier.leaverDate }}</el-descriptions-item>
+            <el-descriptions-item label="送达时间">{{ currentCarrier.receiveDate }}</el-descriptions-item>
+            <el-descriptions-item label="保险费用">{{ currentCarrier.insuranceCost }}</el-descriptions-item>
+            <el-descriptions-item label="运输费用">{{ currentCarrier.transportCost }}</el-descriptions-item>
+            <el-descriptions-item label="总费用">{{ currentCarrier.totalCost }}</el-descriptions-item>
+>>>>>>> e5cf6903c0e3ed8b86051e9691f56b0b7051f881
             <el-descriptions-item label="备注">
-              <el-tag size="small">{{ currentItem.remark }}</el-tag>
+              <el-tag size="small">{{ currentCarrier.remark }}</el-tag>
             </el-descriptions-item>
           </el-descriptions>
         </template>
@@ -365,6 +383,7 @@ export default defineComponent({
       },
       schedulingCarriersList: [
         {
+<<<<<<< HEAD
           carriersId: 0,
           sendCompany: "",
           sendAddress: "",
@@ -420,6 +439,31 @@ export default defineComponent({
             alterTime: "2023-06-26T08:05:08.000+00:00",
           },
         },
+=======
+          "carriersId": 0,
+          "sendCompany": "",
+          "sendAddress": "",
+          "sendLinkman": "",
+          "sendPhone": "",
+          "receiveCompany": "",
+          "receiveAddress": null,
+          "receiveLinkman": "",
+          "receivePhone": "",
+          "leaverDate": "",
+          "receiveDate": "",
+          "finishedState": 0,
+          "insuranceCost": 0,
+          "transportCost": 0,
+          "otherCost": 0,
+          "totalCost": 0,
+          "remark": "",
+          "fkUserID": 0,
+          "checkInTime": "",
+          "isDelete": 0,
+          "alterTime": "",
+          "goodsList": null
+        }
+>>>>>>> e5cf6903c0e3ed8b86051e9691f56b0b7051f881
       ],
       showMask: false,
       showScheForm: false,

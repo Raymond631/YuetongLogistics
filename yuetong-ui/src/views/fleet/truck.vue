@@ -130,7 +130,7 @@
         </el-descriptions>
       </div>
       <div class="actions">
-        <el-button type="primary">绑定</el-button>
+        <el-button type="primary" @click="confirmBtnClick">绑定</el-button>
         <el-button type="info" @click="resetForm">重置</el-button>
       </div>
       <label class="free-title">空闲车辆信息</label>
@@ -208,6 +208,7 @@ import { defineComponent } from "vue";
 import { searchTruck, deleteTruck, uploadTruck } from "../../api/fleet/truck";
 import {searchDrivers} from "../../api/fleet/driver";
 
+
 export default defineComponent({
   name: "truck",
   components: { welcomeHeader, navigationBar },
@@ -215,6 +216,7 @@ export default defineComponent({
     return {
       search: "",
       font_size: "16px",
+
       selectType: 0,
       paginationConfig: {
         currentPage: 1, // 当前页码
@@ -307,6 +309,7 @@ export default defineComponent({
           alterTime: "2023-07-11 07:58:15",
         },
       ],
+
     };
   },
   mounted() {
@@ -401,6 +404,12 @@ export default defineComponent({
       this.selectType = 0;
       this.ready();
     },
+    //点击确认绑定按钮
+    confirmBtnClick() {
+      contact(this.chosenTruck.truckId, this.chosenDriver.driverId).then((res) => {
+        console.log("绑定成功", res);
+      })
+    },
     closeForm() {
       this.showMask = false;
       this.showContactForm = false;
@@ -419,7 +428,8 @@ export default defineComponent({
     resetForm() {
       this.chosenTruck = {};
       this.chosenDriver = {};
-    },
+    }
+
   },
 });
 </script>
