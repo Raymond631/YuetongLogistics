@@ -3,6 +3,14 @@
     margin-left: $Mleft;
     height: $max_height;
     background-color: $back_color;
+    overflow: hidden; 
+  }
+  .page {
+    position: relative;
+    margin-top:-50px;
+    margin-left: 70%;
+    width: 100px;
+    height: 100px;
   }
 }
 

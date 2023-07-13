@@ -17,7 +17,7 @@ export function request(config: any) {
     ],
   });
 
-  instance.defaults.headers.post["Content-Type"] = "multipart/json";
+  instance.defaults.headers.post["Content-Type"] = "application/json";
   //------------------请求拦截-------------------//
   //------------在发送请求之前做些什么------------//
   instance.interceptors.request.use(

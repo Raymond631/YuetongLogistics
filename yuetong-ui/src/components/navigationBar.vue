@@ -142,7 +142,7 @@ export default defineComponent({
       activeIndex: "",
       user: {
         username: "yueyue",
-        roleId: 5,
+        roleId: 1,
         roleName: "系统管理员",
       },
       userType: 1,
@@ -154,7 +154,7 @@ export default defineComponent({
   methods: {
     ready() {
       //刷新页面保持侧边栏选中值
-      sessionStorage.setItem("user", JSON.stringify(this.user));
+      // sessionStorage.setItem("user", JSON.stringify(this.user));
       console.log(this.user.roleId)
       this.user = JSON.parse(sessionStorage.getItem("user") || "{}");
       if (this.user.roleId && this.user.roleName && this.user.username) {

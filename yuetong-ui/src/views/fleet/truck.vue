@@ -13,6 +13,19 @@
           ></el-input>
         </div>
         <div class="actions">
+            <el-upload
+              ref="uploadForm"
+              :http-request="uploadFile"
+              :limit="1"
+              accept="*.xlsx"
+              action="string"
+              multiple
+          >
+            <el-button size="small" class="action2" type="primary">
+              <span class="iconfont icon-shangchuan" />上传文件
+            </el-button>
+          </el-upload>
+
           <div class="action1">
             <label @click="contactDriver">绑定驾驶员</label>
           </div>
@@ -207,7 +220,8 @@ import welcomeHeader from "../../components/header.vue";
 import { defineComponent } from "vue";
 import { searchTruck, deleteTruck, uploadTruck } from "../../api/fleet/truck";
 import {searchDrivers} from "../../api/fleet/driver";
-
+import {contact} from "../../api/fleet/truck";
+import axios from 'axios'
 
 export default defineComponent({
   name: "truck",
@@ -409,6 +423,30 @@ export default defineComponent({
       contact(this.chosenTruck.truckId, this.chosenDriver.driverId).then((res) => {
         console.log("绑定成功", res);
       })
+    },
+    uploadFile(item:any){
+      let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+      const formData = new FormData();
+      formData.append("file", item.file);
+      let config = {
+        method: 'post',
+        url: '/api/fleet/truck/importTruck',
+        headers: {
+          'satoken': user.tokenInfo.tokenValue,
+          'Accept': '*/*',
+          'Connection': 'keep-alive',
+          'Content-Type': 'multipart/form-data; boundary=--------------------------725311584525032455700542',
+        },
+        data : formData
+      };
+      axios(config)
+          .then(function (response) {
+            alert('上传成功')
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     },
     closeForm() {
       this.showMask = false;
