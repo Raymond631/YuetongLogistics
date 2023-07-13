@@ -161,6 +161,21 @@
           </el-table-column>
         </el-table>
 
+        <div class="page2">
+        <el-pagination
+          v-model:currentPage="paginationConfig_driver.currentPage"
+          layout="total, prev, pager, next"
+          small
+          :page-size="paginationConfig_driver.pageSize"
+          :total="paginationConfig_driver.total"
+          @current-change="handleCurrentChange_driver"
+        />
+      </div>
+        <div class="actions">
+          <el-button type="primary">绑定</el-button>
+          <el-button type="info" @click="resetForm">重置</el-button>
+        </div>
+
         <label class="free-title">空闲车辆信息</label>
         <el-table :data="freeTruckList" :style="'font-size: '+font_size">
           <el-table-column prop="truckId" label="编号" width="60px"></el-table-column>
@@ -175,6 +190,16 @@
             </template>
           </el-table-column>
         </el-table>
+        <div class="page2">
+        <el-pagination
+          v-model:currentPage="paginationConfig_truck.currentPage"
+          layout="total, prev, pager, next"
+          small
+          :page-size="paginationConfig_truck.pageSize"
+          :total="paginationConfig_truck.total"
+          @current-change="handleCurrentChange_truck"
+        />
+      </div>
       </div>
     </div>
   </div>
@@ -185,7 +210,8 @@ import welcomeHeader from "../../components/header.vue";
 import navigationBar from "../../components/navigationBar.vue";
 import ytTable from "../../components/yt-table.vue";
 import {searchDrivers, deleteDrivers} from "../../api/fleet/driver";
-import {contact} from "@/api/fleet/truck";
+import { searchTruck } from "../../api/fleet/truck";
+import {contact} from "../../api/fleet/truck";
 
 export default {
   name: "driver",
@@ -197,6 +223,18 @@ export default {
       paginationConfig: {
         currentPage: 1, // 当前页码
         pageSize: 12, // 每页显示的条数
+        pageCount: 1, //总共有多少页
+        total: 1, // 总条数
+      },
+      paginationConfig_truck: {
+        currentPage: 1, // 当前页码
+        pageSize: 3, // 每页显示的条数
+        pageCount: 1, //总共有多少页
+        total: 1, // 总条数
+      },
+      paginationConfig_driver: {
+        currentPage: 1, // 当前页码
+        pageSize: 3, // 每页显示的条数
         pageCount: 1, //总共有多少页
         total: 1, // 总条数
       },
@@ -288,11 +326,12 @@ export default {
             console.log(res);
             this.driverList = res.data.list;
             this.paginationConfig.total = Number(res.data.total);
-            this.paginationConfig.pageCount = Number(res.data.pageNum);
           })
           .catch((err: any) => {
             console.log(err);
           });
+          this.getTruckFree();
+        this.getDriverFree();
     },
     handlePageChange(val: number) {
       this.paginationConfig.currentPage = val;
@@ -331,6 +370,47 @@ export default {
     handleAll() {
       this.selectType = 0;
       this.ready()
+    },
+
+    handleCurrentChange_truck(val: number) {
+      this.paginationConfig_truck.currentPage = val;
+      this.getTruckFree();
+    },
+    getTruckFree(){
+      searchTruck(
+        this.paginationConfig_truck.currentPage,
+        this.paginationConfig_truck.pageSize,
+        2
+      )
+        .then((res: any) => {
+          console.log(res);
+          //获取所有未绑定的车辆
+          this.freeTruckList = res.data.list;
+          this.paginationConfig_truck.total = Number(res.data.total);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    },
+    handleCurrentChange_driver(val: number) {
+      this.paginationConfig_driver.currentPage = val;
+      this.getDriverFree();
+    },
+    getDriverFree(){
+      searchDrivers(
+        this.paginationConfig_driver.currentPage,
+        this.paginationConfig_driver.pageSize,
+        2
+      )
+        .then((res: any) => {
+          console.log(res);
+          //获取所有未绑定的司机
+          this.freeDriverList = res.data.list;
+          this.paginationConfig_driver.total = Number(res.data.total);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
     },
     closeForm(){
       this.showMask = false;

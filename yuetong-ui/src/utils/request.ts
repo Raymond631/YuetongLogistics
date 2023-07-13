@@ -17,19 +17,19 @@ export function request(config: any) {
     ],
   });
 
-  instance.defaults.headers.post["Content-Type"] = "application/json; ";
+  instance.defaults.headers.post["Content-Type"] = "multipart/form-data";
   //------------------请求拦截-------------------//
   //------------在发送请求之前做些什么------------//
   instance.interceptors.request.use(
     (config) => {
-      // 若存在token则带token
-      //const token = window.localStorage.getItem('token');
-      const token = store.state.token;
-      if (token) {
-        // config.headers.Authorization = token;
-      }
-      // 放行
-      return config;
+        // 若存在token则带token
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        // const token = store.state.token;
+        if (user.tokenInfo) {
+          config.headers.satoken = user.tokenInfo.tokenValue;
+        }
+        // 放行
+        return config;
     },
     (err) => {
       console.log("请求拦截=>", err);
@@ -43,6 +43,31 @@ export function request(config: any) {
     (res) => {
       //例：后端数据处理错误，并返回错误原因；前端获取错误原因并展示
       console.log("响应信息=>", res);
+      let alterMessage = '';
+      switch (res.data.code) {
+        case 400:
+          alterMessage = "错误请求";
+          break;
+        case 401:
+          alterMessage = "未登录";
+          break;
+        case 403:
+          alterMessage = "无权限";
+          break;
+        case 404:
+          alterMessage = "请求错误,未找到该资源";
+          // window.location.href = "/NotFound";
+          break;
+        case 405:
+          alterMessage = "请求方法未允许";
+          break;
+        case 500:
+          alterMessage = "系统内部错误";
+          break;
+      }
+      if(alterMessage !== ''){
+        alert(alterMessage);
+      }
       //这里还需要添加一个token过期之后的token移除
       if (res.data.success == false) {
         alert({

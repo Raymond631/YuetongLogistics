@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-    <navigationBar/>
+    <navigationBar />
     <div class="content">
-      <welcomeHeader/>
+      <welcomeHeader />
       <div class="block-list">
         <div class="search">
           <el-input
-              type="text"
-              class="search-input"
-              v-model="search"
-              placeholder="请搜索用户"
+            type="text"
+            class="search-input"
+            v-model="search"
+            placeholder="请搜索用户"
           ></el-input>
         </div>
         <div class="actions">
@@ -17,75 +17,80 @@
             <label>筛选</label>
           </div>
           <el-upload
-              class="action2"
-              action="http://192.168.3.107:10000/system/user/importUser"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :before-remove="beforeRemove"
-              multiple
+              ref="uploadForm"
+              :http-request="uploadFile"
               :limit="1"
-              :on-exceed="handleExceed"
-              :file-list="fileList"
-              name="file"
+              accept="*.xlsx"
+              action="string"
+              multiple
           >
-            <el-button size="small" class="action2_upload" type="primary">点击上传</el-button>
-
+            <el-button size="small" class="action2" type="primary">
+              <span class="iconfont icon-shangchuan" />上传文件
+            </el-button>
           </el-upload>
         </div>
       </div>
 
       <div class="user-main">
-        <div class="user-block" v-for="(user,index) in userList" :key="user.account">
+        <div
+          class="user-block"
+          v-for="(user, index) in userList"
+          :key="user.account"
+          @click="detailsClick(index)"
+        >
           <div class="basic-info">
-            <el-avatar type="image" :src="user.image" class="image" @click="detailsClick(index)" style="cursor: pointer;"></el-avatar>
+            <el-avatar
+              type="image"
+              src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              class="image"
+            ></el-avatar>
+
             <div class="right-info">
               <label v-text="user.username" class="username"></label>
               <label v-text="'#' + user.role" class="role"></label>
               <div class="icons">
                 <el-popover
-                    placement="top-start"
-                    title="修改用户权限"
-                    :width="20"
-                    trigger="hover"
-                    :content="'当前权限:' + user.roleId"
+                  placement="top-start"
+                  title="修改用户权限"
+                  :width="20"
+                  trigger="hover"
+                  :content="'当前权限:' + user.roleId"
                 >
                   <template #reference>
                     <el-icon
-                        :size="30"
-                        :color="'#0e6f64'"
-                        class="icon"
-                        @click="
-                        changeAuthority(index)
-                      "
+                      :size="30"
+                      :color="'#0e6f64'"
+                      class="icon"
+                      @click="changeAuthority(index)"
                     >
-                      <Avatar/>
+                      <Avatar />
                     </el-icon>
                   </template>
                 </el-popover>
 
                 <el-popover
-                    placement="top-start"
-                    title="联系方式"
-                    :width="20"
-                    trigger="hover"
-                    :content="user.phone"
+                  placement="top-start"
+                  title="联系方式"
+                  :width="20"
+                  trigger="hover"
+                  :content="user.phone"
                 >
                   <template #reference>
                     <el-icon :size="30" :color="'#0e6f64'" class="icon">
-                      <PhoneFilled/>
+                      <PhoneFilled />
                     </el-icon>
                   </template>
                 </el-popover>
                 <el-popover
-                    placement="top-start"
-                    title="用户名"
-                    :width="20"
-                    trigger="hover"
-                    :content="user.account"
+                  placement="top-start"
+                  title="用户名"
+                  :width="20"
+                  trigger="hover"
+                  :content="user.account"
                 >
                   <template #reference>
                     <el-icon :size="30" :color="'#0e6f64'" class="icon">
-                      <ChatLineRound/>
+                      <ChatLineRound />
                     </el-icon>
                   </template>
                 </el-popover>
@@ -93,13 +98,13 @@
             </div>
 
             <el-popconfirm
-                title="这是一段内容确定删除吗？"
-                @confirm="handleDelete(user.userId)"
+              title="这是一段内容确定删除吗？"
+              @confirm="handleDelete(user.userId)"
             >
               <template #reference>
                 <el-button class="dot">
                   <el-icon>
-                    <CloseBold/>
+                    <CloseBold />
                   </el-icon>
                 </el-button>
               </template>
@@ -117,12 +122,12 @@
       </div>
       <div class="page">
         <el-pagination
-            v-model:currentPage="paginationConfig.currentPage"
-            layout="total, prev, pager, next"
-            :page-size="paginationConfig.pageSize"
-            :total="paginationConfig.total"
-            :page-count="paginationConfig.pageCount"
-            @current-change="handlePageChange"
+          v-model:currentPage="paginationConfig.currentPage"
+          layout="total, prev, pager, next"
+          :page-size="paginationConfig.pageSize"
+          :total="paginationConfig.total"
+          :page-count="paginationConfig.pageCount"
+          @current-change="handlePageChange"
         />
       </div>
     </div>
@@ -131,74 +136,97 @@
     <div style="margin-top: -20px">
       <span style="font-size: 20px">当前用户ID：{{ currentUser.userId }}</span>
       <span style="font-size: 20px; margin-left: 10%"
-      >当前用户：{{ currentUser.username }}</span
+        >当前用户：{{ currentUser.username }}</span
       >
       <span style="font-size: 20px; margin-left: 10%"
-      >当前权限：{{ currentUser.roleId }}</span
+        >当前权限：{{ currentUser.roleId }}</span
       >
       <span style="font-size: 20px; margin-left: 10%; color: red"
-      >修改权限：{{ authority.label }}</span
+        >修改权限：{{ authority.label }}</span
       >
     </div>
 
-    <br/>
+    <br />
     <el-select
-        v-model="authority"
-        class="m-2"
-        placeholder="Select"
-        size="large"
+      v-model="authority"
+      class="m-2"
+      placeholder="Select"
+      size="large"
     >
       <el-option
-          v-for="item in authorities"
-          :key="item.value"
-          :label="item.label"
-          :value="item"
+        v-for="item in authorities"
+        :key="item.value"
+        :label="item.label"
+        :value="item"
       />
     </el-select>
     <el-button
-        type="primary"
-        class="authorityUpdate"
-        style="
+      type="primary"
+      class="authorityUpdate"
+      style="
         float: left;
         margin-top: -40px;
         margin-left: 80%;
         width: 100px;
         height: 40px;
       "
-        @click="updateAuthority"
-    >提交
-    </el-button
-    >
+      @click="updateAuthority"
+      >提交
+    </el-button>
   </el-dialog>
   <div class="mask" v-if="showMask"></div>
   <div class="details" v-if="showDetails">
     <div class="form-title">
       <label>用户信息详情</label>
-      <el-button type="danger" class="closeBtn" @click="closeForm">关闭</el-button>
+      <el-button type="danger" class="closeBtn" @click="closeForm"
+        >关闭</el-button
+      >
     </div>
     <template class="form-info">
-      <el-descriptions :title="'用户信息 编号：#'+currentUser.userId" direction="vertical" size="large"
-                       :column="3" border>
-        <el-descriptions-item label="姓名">{{ currentUser.username }}</el-descriptions-item>
-        <el-descriptions-item label="性别">{{ currentUser.sex }}</el-descriptions-item>
-        <el-descriptions-item label="权限角色">{{ currentUser.roleId }}</el-descriptions-item>
-        <el-descriptions-item label="联系方式">{{ currentUser.phone }}</el-descriptions-item>
-        <el-descriptions-item label="邮箱">{{ currentUser.email }}</el-descriptions-item>
-        <el-descriptions-item label="登记时间">{{ currentUser.checkInTime }}</el-descriptions-item>
-        <el-descriptions-item label="更新时间">{{ currentUser.alterTime }}</el-descriptions-item>
-        <el-descriptions-item label="昵称">{{ currentUser.username }}</el-descriptions-item>
-        <el-descriptions-item label="密码">{{ currentUser.password }}</el-descriptions-item>
+      <el-descriptions
+        :title="'用户信息 编号：#' + currentUser.userId"
+        direction="vertical"
+        size="large"
+        :column="3"
+        border
+      >
+        <el-descriptions-item label="姓名">{{
+          currentUser.username
+        }}</el-descriptions-item>
+        <el-descriptions-item label="性别">{{
+          currentUser.sex
+        }}</el-descriptions-item>
+        <el-descriptions-item label="权限角色">{{
+          currentUser.roleId
+        }}</el-descriptions-item>
+        <el-descriptions-item label="联系方式">{{
+          currentUser.phone
+        }}</el-descriptions-item>
+        <el-descriptions-item label="邮箱">{{
+          currentUser.email
+        }}</el-descriptions-item>
+        <el-descriptions-item label="登记时间">{{
+          currentUser.checkInTime
+        }}</el-descriptions-item>
+        <el-descriptions-item label="更新时间">{{
+          currentUser.alterTime
+        }}</el-descriptions-item>
+        <el-descriptions-item label="昵称">{{
+          currentUser.username
+        }}</el-descriptions-item>
+        <el-descriptions-item label="密码">{{
+          currentUser.password
+        }}</el-descriptions-item>
         <el-descriptions-item label="备注">
           <el-tag size="small">{{ currentUser.remark }}</el-tag>
         </el-descriptions-item>
       </el-descriptions>
     </template>
-
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import navigationBar from "../../components/navigationBar.vue";
 import welcomeHeader from "../../components/header.vue";
 import ytTable from "../../components/yt-table.vue";
@@ -223,18 +251,18 @@ export default defineComponent({
         label: "系统管理员",
       },
       currentUser: {
-        "role": "系统管理员",
-        "image": "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        "roleId": 1,
-        "userId": 1,
-        "account": "abc",
-        "password": "123",
-        "username": "hahah",
-        "sex": "男",
-        "phone": "123",
-        "email": "123@qq.com",
-        "checkInTime": "2023-07-06 03:13:01",
-        "alterTime": "2023-07-06 03:13:11"
+        role: "系统管理员",
+        image:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+        roleId: 1,
+        userId: 1,
+        account: "abc",
+        password: "123",
+        username: "hahah",
+        sex: "男",
+        phone: "123",
+        email: "123@qq.com",
+        checkInTime: "2023-07-06 03:13:01",
+        alterTime: "2023-07-06 03:13:11",
       },
       currentUsername: "",
       currentRoleContent: "",
@@ -247,18 +275,19 @@ export default defineComponent({
 
       userList: [
         {
-          "role": "系统管理员",
-          "image": "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-          "roleId": 1,
-          "userId": 1,
-          "account": "abc",
-          "password": "123",
-          "username": "hahah",
-          "sex": "男",
-          "phone": "123",
-          "email": "123@qq.com",
-          "checkInTime": "2023-07-06 03:13:01",
-          "alterTime": "2023-07-06 03:13:11"
+          role: "系统管理员",
+          image:
+            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+          roleId: 1,
+          userId: 1,
+          account: "abc",
+          password: "123",
+          username: "hahah",
+          sex: "男",
+          phone: "123",
+          email: "123@qq.com",
+          checkInTime: "2023-07-06 03:13:01",
+          alterTime: "2023-07-06 03:13:11",
         },
       ],
 
@@ -278,25 +307,25 @@ export default defineComponent({
       ],
     };
   },
-  components: {welcomeHeader, navigationBar, ytTable},
+  components: { welcomeHeader, navigationBar, ytTable },
   mounted() {
     this.ready();
   },
   methods: {
     ready() {
       searchUsers(
-          this.paginationConfig.currentPage,
-          this.paginationConfig.pageSize
+        this.paginationConfig.currentPage,
+        this.paginationConfig.pageSize
       )
-          .then((res: any) => {
-            console.log(res);
-            this.userList = res.data.list;
-            this.paginationConfig.total = Number(res.data.total);
-            this.paginationConfig.pageCount = Number(res.data.pageNum);
-          })
-          .catch((err: any) => {
-            console.log(err);
-          });
+        .then((res: any) => {
+          console.log(res);
+          this.userList = res.data.list;
+          this.paginationConfig.total = Number(res.data.total);
+          this.paginationConfig.pageCount = Number(res.data.pageNum);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
     },
     handlePageChange(val: number) {
       this.paginationConfig.currentPage = val;
@@ -306,15 +335,15 @@ export default defineComponent({
     handleDelete(userId: number) {
       let that = this;
       deleteUser(userId)
-          .then((res: any) => {
-            console.log("delete success");
-            //重新请求该页面数据
-            that.ready();
-            console.log(res);
-          })
-          .catch((err: any) => {
-            console.log(err);
-          });
+        .then((res: any) => {
+          console.log("delete success");
+          //重新请求该页面数据
+          that.ready();
+          console.log(res);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
     },
     //修改权限
     changeAuthority(index: number) {
@@ -324,39 +353,44 @@ export default defineComponent({
     //提交修改权限
     updateAuthority() {
       updateUser(this.currentUser.userId, this.authority.value)
-          .then((res: any) => {
-            console.log("update success");
-            this.dialogTableVisible = false;
-            //重新请求该页面数据
-            this.ready();
-          })
-          .catch((err: any) => {
-            console.log(err);
-          });
+        .then((res: any) => {
+          console.log("update success");
+          this.dialogTableVisible = false;
+          //重新请求该页面数据
+          this.ready();
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
     },
-    //上传文件
-    handleRemove(file: any, fileList: any) {
-      console.log(file, fileList);
+
+    uploadFile(item:any){
+      let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+      const formData = new FormData();
+      formData.append("file", item.file);
+      uploadUser(
+        formData,
+        user.tokenInfo.tokenValue
+      )
+        .then((res: any) => {
+          console.log(res);
+          alert('上传成功')
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
     },
-    handlePreview(file: any) {
-      console.log(file);
-    },
-    handleExceed(files: any, fileList: any) {
-      alert(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-    },
-    beforeRemove(file: any, fileList: any) {
-      return alert(`确定移除 ${file.name}？`);
-    },
+
     //点击block查看用户详情信息
-    detailsClick(index:number){
+    detailsClick(index: number) {
       this.currentUser = this.userList[index];
       this.showMask = true;
       this.showDetails = true;
     },
-    closeForm(){
+    closeForm() {
       this.showMask = false;
       this.showDetails = false;
-    }
+    },
   },
 });
 </script>

@@ -41,7 +41,7 @@
     height: $max_height;
     //background-color: $back_color;
     background-color: #f6f6f6;
-
+    overflow: hidden;
     .title {
       margin: 0 auto;
       width: 100%;
@@ -209,7 +209,10 @@
 
       }
     }
-
+    .page2 {
+      margin-top: -30px;
+      margin-left: 65%;
+    }
     .mask {
       @include mask;
     }
@@ -304,6 +307,10 @@
         }
       }
     }
+  }
+  .page {
+    margin-top: -60px;
+    margin-left: 75%;
   }
 }
 

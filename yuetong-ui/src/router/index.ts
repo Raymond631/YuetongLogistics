@@ -38,15 +38,15 @@ const router = createRouter({
       path: "/authentication/main",
       name: "main",
       component: () => import("../views/authentication/main.vue"),
-      // beforeEnter: (to, from, next) => {
-      //   let user = JSON.parse(sessionStorage.getItem("user") || "{}");
-      //   if (user.roleId) {
-      //     next(); //放行
-      //   } else {
-      //     alert("抱歉，您还没有登陆！");
-      //     next({ name: "home" });
-      //   }
-      // },
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(sessionStorage.getItem("user") || "{}");
+        if (user.roleId) {
+          next(); //放行
+        } else {
+          alert("抱歉，您还没有登陆！");
+          next({ name: "home" });
+        }
+      },
     },
     {
       path: "/carrier/bill/issue",

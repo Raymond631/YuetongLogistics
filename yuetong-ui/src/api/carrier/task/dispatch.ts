@@ -1,15 +1,15 @@
 import { request } from '@/utils/request';
 
-export function allSchedulingCarriers() {
+export function allSchedulingCarriers(pageNum: number, pageSize: number) {
     return request({
-        url: `/transport/scheduling/getCarriers`,
+        url: `/transport/scheduling/getCarriers?pageNum=${pageNum}&pageSize=${pageSize}`,
         method: 'get',
     })
 }
 
-export function allFreeTruckAndDriver() {
+export function allFreeTruckAndDriver(pageNum: number, pageSize: number) {
     return request({
-        url: `/transport/scheduling/freeTruck`,
+        url: `/transport/scheduling/freeTruck?pageNum=${pageNum}&pageSize=${pageSize}`,
         method: 'get',
     })
 }

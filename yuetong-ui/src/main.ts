@@ -14,7 +14,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 app.use(VueAxios, axios);
-axios.defaults.withCredentials = true  //跨域请求带上cookie
+//axios.defaults.withCredentials = true  //跨域请求带上cookie
 app.use(store)
 app.use(router)
 app.mount('#app')

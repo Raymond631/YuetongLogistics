@@ -28,7 +28,7 @@ export function uploadTruck(data:any) {
 }
 
 
-export function contact(truckId,driverId) {
+export function contact(truckId:any,driverId:any) {
     return request({
         url: `/fleet/contact?truckId=${truckId}&driverId=${driverId}`,
         method: 'post',
