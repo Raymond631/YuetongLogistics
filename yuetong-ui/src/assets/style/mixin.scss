@@ -1,0 +1,145 @@
+$theme_color: rgb(14, 111, 100);
+$word_color: rgba(127, 131, 133);
+$max_height: 100vh;
+$max_width: 1570px;
+$back_color: #f6f6f6;
+$Mleft: 330px;
+@font-face {
+  font-family: coca_cola;
+  src: url('./font/coca_cola.ttf')
+}
+
+//遮罩层
+@mixin mask {
+  background-color: rgb(0, 0, 0);
+  opacity: 0.3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+//遮罩层上的编辑表单
+@mixin mask-form($width,$height,$top,$left) {
+  position: fixed;
+  display: grid;
+  top: $top;
+  left: $left;
+  width: $width;
+  height: $height;
+  overflow: auto;
+  border-radius: 20px;
+  background-color: $back_color;
+  z-index: 4;
+
+  .form-title {
+    width: $width;
+    font-family: coca_cola, serif;
+    font-size: 30px;
+    margin: 30px auto;
+  }
+
+  .form-item {
+    display: flex;
+    margin: 20px 0 auto;
+
+    label {
+      font-size: 18px;
+      margin-left: 120px;
+      margin-right: 20px;
+      width: 100px;
+      text-align: right;
+    }
+
+    .form-input,.el-date-editor.el-input {
+      width: 250px;
+    }
+  }
+
+  .actionBtns {
+    width: 333px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: space-between;
+
+    .actionBtn {
+      width: 120px;
+    }
+  }
+}
+
+//卡片样式
+@mixin card($width,$height) {
+  background-color: #ffffff;
+  border-radius: 15px;
+  width: $width;
+  height: $height;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  display: grid;
+  .title {
+    font: {
+      family: coca_cola;
+      size: 30px;
+    }
+    height: 50px;
+    margin: 20px auto 0;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    height: 50px;
+
+    label {
+      width: 70px;
+      margin-left: 50px;
+    }
+
+    .el-input {
+      margin-left: 10px;
+      width: $width - 200px;
+      height: 40px;
+    }
+  }
+}
+
+//承运单样式
+@mixin title-font {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+@mixin main-font {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+@mixin second-font {
+  font-family: "宋体", sans-serif;
+  font-size: 15px;
+  color: #4f7df0;
+}
+
+@mixin third-font {
+  font-size: 15px;
+}
+
+@mixin fourth-font {
+  color: #a1a1a1;
+  font-size: 13px;
+}
+
+@mixin action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 60px;
+  border-radius: 15px;
+  margin-left: 60px;
+}

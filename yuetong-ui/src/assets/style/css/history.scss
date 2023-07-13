@@ -1,0 +1,259 @@
+@mixin title-font {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+@mixin main-font {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+@mixin second-font {
+  font-family: "宋体", sans-serif;
+  font-size: 15px;
+  color: #4f7df0;
+}
+
+@mixin third-font {
+  font-size: 15px;
+}
+
+@mixin fourth-font {
+  color: #a1a1a1;
+  font-size: 13px;
+}
+
+@mixin action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 60px;
+  border-radius: 15px;
+  margin-left: 60px;
+}
+
+.container {
+  .content {
+    margin-left: $Mleft;
+    height: $max_height;
+    //background-color: $back_color;
+    background-color: #f6f6f6;
+
+    .title {
+      margin: 0 auto;
+      width: 100%;
+      height: 110px;
+      display: flex;
+      justify-content: space-between;
+
+      .search {
+        margin-top: 30px;
+        margin-left: 50px;
+        width: 30%;
+
+        .search-input {
+          height: 60px;
+          font-size: 20px;
+        }
+      }
+
+      .actions {
+        margin-top: 30px;
+        margin-right: 100px;
+        width: 50%;
+        display: flex;
+        justify-content: right;
+
+        .action1 {
+          color: $theme_color;
+          border: 2px solid $theme_color;
+          background-color: #eff4f4;
+          @include action;
+          &:hover {
+            color: #ffffff;
+            background-color: $theme_color;
+            transition: 0.5s;
+          }
+        }
+
+      }
+    }
+
+    .main-form {
+      margin-left: 40px;
+      width: 1530px;
+      height: 850px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      overflow: auto;
+
+      .bill-block {
+        margin: 10px 10px 10px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        width: 1510px;
+        height: 140px;
+        display: flex;
+
+        &:hover {
+          box-shadow: 0 0 10px rgba(93, 93, 93, 0.5);
+        }
+
+        .main-font {
+          @include main-font;
+        }
+
+        .second-font {
+          @include second-font;
+        }
+
+        .third-font {
+          @include third-font;
+        }
+
+        .fourth-font {
+          @include fourth-font;
+        }
+
+        .title-font {
+          @include title-font;
+        }
+
+        .carrierId {
+          margin-left: 20px;
+          margin-top: 50px;
+          width: 23px;
+          @include main-font;
+        }
+
+        $info_height: 130px;
+
+        .user {
+          display: grid;
+          width: 170px;
+
+          label {
+            margin-left: 10px;
+          }
+
+          .image {
+            margin-left: 60px;
+            margin-top: 10px;
+            width: 70px;
+            height: 70px;
+          }
+
+          .driver-info {
+            margin-left: 20px;
+            height: 50px;
+            display: grid;
+
+            .driver-tag {
+              margin-top: 5px;
+            }
+          }
+        }
+
+        .carrier-info {
+          display: flex;
+          height: $info_height;
+          width: 850px;
+
+          .send-info {
+            margin-top: 10px;
+            margin-left: 60px;
+            width: 300px;
+            display: grid;
+            height: $info_height;
+          }
+
+          .time {
+            width: 100px;
+            margin-top: 20px;
+            display: grid;
+          }
+
+          .receive-info {
+            margin-top: 10px;
+            margin-left: 50px;
+            width: 300px;
+            display: grid;
+            height: $info_height;
+          }
+        }
+
+        .manager-info {
+          display: grid;
+
+          .manager-id {
+            margin-top: 20px;
+          }
+
+          .actions {
+            width: 200px;
+            margin-left: 10px;
+
+          }
+        }
+
+        .state {
+          display: grid;
+          align-content: center;
+          font-size: 20px;
+
+          label {
+            font-family: 'Open Sans', sans-serif;
+            color: #a1a1a1;
+          }
+
+          margin: 0 auto;
+        }
+      }
+
+    }
+
+    .mask {
+      @include mask;
+    }
+
+    .details {
+      //width,height,top,left
+      @include mask-form(1000px, 1000px, 60px, 480px);
+
+      .form-title {
+        padding-left: 400px;
+
+        .closeBtn {
+          width: 80px;
+          margin-left: 300px;
+        }
+      }
+
+      .form-info {
+        margin-left: 50px;
+        display: block;
+        width: 900px;
+
+        .goods-title{
+          font-family: sans-serif;
+          font-weight: bold;
+          font-size:16px;
+        }
+        .el-table{
+          margin-top: 10px;
+        }
+
+        .el-descriptions {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+  }
+}
+
+

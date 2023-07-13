@@ -1,47 +1,34 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<template>
+  <RouterView v-if="isRouterShow" />
+</template>
+<script lang="ts">
+import { RouterLink, RouterView } from "vue-router";
+export default {
+  data() {
+    return {
+      naviBarShow: false,
+      isRouterShow: true,
+    };
+  },
+  methods: {},
+  // 对路由监听，获取当前页面地址
+  watch: {
+    $route: function () {
+      //若为index页面则不显示侧边导航栏
+      if (
+        this.$route.path === "/" ||
+        this.$route.path === "/authentication/login" ||
+        this.$route.path === "/about"
+      ) {
+        this.naviBarShow = false;
+      } else {
+        this.naviBarShow = true;
+      }
+    },
+  },
+};
 </script>
 
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
-</template>
-
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
+/* @import "../src/assets/main.css"; */
 </style>

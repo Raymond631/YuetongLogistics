@@ -1,0 +1,317 @@
+@mixin title-font {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+@mixin main-font {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+@mixin second-font {
+  font-family: "宋体", sans-serif;
+  font-size: 15px;
+  color: #4f7df0;
+}
+
+@mixin third-font {
+  font-size: 15px;
+}
+
+@mixin fourth-font {
+  color: #a1a1a1;
+  font-size: 13px;
+}
+
+@mixin action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 60px;
+  border-radius: 15px;
+  margin-left: 60px;
+}
+
+.container {
+  .content {
+    margin-left: $Mleft;
+    height: $max_height;
+    //background-color: $back_color;
+    background-color: #f6f6f6;
+    overflow: hidden;
+    .title {
+      margin: 0 auto;
+      width: 100%;
+      height: 110px;
+      display: flex;
+      justify-content: space-between;
+
+      .search {
+        margin-top: 30px;
+        margin-left: 50px;
+        width: 30%;
+
+        .search-input {
+          height: 60px;
+          font-size: 20px;
+        }
+      }
+
+      .actions {
+        margin-top: 30px;
+        margin-right: 100px;
+        width: 50%;
+        display: flex;
+        justify-content: right;
+
+        .action1 {
+          color: $theme_color;
+          border: 2px solid $theme_color;
+          background-color: #eff4f4;
+          @include action;
+          &:hover {
+            color: #ffffff;
+            background-color: $theme_color;
+            transition: 0.5s;
+          }
+        }
+
+      }
+    }
+
+    .main-form {
+      margin-left: 40px;
+      width: 1530px;
+      height: 850px;
+      display: flex;
+      flex-wrap: wrap;
+      overflow: auto;
+      flex-direction: column;
+
+      .bill-block {
+        margin: 10px 10px 10px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        width: 1510px;
+        height: 140px;
+        display: flex;
+
+        &:hover {
+          box-shadow: 0 0 10px rgba(93, 93, 93, 0.5);
+        }
+
+        .main-font {
+          @include main-font;
+        }
+
+        .second-font {
+          @include second-font;
+        }
+
+        .third-font {
+          @include third-font;
+        }
+
+        .fourth-font {
+          @include fourth-font;
+        }
+
+        .title-font {
+          @include title-font;
+        }
+
+        .carrierId {
+          margin-left: 20px;
+          margin-top: 50px;
+          @include main-font;
+        }
+
+        $info_height: 130px;
+
+        .driver {
+          display: grid;
+          width: 155px;
+
+          label {
+            margin-top: 20px;
+            margin-left: 50px;
+          }
+
+          .image {
+            margin-left: 45px;
+            margin-top: 5px;
+            width: 70px;
+            height: 70px;
+          }
+
+          .choDriBtn {
+            margin-left: 30px;
+            font-size: 15px;
+          }
+        }
+
+        .carrier-info {
+          display: flex;
+          height: $info_height;
+          width: 850px;
+
+          .send-info {
+            margin-top: 10px;
+            margin-left: 40px;
+            width: 300px;
+            display: grid;
+            height: $info_height;
+          }
+
+          .time {
+            width: 100px;
+            margin-top: 20px;
+            display: grid;
+          }
+
+          .receive-info {
+            margin-top: 10px;
+            margin-left: 80px;
+            width: 300px;
+            display: grid;
+            height: $info_height;
+          }
+        }
+
+        .manager-info {
+          display: grid;
+
+          .manager-id {
+            margin-top: 20px;
+          }
+
+          .actions {
+            width: 200px;
+            margin-left: 10px;
+
+          }
+        }
+
+        .state {
+          display: grid;
+          align-content: center;
+          font-size: 20px;
+          label {
+            font-family: 'Open Sans', sans-serif;
+            color: #a1a1a1;
+          }
+          margin: 0 auto;
+        }
+
+
+      }
+    }
+    .page2 {
+      margin-top: -30px;
+      margin-left: 65%;
+    }
+    .mask {
+      @include mask;
+    }
+
+    .chooseDriverForm {
+      //width,height,top,left
+      @include mask-form(1000px, 1000px, 70px, 450px);
+
+      .form-title {
+        padding-left: 400px;
+
+        .closeBtn {
+          width: 80px;
+          margin-left: 300px;
+        }
+      }
+
+      .form-info {
+        background-color: #ffffff;
+        border-radius: 15px;
+        width: 900px;
+        height: 420px;
+        padding-bottom: 20px;
+        margin: 40px auto 0;
+
+        .flex-item {
+          display: flex;
+          flex-wrap: wrap;
+
+          .form-item {
+            label {
+              margin-left: 10px;
+              font-size: 16px;
+            }
+          }
+        }
+
+        .alreadyChosenForm {
+          width: 900px;
+          margin: 0 auto;
+          padding-top: 20px;
+          padding-left: 40px;
+
+          .descriptions {
+            width: 800px;
+          }
+        }
+
+        .actions {
+          width: 600px;
+          display: flex;
+          margin-top: 20px;
+          margin-left: 240px;
+
+          .el-button {
+            margin-left: 70px;
+            width: 100px;
+            height: 40px;
+            font-size: large;
+          }
+        }
+      }
+
+      .el-table {
+        margin: 50px auto;
+        width: 900px;
+        height: 400px;
+        overflow: auto;
+      }
+    }
+
+    .details {
+      //width,height,top,left
+      @include mask-form(1000px, 600px, 200px, 450px);
+
+      .form-title {
+        padding-left: 400px;
+
+        .closeBtn {
+          width: 80px;
+          margin-left: 300px;
+        }
+      }
+
+      .form-info {
+        margin-left: 50px;
+        display: block;
+        width: 900px;
+
+        .el-descriptions {
+          margin-bottom: 50px;
+        }
+      }
+    }
+  }
+  .page {
+    margin-top: -60px;
+    margin-left: 75%;
+  }
+}
+
+
