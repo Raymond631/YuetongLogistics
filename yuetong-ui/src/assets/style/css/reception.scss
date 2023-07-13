@@ -46,7 +46,7 @@
     height: $max_height;
     //background-color: $back_color;
     background-color: #f6f6f6;
-
+    overflow: hidden;
     .title {
       margin: 0 auto;
       width: 100%;
@@ -240,6 +240,13 @@
       }
     }
 
+  }
+  .page {
+    position: relative;
+    margin-top:-50px;
+    margin-left: 70%;
+    width: 100px;
+    height: 100px;
   }
 }
 
