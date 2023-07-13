@@ -16,7 +16,13 @@
           <div class="action1">
             <label>筛选</label>
           </div>
-          <el-upload
+          <input  
+            class="upload"
+            type="file"
+            accept=".xlsx"
+            @change="uploadFile($event)"
+          />
+          <!-- <el-upload
             class="action2"
             action="http://192.168.3.107:10000/system/user/importUser"
             :on-preview="handlePreview"
@@ -30,14 +36,18 @@
           >
             <el-button size="small" class="action2_upload" type="primary">点击上传</el-button>
             
-          </el-upload>
+          </el-upload> -->
         </div>
       </div>
 
       <div class="user-main">
         <div class="user-block" v-for="user in userList" :key="user.account">
           <div class="basic-info">
-            <el-avatar type="image" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="image"></el-avatar>
+            <el-avatar
+              type="image"
+              src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              class="image"
+            ></el-avatar>
             <div class="right-info">
               <label v-text="user.username" class="username"></label>
               <label v-text="'#' + user.role" class="role"></label>
@@ -242,6 +252,19 @@ export default defineComponent({
     this.ready();
   },
   methods: {
+    uploadFile(e: any) {
+      let file = e.target.files[0];
+      console.log(e.target.files)
+      let formdata = new FormData();
+      formdata.append("file", file);
+      uploadUser(formdata)
+        .then((res: any) => {
+          console.log(res);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    },
     ready() {
       searchUsers(
         this.paginationConfig.currentPage,
@@ -297,18 +320,22 @@ export default defineComponent({
         });
     },
     //上传文件
-      handleRemove(file:any, fileList:any) {
-        console.log(file, fileList);
-      },
-      handlePreview(file:any) {
-        console.log(file);
-      },
-      handleExceed(files:any, fileList:any) {
-        alert(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-      },
-      beforeRemove(file:any, fileList:any) {
-        return alert(`确定移除 ${ file.name }？`);
-      }
+    handleRemove(file: any, fileList: any) {
+      console.log(file, fileList);
+    },
+    handlePreview(file: any) {
+      console.log(file);
+    },
+    handleExceed(files: any, fileList: any) {
+      alert(
+        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
+          files.length + fileList.length
+        } 个文件`
+      );
+    },
+    beforeRemove(file: any, fileList: any) {
+      return alert(`确定移除 ${file.name}？`);
+    },
   },
 });
 </script>
