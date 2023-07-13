@@ -17,7 +17,7 @@ export function request(config: any) {
     ],
   });
 
-  instance.defaults.headers.post["Content-Type"] = "multipart/form-data";
+  instance.defaults.headers.post["Content-Type"] = "multipart/json";
   //------------------请求拦截-------------------//
   //------------在发送请求之前做些什么------------//
   instance.interceptors.request.use(
@@ -83,7 +83,7 @@ export function request(config: any) {
       if (err && err.response) {
         // 1.公共错误处理
         // 2.根据响应码具体处理
-        
+
         switch (err.response.status) {
           case 400:
             err.message = "错误请求";

@@ -45,7 +45,7 @@
             </div>
           </div>
           <div class="manager-info">
-            <label class="main-font manager-id" v-text="'处理管理员: #'+reception.carrier.account"></label>
+            <label class="main-font manager-id" v-text="'处理管理员: '+reception.carrier.account"></label>
             <div class="actions">
               <el-button type="primary" class="infoBtn" @click="receptCarrierBtnClick(index)">接收</el-button>
               <el-button type="danger" class="infoBtn">删除</el-button>
@@ -74,8 +74,8 @@
           </el-descriptions>
         </div>
         <div class="actions">
-          <el-button type="primary" size="large">接收</el-button>
-          <el-button type="info" size="large">取消</el-button>
+          <el-button type="primary" size="large" @click="confirmReceptedBtnClick">接收</el-button>
+          <el-button type="info" size="large" @click="closeForm">取消</el-button>
         </div>
       </div>
 
@@ -88,7 +88,7 @@ import {defineComponent} from "vue";
 import navigationBar from "../../../components/navigationBar.vue";
 import welcomeHeader from "../../../components/header.vue";
 import ytTable from "../../../components/yt-table.vue";
-import {allReceptionCarriers} from "@/api/carrier/bill/reception";
+import {allReceptionCarriers, confirmReceptedCarriers} from "@/api/carrier/bill/reception";
 
 export default defineComponent({
   name: "reception",
@@ -134,7 +134,28 @@ export default defineComponent({
       }],
       showMask: false,
       showReceptDialog: false,
-      receptCarrier: {},
+      receptCarrier: {
+        "carriersId": 0,
+        "sendCompany": "",
+        "sendAddress": "",
+        "sendLinkman": "",
+        "sendPhone": "",
+        "receiveCompany": "",
+        "receiveAddress": null,
+        "receiveLinkman": "",
+        "receivePhone": "",
+        "leaverDate": "",
+        "receiveDate": "",
+        "finishedState": 0,
+        "insuranceCost": 0,
+        "transportCost": 0,
+        "otherCost": 0,
+        "totalCost": 0,
+        "remark": "",
+        "account": 0,
+        "checkInTime": "",
+        "alterTime": ""
+      },
     };
   },
   components: {welcomeHeader, navigationBar, ytTable},
@@ -153,6 +174,12 @@ export default defineComponent({
       this.receptCarrier = this.receptionList[index].carrier;
       this.showMask = true;
       this.showReceptDialog = true;
+    },
+    confirmReceptedBtnClick() {
+      confirmReceptedCarriers(this.receptCarrier.carriersId).then((res: any) => {
+        console.log("接收成功",res)
+        this.closeForm();
+      })
     },
     //关闭接收对话框的遮罩层
     closeForm() {

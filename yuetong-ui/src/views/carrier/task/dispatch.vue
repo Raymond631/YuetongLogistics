@@ -150,7 +150,7 @@
               </el-descriptions>
             </div>
             <div class="actions">
-              <el-button type="primary">调度</el-button>
+              <el-button type="primary" @click="confirmScheBtnClick">调度</el-button>
               <el-button type="info">重置</el-button>
             </div>
           </div>
@@ -212,56 +212,7 @@
           >
         </div>
         <template class="form-info">
-<<<<<<< HEAD
-          <el-descriptions
-            :title="'承运单列表 编号：#' + currentItem.carriersID"
-            direction="vertical"
-            size="large"
-            :column="5"
-            border
-          >
-            <el-descriptions-item label="发货单位">{{
-              currentItem.sendCompany
-            }}</el-descriptions-item>
-            <el-descriptions-item label="发货地址">{{
-              currentItem.sendAddress
-            }}</el-descriptions-item>
-            <el-descriptions-item label="发货人">{{
-              currentItem.sendLinkman
-            }}</el-descriptions-item>
-            <el-descriptions-item label="联系电话">{{
-              currentItem.sendPhone
-            }}</el-descriptions-item>
-            <el-descriptions-item label="收货单位">{{
-              currentItem.receiveCompany
-            }}</el-descriptions-item>
-            <el-descriptions-item label="收获地址">{{
-              currentItem.receiveAddress
-            }}</el-descriptions-item>
-            <el-descriptions-item label="收货人">{{
-              currentItem.receiveLinkman
-            }}</el-descriptions-item>
-            <el-descriptions-item label="联系方式">{{
-              currentItem.receivePhone
-            }}</el-descriptions-item>
-            <el-descriptions-item label="出发时间">{{
-              currentItem.leaverDate
-            }}</el-descriptions-item>
-            <el-descriptions-item label="送达时间">{{
-              currentItem.receiveDate
-            }}</el-descriptions-item>
-            <el-descriptions-item label="保险费用">{{
-              currentItem.insuranceCost
-            }}</el-descriptions-item>
-            <el-descriptions-item label="运输费用">{{
-              currentItem.transportCost
-            }}</el-descriptions-item>
-            <el-descriptions-item label="总费用">{{
-              currentItem.totalCost
-            }}</el-descriptions-item>
-=======
-          <el-descriptions :title="'承运单列表 编号：#'+currentCarrier.carriersId" direction="vertical" size="large" :column="5"
-                           border>
+          <el-descriptions :title="'承运单列表 编号：#'+currentCarrier.carriersId" direction="vertical" size="large" :column="5" border>
             <el-descriptions-item label="发货单位">{{ currentCarrier.sendCompany }}</el-descriptions-item>
             <el-descriptions-item label="发货地址">{{ currentCarrier.sendAddress }}</el-descriptions-item>
             <el-descriptions-item label="发货人">{{ currentCarrier.sendLinkman }}</el-descriptions-item>
@@ -275,7 +226,6 @@
             <el-descriptions-item label="保险费用">{{ currentCarrier.insuranceCost }}</el-descriptions-item>
             <el-descriptions-item label="运输费用">{{ currentCarrier.transportCost }}</el-descriptions-item>
             <el-descriptions-item label="总费用">{{ currentCarrier.totalCost }}</el-descriptions-item>
->>>>>>> e5cf6903c0e3ed8b86051e9691f56b0b7051f881
             <el-descriptions-item label="备注">
               <el-tag size="small">{{ currentCarrier.remark }}</el-tag>
             </el-descriptions-item>
@@ -303,7 +253,7 @@ import welcomeHeader from "../../../components/header.vue";
 import ytTable from "../../../components/yt-table.vue";
 import {
   allFreeTruckAndDriver,
-  allSchedulingCarriers,
+  allSchedulingCarriers, confirmScheCarriers,
 } from "../../../api/carrier/task/dispatch";
 
 export default defineComponent({
@@ -349,7 +299,6 @@ export default defineComponent({
         isDelete: 0,
         alterTime: "",
       },
-      currentItem: {},
       chosenDriverTruck: {
         driver: [
           {
@@ -383,7 +332,6 @@ export default defineComponent({
       },
       schedulingCarriersList: [
         {
-<<<<<<< HEAD
           carriersId: 0,
           sendCompany: "",
           sendAddress: "",
@@ -409,8 +357,7 @@ export default defineComponent({
       ],
       freeTrucksDriverList: [
         {
-          driver: [
-            {
+          driver: {
               driverId: 0,
               name: "",
               sex: 0,
@@ -424,7 +371,6 @@ export default defineComponent({
               isDelete: 0,
               alterTime: "",
             },
-          ],
           truck: {
             truckId: 1,
             number: "湘A·12345",
@@ -439,31 +385,6 @@ export default defineComponent({
             alterTime: "2023-06-26T08:05:08.000+00:00",
           },
         },
-=======
-          "carriersId": 0,
-          "sendCompany": "",
-          "sendAddress": "",
-          "sendLinkman": "",
-          "sendPhone": "",
-          "receiveCompany": "",
-          "receiveAddress": null,
-          "receiveLinkman": "",
-          "receivePhone": "",
-          "leaverDate": "",
-          "receiveDate": "",
-          "finishedState": 0,
-          "insuranceCost": 0,
-          "transportCost": 0,
-          "otherCost": 0,
-          "totalCost": 0,
-          "remark": "",
-          "fkUserID": 0,
-          "checkInTime": "",
-          "isDelete": 0,
-          "alterTime": "",
-          "goodsList": null
-        }
->>>>>>> e5cf6903c0e3ed8b86051e9691f56b0b7051f881
       ],
       showMask: false,
       showScheForm: false,
@@ -530,6 +451,12 @@ export default defineComponent({
     chooseDriver(row: any) {
       console.log(row);
       this.chosenDriverTruck = row;
+    },
+    //点击确认调度按钮
+    confirmScheBtnClick(){
+      confirmScheCarriers(this.currentCarrier.carriersId,this.chosenDriverTruck.truck.truckId).then((res:any) => {
+        console.log("调度成功",res);
+      })
     },
     //关闭调度页面表单
     closeForm() {

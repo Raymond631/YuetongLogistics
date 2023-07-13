@@ -6,3 +6,10 @@ export function allReceptionCarriers(pageNum,pageSize) {
         method: 'get',
     })
 }
+
+export function confirmReceptedCarriers(carrierId) {
+    return request({
+        url: `/transport/carrier?carrierId=${carrierId}`,
+        method: 'put',
+    })
+}

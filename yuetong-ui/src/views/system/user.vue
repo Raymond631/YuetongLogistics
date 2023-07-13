@@ -36,13 +36,14 @@
           class="user-block"
           v-for="(user, index) in userList"
           :key="user.account"
-          @click="detailsClick(index)"
         >
           <div class="basic-info">
             <el-avatar
               type="image"
               src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
               class="image"
+              @click="detailsClick(index)"
+              style="cursor: pointer"
             ></el-avatar>
 
             <div class="right-info">

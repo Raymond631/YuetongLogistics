@@ -14,3 +14,10 @@ export function allFreeTruckAndDriver(pageNum: number, pageSize: number) {
     })
 }
 
+export function confirmScheCarriers(carrierId,truckId) {
+    return request({
+        url: `/transport/carrier?carrierId=${carrierId}&truckId=${truckId}`,
+        method: 'post',
+    })
+}
+

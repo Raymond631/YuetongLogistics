@@ -101,31 +101,39 @@
                 <el-input type="text" v-model="issueCarrier.leaverDate"></el-input>
               </div>
               <div class="form-item">
-                <label>备注</label>
-                <el-input type="text"></el-input>
+                <label>保险费</label>
+                <el-input type="text" v-model="issueCarrier.insuranceCost"></el-input>
               </div>
               <div class="form-item">
-                <label>开票时间</label>
-                <el-input type="text"></el-input>
+                <label>过路费</label>
+                <el-input type="text" v-model="issueCarrier.transportCost"></el-input>
+              </div>
+              <div class="form-item">
+                <label>其他费用</label>
+                <el-input type="text" v-model="issueCarrier.otherCost"></el-input>
+              </div>
+              <div class="form-item">
+                <label>备注</label>
+                <el-input type="text" v-model="issueCarrier.remark"></el-input>
               </div>
             </div>
             <label class="flex-item-title goods">货物信息</label>
             <el-button type="primary" class="addGoodsBtn" @click="addGoodsBtnClick">+</el-button>
             <div class="flex-item goods">
-              <div class="form-item" v-for="(goods,index) in goodsList" :key="index">
+              <div class="form-item" v-for="(goods,index) in issueCarrier.goodsList" :key="index">
                 <label>货物名</label>
-                <el-input type="text" v-model="goodsList[index].goodsName"></el-input>
+                <el-input type="text" v-model="issueCarrier.goodsList[index].goodsName"></el-input>
                 <label>数量</label>
-                <el-input type="text" v-model="goodsList[index].amount"></el-input>
+                <el-input type="text" v-model="issueCarrier.goodsList[index].amount"></el-input>
                 <label>重量</label>
-                <el-input type="text" v-model="goodsList[index].weight"></el-input>
+                <el-input type="text" v-model="issueCarrier.goodsList[index].weight"></el-input>
                 <label>体积</label>
-                <el-input type="text" v-model="goodsList[index].volume"></el-input>
+                <el-input type="text" v-model="issueCarrier.goodsList[index].volume"></el-input>
                 <el-button type="danger" class="deleteGoodsBtn" @click="deleteGoodsBtnClick(index)">删除</el-button>
               </div>
             </div>
             <div class="actions">
-              <el-button type="primary">提交</el-button>
+              <el-button type="primary" @click="confirmBtnClick">提交</el-button>
               <el-button type="info">重置</el-button>
             </div>
           </div>
@@ -177,7 +185,7 @@
 import {defineComponent} from "vue";
 import navigationBar from "../../../components/navigationBar.vue";
 import welcomeHeader from "../../../components/header.vue";
-import {allMyCarrierList} from "@/api/carrier/bill/issue";
+import {allMyCarrierList, confirmIssueCarrier} from "@/api/carrier/bill/issue";
 
 export default defineComponent({
   name: "issue",
@@ -264,12 +272,6 @@ export default defineComponent({
           }
         ]
       },
-      goodsList: [{
-        "goodsName": "",
-        "amount": 0,
-        "weight": 0,
-        "volume": 0
-      }],
       //分页参数
       pageNum: 1,//当前页面number
       pageSize: 5,//一页能显示的最多数据的数量
@@ -303,7 +305,7 @@ export default defineComponent({
     },
     //添加货物
     addGoodsBtnClick() {
-      this.goodsList.push({
+      this.issueCarrier.goodsList.push({
         "goodsName": "",
         "amount": 0,
         "weight": 0,
@@ -317,7 +319,14 @@ export default defineComponent({
     },
     //删除货物表单中的某一行
     deleteGoodsBtnClick(index: number) {
-      this.goodsList.splice(index, 1);
+      this.issueCarrier.goodsList.splice(index, 1);
+    },
+    //点击确认提交按钮
+    confirmBtnClick(){
+      console.log(this.issueCarrier)
+      confirmIssueCarrier(this.issueCarrier).then((res)=>{
+        console.log("上传成功",res)
+      })
     },
     goBack() {
     },
