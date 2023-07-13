@@ -218,7 +218,7 @@
 
     .putCostForm {
       //width,height,top,left
-      @include mask-form(1000px, 650px, 70px, 450px);
+      @include mask-form(1000px, 600px, 200px, 450px);
       display: flex;
       flex-direction: column;
 
@@ -243,7 +243,7 @@
         margin-left: 50px;
         display: block;
         width: 900px;
-        height: 200px;
+        height: 150px;
 
         .flex-item {
           display: flex;
@@ -262,7 +262,7 @@
 
     .details {
       //width,height,top,left
-      @include mask-form(1000px, 600px, 200px, 450px);
+      @include mask-form(1000px, 900px, 50px, 500px);
 
       .form-title {
         padding-left: 400px;
@@ -278,8 +278,17 @@
         display: block;
         width: 900px;
 
+        .goods-title{
+          font-family: sans-serif;
+          font-weight: bold;
+          font-size:16px;
+        }
+        .el-table{
+          margin-top: 10px;
+        }
+
         .el-descriptions {
-          margin-bottom: 50px;
+          margin-bottom: 20px;
         }
       }
     }

@@ -222,7 +222,7 @@
 
     .details {
       //width,height,top,left
-      @include mask-form(1000px, 1000px, 70px, 450px);
+      @include mask-form(1000px, 1000px, 60px, 480px);
 
       .form-title {
         padding-left: 400px;
@@ -238,8 +238,17 @@
         display: block;
         width: 900px;
 
+        .goods-title{
+          font-family: sans-serif;
+          font-weight: bold;
+          font-size:16px;
+        }
+        .el-table{
+          margin-top: 10px;
+        }
+
         .el-descriptions {
-          margin-bottom: 50px;
+          margin-bottom: 10px;
         }
       }
     }

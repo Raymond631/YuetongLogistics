@@ -1,8 +1,8 @@
 import { request } from '@/utils/request';
 
-export function allHistoryCarriers() {
+export function allHistoryCarriers(pageNum: number, pageSize: number) {
     return request({
-        url: `/transport/capacity/history`,
+        url: `/transport/cost?pageNum=${pageNum}&pageSize=${pageSize}`,
         method: 'get',
     })
 }

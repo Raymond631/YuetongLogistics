@@ -142,6 +142,10 @@
             <el-descriptions-item label="所属车队">{{ chosenTruck.fkTeamId }}</el-descriptions-item>
           </el-descriptions>
         </div>
+        <div class="actions">
+          <el-button type="primary" @click="confirmBtnClick">绑定</el-button>
+          <el-button type="info" @click="resetForm">重置</el-button>
+        </div>
         <label class="free-title">空闲驾驶员信息</label>
         <el-table :data="freeDriverList" :style="'font-size: '+font_size">
           <el-table-column prop="name" label="驾驶员"></el-table-column>
@@ -156,10 +160,7 @@
             </template>
           </el-table-column>
         </el-table>
-        <div class="actions">
-          <el-button type="primary">绑定</el-button>
-          <el-button type="info" @click="resetForm">重置</el-button>
-        </div>
+
         <label class="free-title">空闲车辆信息</label>
         <el-table :data="freeTruckList" :style="'font-size: '+font_size">
           <el-table-column prop="truckId" label="编号" width="60px"></el-table-column>
@@ -184,6 +185,7 @@ import welcomeHeader from "../../components/header.vue";
 import navigationBar from "../../components/navigationBar.vue";
 import ytTable from "../../components/yt-table.vue";
 import {searchDrivers, deleteDrivers} from "../../api/fleet/driver";
+import {contact} from "@/api/fleet/truck";
 
 export default {
   name: "driver",
@@ -311,6 +313,13 @@ export default {
             console.log(err);
           });
     },
+    //点击确认绑定按钮
+    confirmBtnClick() {
+      contact(this.chosenTruck.truckId, this.chosenDriver.driverId).then((res) => {
+        console.log("绑定成功", res);
+      })
+    },
+
     handleFree() {
       this.selectType = 2;
       this.ready()

@@ -35,9 +35,9 @@
       </div>
 
       <div class="user-main">
-        <div class="user-block" v-for="(user,index) in userList" :key="user.account" @click="detailsClick(index)">
+        <div class="user-block" v-for="(user,index) in userList" :key="user.account">
           <div class="basic-info">
-            <el-avatar type="image" :src="user.image" class="image"></el-avatar>
+            <el-avatar type="image" :src="user.image" class="image" @click="detailsClick(index)" style="cursor: pointer;"></el-avatar>
             <div class="right-info">
               <label v-text="user.username" class="username"></label>
               <label v-text="'#' + user.role" class="role"></label>

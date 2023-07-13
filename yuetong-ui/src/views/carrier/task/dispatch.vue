@@ -112,23 +112,23 @@
           <el-button type="danger" class="closeBtn" @click="closeForm">关闭</el-button>
         </div>
         <template class="form-info">
-          <el-descriptions :title="'承运单列表 编号：#'+currentItem.carriersID" direction="vertical" size="large" :column="5"
+          <el-descriptions :title="'承运单列表 编号：#'+currentCarrier.carriersId" direction="vertical" size="large" :column="5"
                            border>
-            <el-descriptions-item label="发货单位">{{ currentItem.sendCompany }}</el-descriptions-item>
-            <el-descriptions-item label="发货地址">{{ currentItem.sendAddress }}</el-descriptions-item>
-            <el-descriptions-item label="发货人">{{ currentItem.sendLinkman }}</el-descriptions-item>
-            <el-descriptions-item label="联系电话">{{ currentItem.sendPhone }}</el-descriptions-item>
-            <el-descriptions-item label="收货单位">{{ currentItem.receiveCompany }}</el-descriptions-item>
-            <el-descriptions-item label="收获地址">{{ currentItem.receiveAddress }}</el-descriptions-item>
-            <el-descriptions-item label="收货人">{{ currentItem.receiveLinkman }}</el-descriptions-item>
-            <el-descriptions-item label="联系方式">{{ currentItem.receivePhone }}</el-descriptions-item>
-            <el-descriptions-item label="出发时间">{{ currentItem.leaverDate }}</el-descriptions-item>
-            <el-descriptions-item label="送达时间">{{ currentItem.receiveDate }}</el-descriptions-item>
-            <el-descriptions-item label="保险费用">{{ currentItem.insuranceCost }}</el-descriptions-item>
-            <el-descriptions-item label="运输费用">{{ currentItem.transportCost }}</el-descriptions-item>
-            <el-descriptions-item label="总费用">{{ currentItem.totalCost }}</el-descriptions-item>
+            <el-descriptions-item label="发货单位">{{ currentCarrier.sendCompany }}</el-descriptions-item>
+            <el-descriptions-item label="发货地址">{{ currentCarrier.sendAddress }}</el-descriptions-item>
+            <el-descriptions-item label="发货人">{{ currentCarrier.sendLinkman }}</el-descriptions-item>
+            <el-descriptions-item label="联系电话">{{ currentCarrier.sendPhone }}</el-descriptions-item>
+            <el-descriptions-item label="收货单位">{{ currentCarrier.receiveCompany }}</el-descriptions-item>
+            <el-descriptions-item label="收获地址">{{ currentCarrier.receiveAddress }}</el-descriptions-item>
+            <el-descriptions-item label="收货人">{{ currentCarrier.receiveLinkman }}</el-descriptions-item>
+            <el-descriptions-item label="联系方式">{{ currentCarrier.receivePhone }}</el-descriptions-item>
+            <el-descriptions-item label="出发时间">{{ currentCarrier.leaverDate }}</el-descriptions-item>
+            <el-descriptions-item label="送达时间">{{ currentCarrier.receiveDate }}</el-descriptions-item>
+            <el-descriptions-item label="保险费用">{{ currentCarrier.insuranceCost }}</el-descriptions-item>
+            <el-descriptions-item label="运输费用">{{ currentCarrier.transportCost }}</el-descriptions-item>
+            <el-descriptions-item label="总费用">{{ currentCarrier.totalCost }}</el-descriptions-item>
             <el-descriptions-item label="备注">
-              <el-tag size="small">{{ currentItem.remark }}</el-tag>
+              <el-tag size="small">{{ currentCarrier.remark }}</el-tag>
             </el-descriptions-item>
           </el-descriptions>
         </template>
@@ -225,7 +225,8 @@ export default defineComponent({
           "fkUserID": 0,
           "checkInTime": "",
           "isDelete": 0,
-          "alterTime": ""
+          "alterTime": "",
+          "goodsList": null
         }
       ],
       freeTrucksDriverList: [{

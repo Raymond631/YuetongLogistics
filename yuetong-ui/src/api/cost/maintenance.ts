@@ -1,8 +1,8 @@
 import { request } from '@/utils/request';
 
-export function allMaintainCarriers(finishedState:number) {
+export function allMaintainCarriers(pageNum: number, pageSize: number) {
     return request({
-        url: `/transport/capacity/carrier/${finishedState}`,
+        url: `/transport/cost/getCarriers?pageNum=${pageNum}&pageSize=${pageSize}`,
         method: 'get',
     })
 }

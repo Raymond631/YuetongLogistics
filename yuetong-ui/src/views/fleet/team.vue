@@ -29,7 +29,7 @@
           </el-popconfirm>
         </div>
       </div>
-      <div class="card" v-for="(team, index) in teamList" :key="index">
+      <div class="card" v-for="(team, index) in teamList" :key="index" @click="forDetails(index)">
         <div class="car_id">
           {{ team.truckTeam.teamName }}
           <span style="margin-left: 20px">
@@ -47,17 +47,11 @@
         <div class="car_number">队长： {{ team.truckTeam.leader }}</div>
         <div class="car_remark">备注：{{ team.truckTeam.remark }}</div>
         <!-- 下面可以直接写成table -->
-<!--        <el-table :data="team.truckTeam">-->
-<!--          <el-table-column label="车牌" prop="number"></el-table-column>-->
-<!--          <el-table-column label="车型" prop="truckType"></el-table-column>-->
-<!--          <el-table-column label="吨位" prop="tonnage"></el-table-column>-->
-<!--        </el-table>-->
-        <div class="truckList" v-for="truck in team.truckList">
-          <el-descriptions column="4" size="large" border>
-            <el-descriptions-item label="车牌" label-width="30px">{{truck.number}}</el-descriptions-item>
-            <el-descriptions-item label="车型" label-width="30px">{{truck.truckType}}</el-descriptions-item>
-          </el-descriptions>
-        </div>
+        <el-table :data="team.truckList" class="truckList" style="font-size:16px;">
+          <el-table-column prop="number" label="车牌" width="80px"></el-table-column>
+          <el-table-column prop="truckType" label="车型"></el-table-column>
+          <el-table-column prop="tonnage" label="吨位"></el-table-column>
+        </el-table>
       </div>
       <!-- 分页 -->
     </div>
@@ -118,7 +112,31 @@
       </div>
     </div>
     <div class="deleteForm" v-if="showDeleteForm">
-      <p>编辑表单</p>
+      <p>删除表单</p>
+    </div>
+    <div class="detailsForm" v-if="showDetailsForm">
+      <div class="form-title">
+        <label>车队详情</label>
+        <el-button type="danger" class="closeBtn" @click="cancelEdit">关闭</el-button>
+      </div>
+      <template class="form-info">
+        <el-descriptions :title="'车队信息 编号：#'+currentTeam.truckTeam.teamId" direction="vertical" size="large"
+                         :column="4" border>
+          <el-descriptions-item label="车队名">{{ currentTeam.truckTeam.teamName }}</el-descriptions-item>
+          <el-descriptions-item label="队长">{{ currentTeam.truckTeam.leader }}</el-descriptions-item>
+          <el-descriptions-item label="备注">{{ currentTeam.truckTeam.remark }}</el-descriptions-item>
+          <el-descriptions-item label="登记时间">{{ currentTeam.truckTeam.checkInTime }}</el-descriptions-item>
+        </el-descriptions>
+        <label class="goods-title">车辆信息</label>
+        <el-table :data="currentTeam.truckList" style="font-size:16px;">
+          <el-table-column prop="number" label="车牌" width="80px"></el-table-column>
+          <el-table-column prop="truckType" label="车型"></el-table-column>
+          <el-table-column prop="tonnage" label="吨位"></el-table-column>
+          <el-table-column prop="tonnage" label="空闲状态"></el-table-column>
+          <el-table-column prop="tonnage" label="登记日期"></el-table-column>
+          <el-table-column prop="tonnage" label="购买日期"></el-table-column>
+        </el-table>
+      </template>
     </div>
   </div>
 </template>
@@ -135,7 +153,7 @@ export default defineComponent({
   data() {
     return {
       search: "",
-      data:"",
+      data: "",
       paginationConfig: {
         currentPage: 1, // 当前页码
         pageSize: 10, // 每页显示的条数
@@ -144,7 +162,7 @@ export default defineComponent({
       },
       teamList: [
         {
-          truckTeam:{
+          truckTeam: {
             teamId: 1,
             teamName: "hhh",
             leader: "清",
@@ -168,6 +186,29 @@ export default defineComponent({
           ]
         },
       ],
+      currentTeam: {
+        truckTeam: {
+          teamId: 1,
+          teamName: "hhh",
+          leader: "清",
+          remark: "无",
+          checkInTime: "2023-07-11 07:27:34",
+          alterTime: "2023-07-11 07:27:37",
+        },
+        truckList: [
+          {
+            truckId: 1,
+            number: "湘A12345",
+            buyDate: "2022-10-01",
+            truckType: "大货车",
+            tonnage: 20,
+            fkTeamId: 1,
+            state: "Working",
+            remark: "无",
+            checkInTime: "2023-07-11 07:27:34",
+            alterTime: "2023-07-11 07:27:37",
+          }]
+      },
       edit_team: {
         teamId: "",
         teamName: "",
@@ -179,11 +220,10 @@ export default defineComponent({
       },
       //当前选中行
       selectedRow: null,
-      //所有复选框选中值
-      multipleSelection: [],
       //编辑页面
       showMask: false,
       showEditForm: false,
+      showDetailsForm: false,
       showDeleteForm: false,
     };
   },
@@ -256,7 +296,14 @@ export default defineComponent({
     cancelEdit() {
       this.showMask = false;
       this.showEditForm = false;
+      this.showDetailsForm = false;
     },
+
+    forDetails(index: number) {
+      this.currentTeam = this.teamList[index];
+      this.showMask = true;
+      this.showDetailsForm = true;
+    }
   },
 });
 </script>

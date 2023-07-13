@@ -102,7 +102,7 @@
         </el-descriptions>
       </div>
       <div class="actions">
-        <el-button type="primary">绑定</el-button>
+        <el-button type="primary" @click="confirmBtnClick">绑定</el-button>
         <el-button type="info" @click="resetForm">重置</el-button>
       </div>
       <label class="free-title">空闲车辆信息</label>
@@ -141,7 +141,7 @@
 import navigationBar from "../../components/navigationBar.vue";
 import welcomeHeader from "../../components/header.vue";
 import {defineComponent} from "vue";
-import {searchTruck, deleteTruck, uploadTruck} from "../../api/fleet/truck";
+import {searchTruck, deleteTruck, uploadTruck, contact} from "../../api/fleet/truck";
 
 export default defineComponent({
   name: "truck",
@@ -149,7 +149,7 @@ export default defineComponent({
   data() {
     return {
       search: '',
-      font_size:'16px',
+      font_size: '16px',
       selectType: 0,
       paginationConfig: {
         currentPage: 1, // 当前页码
@@ -200,7 +200,7 @@ export default defineComponent({
         checkInTime: "",
         alterTime: "",
       },
-      freeTruckList:[{
+      freeTruckList: [{
         truckId: 1,
         number: "湘A12345",
         buyDate: "2022-10-01",
@@ -212,7 +212,7 @@ export default defineComponent({
         checkInTime: "2023-07-11 09:17:32",
         alterTime: "2023-07-11 09:17:32",
       }],
-      freeDriverList:[{
+      freeDriverList: [{
         driverId: 1,
         image: "",
         name: "张三",
@@ -276,6 +276,12 @@ export default defineComponent({
       this.selectType = 0;
       this.ready()
     },
+    //点击确认绑定按钮
+    confirmBtnClick() {
+      contact(this.chosenTruck.truckId, this.chosenDriver.driverId).then((res) => {
+        console.log("绑定成功", res);
+      })
+    },
     closeForm() {
       this.showMask = false;
       this.showContactForm = false;
@@ -285,15 +291,15 @@ export default defineComponent({
       this.showMask = true;
       this.showContactForm = true;
     },
-    chooseTruck(row:any){
+    chooseTruck(row: any) {
       this.chosenTruck = row;
     },
-    chooseDriver(row:any){
+    chooseDriver(row: any) {
       this.chosenDriver = row;
     },
-    resetForm(){
-      this.chosenTruck ={};
-      this.chosenDriver ={};
+    resetForm() {
+      this.chosenTruck = {};
+      this.chosenDriver = {};
     }
   },
 });

@@ -12,7 +12,7 @@ export function deleteTruck(truckId:number) {
     return request({
         url: `/fleet/truck?userId=${truckId}`,
         method: 'delete',
-    })  
+    })
 }
 
 
@@ -24,5 +24,13 @@ export function uploadTruck(data:any) {
         Headers:{
             contentType: 'multipart/form-data'
         }
-    })  
+    })
+}
+
+
+export function contact(truckId,driverId) {
+    return request({
+        url: `/fleet/contact?truckId=${truckId}&driverId=${driverId}`,
+        method: 'post',
+    })
 }
