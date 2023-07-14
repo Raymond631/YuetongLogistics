@@ -1,6 +1,6 @@
 # YuetongLogistics
 
-粤通物流管理系统
+粤通物流管理系统demo
 
 ## 技术选型
 
@@ -11,8 +11,7 @@
 * Spring Cloud 2021.0.4
 * Spring Cloud Alibaba 2021.0.4.0
 * MySQL 8.*
-* Redis
-* Docker
+* Redis 5.*
 
 ### 2. 前端
 
@@ -23,17 +22,16 @@
 
 ~~~
 YuetongLogistics
-├── yuetong-ui              // 前端框架 [80]
+├── yuetong-ui              // 前端框架 [7878]
 ├── yuetong-common          // 通用模块
 │       └── yuetong-common-core                  // 公共类
-│       └── yuetong-common-gateway               // 网关
-│       └── yuetong-common-auth                  // 认证中心
+│       └── yuetong-common-gateway               // 网关 [10000]
+│       └── yuetong-common-auth                  // 认证中心 [11010]
 │       └── yuetong-common-log                   // 日志切面
-├── yuetong-fleet-serv       // 业务模块
-├── yuetong-system-serv      // 业务模块
-├── yuetong-transport-serv   // 业务模块
+├── yuetong-system-serv      // 系统管理模块 [11020]
+├── yuetong-fleet-serv       // 运输管理模块 [11030]
+├── yuetong-transport-serv   // 承运业务模块 [11040]
 ~~~
 
-## 系统架构图
-
-![](https://pic.imgdb.cn/item/64a2671a1ddac507cc9da6b5.jpg)
+> clone下来后，需要在IDEA配置maven的路径
+> 运行前，需要在Nacos配置中心 配置Redis和Spring Cloud Gateway路由
