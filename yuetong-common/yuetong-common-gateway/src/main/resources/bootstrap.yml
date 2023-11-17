@@ -25,6 +25,26 @@ spring:
         heart-beat-timeout: 20000
         metadata:
           namespace: dev
+    gateway:
+      routes:
+        - id: yuetong-common-auth
+          uri: lb://yuetong-common-auth
+          predicates:
+            - Path=/auth/**
+        - id: yuetong-system-impl
+          uri: lb://yuetong-system-impl
+          predicates:
+            - Path=/system/**
+        - id: yuetong-fleet-impl
+          uri: lb://yuetong-fleet-impl
+          predicates:
+            - Path=/fleet/**
+        - id: yuetong-transport-impl
+          uri: lb://yuetong-transport-impl
+          predicates:
+            - Path=/transport/**
+
+
 
 logging:
   file:

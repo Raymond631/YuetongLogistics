@@ -8,7 +8,7 @@ spring:
   profiles:
     active: dev #激活 dev 的配置
   datasource:
-    url: jdbc:mysql://192.168.48.23:3306/yuetong
+    url: jdbc:mysql://127.0.0.1:3306/yuetong
     username: Raymond
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver

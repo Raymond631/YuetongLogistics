@@ -8,6 +8,13 @@ spring:
     name: yuetong-common-auth
   profiles:
     active: dev #激活 dev 的配置
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      password:
+      timeout: 5s
   cloud:
     nacos:
       config:
