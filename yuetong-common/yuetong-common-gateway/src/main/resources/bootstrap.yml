@@ -10,12 +10,12 @@ spring:
     active: dev #激活 dev 的配置
   cloud:
     nacos:
-      config:
-        server-addr: 127.0.0.1:8848
-        file-extension: yaml
-        group: YueTong
-        # 共享配置 application-dev.yaml
-        shared-configs: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+#      config:
+#        server-addr: 127.0.0.1:8848
+#        file-extension: yaml
+#        group: YueTong
+#        # 共享配置 application-dev.yaml
+#        shared-configs: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
       discovery:
         server-addr: 127.0.0.1:8848
         service: yuetong-common-gateway
@@ -43,8 +43,6 @@ spring:
           uri: lb://yuetong-transport-impl
           predicates:
             - Path=/transport/**
-
-
 
 logging:
   file:

@@ -32,6 +32,3 @@ YuetongLogistics
 ├── yuetong-fleet-serv       // 运输管理模块 [11030]
 ├── yuetong-transport-serv   // 承运业务模块 [11040]
 ~~~
-
-> clone下来后，需要在IDEA配置maven的路径  
-> 运行前，需要在Nacos配置中心 配置Redis和Spring Cloud Gateway路由

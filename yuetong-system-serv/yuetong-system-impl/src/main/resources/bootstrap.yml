@@ -7,10 +7,11 @@ spring:
     name: yuetong-system-impl
   profiles:
     active: dev #激活 dev 的配置
+  # TODO: 改成你的配置
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/yuetong
-    username: Raymond
-    password: 123456
+    username: root
+    password: 6JFNrWBylDPVlRDp
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   cloud:
