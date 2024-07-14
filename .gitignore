@@ -1,6 +1,7 @@
 env/docker/**
 !env/docker/docker-compose.yml
 log/
+.idea/
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
